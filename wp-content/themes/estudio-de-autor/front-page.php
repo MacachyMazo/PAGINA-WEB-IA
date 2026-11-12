@@ -32,7 +32,7 @@
           <div class="immersive-actions"><a class="button portal-cta" href="#contacto">Explorar mi proyecto <span aria-hidden="true">↗</span></a><a class="ghost-cta" href="#recorrido">Vive la experiencia <span aria-hidden="true">↓</span></a></div>
           <div class="hero-proof"><span>01 / PERSONALIZADO</span><span>02 / REMOTO</span><span>03 / POR ETAPAS</span></div>
         </div>
-        <div class="vr-stage" id="vr-stage" aria-label="Portal visual tridimensional interactivo; mueve el cursor o usa sus enlaces">
+        <div class="vr-stage" id="vr-stage" tabindex="0" aria-label="Portal visual tridimensional interactivo; mueve el cursor, arrastra o usa flechas del teclado">
           <div class="vr-sky" aria-hidden="true"></div>
           <div class="vr-perspective" id="vr-perspective">
             <div class="vr-architecture" aria-hidden="true"><span class="arch arch-a"></span><span class="arch arch-b"></span><span class="arch arch-c"></span><span class="arch arch-d"></span></div>
