@@ -1,0 +1,179 @@
+
+/* EDITION 3.2 : SPATIAL INTERFACE / EXPERIENCE DESIGN
+   All controls are HTML, keyboard-accessible and separate from WebXR scene. */
+.scene-container {
+  background:radial-gradient(circle at 67% 32%,#38343b,#0b1017 75%);
+}
+.scene-fallback {
+  filter:saturate(.9);
+}
+.vignette {
+  background:
+    linear-gradient(90deg,rgba(3,9,15,.72),transparent 55%),
+    linear-gradient(0deg,rgba(5,7,14,.65),transparent 33%,transparent 75%,rgba(5,7,14,.23));
+}
+.studio-app.in-tour .vignette{opacity:.27}
+.welcome h1{font-weight:700;letter-spacing:-.075em;line-height:1.02}
+.welcome h1 em{color:#e9d4b7}
+.button-light{border:1px solid #fff6;box-shadow:0 18px 42px #0005}
+.button-light:hover{background:#f0d8bf}
+.orientation-tag{color:#fff}
+.orientation-tag .led{box-shadow:0 0 0 4px #82d8bd1c,0 0 16px #82d8bd}
+.global-header{background:linear-gradient(90deg,#0c1118f2,#131721e5)}
+.wayfinding {
+  background:rgba(12,17,25,.72);
+  border:1px solid rgba(255,243,225,.19);
+  border-radius:17px;
+  box-shadow:0 28px 80px rgba(0,0,0,.4);
+}
+.wayfinding-label{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.wayfinding-label span{font-variant-numeric:tabular-nums;color:#e7d0af}
+.wayfinding button{transition:background .18s ease,transform .18s ease}
+.wayfinding button:hover{transform:translateX(3px)}
+.wayfinding-number{background:#bca3e219}
+[data-goto].visited .wayfinding-number,
+.wayfinding button.visited .wayfinding-number {
+  background:#6bbca133;border-color:#83dbb3;color:#b8f9db;
+}
+.game-hud{bottom:22px}
+.hud-actions button{background:#111a23cf;border-color:#e4d1b937}
+.controls-tip{background:#090d12b8;border:1px solid #ffffff22;border-radius:12px;padding:8px 13px;backdrop-filter:blur(12px)}
+.controls-tip b{background:#e9e4da;color:#1b222b}
+.studio-progress {
+  position:absolute;z-index:24;
+  bottom:100px;left:clamp(18px,3vw,53px);width:230px;
+  display:none;gap:5px;padding:15px 17px;
+  color:#f8f1e9;background:#0d141cc4;
+  border:1px solid #f4dcbd30;border-radius:14px;
+  box-shadow:0 20px 55px #0006;backdrop-filter:blur(15px);
+  pointer-events:none;
+}
+.studio-app.in-tour .studio-progress{display:grid}
+.studio-progress-kicker{font-size:9px;font-weight:800;letter-spacing:.19em;color:#debda4}
+.studio-progress strong{font-size:14px;letter-spacing:-.025em}
+.studio-progress-caption{font-size:10px;line-height:1.5;color:#bdcbd1}
+.studio-progress-bar{height:3px;border-radius:7px;background:#ffffff1c;overflow:hidden;margin-top:6px}
+.studio-progress-bar span{display:block;width:0;height:100%;background:#dcbba5;transition:width .35s}
+.studio-map-toggle {
+  position:absolute;z-index:25;right:clamp(18px,3vw,53px);bottom:103px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 17px;color:#f9f3ed;border-radius:999px;
+  border:1px solid #ebd6bf65;background:#0c131bc9;backdrop-filter:blur(12px);
+  box-shadow:0 15px 38px #0005;font-size:11px;font-weight:800;
+}
+.studio-map-toggle:hover,.studio-map-toggle[aria-expanded="true"]{
+  background:#eee0cf;color:#1b1b22;
+}
+.studio-map {
+  position:absolute;z-index:95;right:clamp(18px,3vw,53px);bottom:162px;
+  width:min(352px,calc(100vw - 36px));padding:19px;
+  border-radius:18px;background:#f5efe7;
+  color:#182028;border:1px solid #ffffff72;
+  box-shadow:0 24px 90px #000b;
+}
+.studio-map[hidden]{display:none!important}
+.studio-map-top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.studio-map-top div{display:grid;gap:4px}
+.studio-map-top small{font-size:9px;letter-spacing:.15em;color:#90766c;font-weight:800}
+.studio-map-top strong{font-size:22px;letter-spacing:-.05em}
+.studio-map-top button{border:1px solid #d2c8bd;background:#fff;width:32px;height:32px;border-radius:9px}
+.studio-map-floor{
+  height:215px;position:relative;margin:20px 0 12px;
+  border:2px solid #4a5360;border-radius:13px;
+  background:linear-gradient(140deg,#eae2d8,#f8f4ec);
+  overflow:hidden;
+}
+.studio-map-grid{
+  position:absolute;inset:0;pointer-events:none;opacity:.28;
+  background:linear-gradient(90deg,#71747c55 1px,transparent 1px),
+    linear-gradient(#71747c55 1px,transparent 1px);
+  background-size:25% 25%;
+}
+.map-node{position:absolute;border:1px solid #b6a69c;border-radius:10px;
+  color:#333e48;background:#fffdf7e8;
+  display:flex;gap:3px;align-items:center;justify-content:center;
+  flex-direction:column;min-width:69px;padding:8px 6px;font-size:9px;cursor:pointer;
+  box-shadow:0 4px 14px #0000000d;transition:transform .15s}
+.map-node:hover,.map-node:focus-visible{transform:scale(1.07);z-index:2;border-color:#996e9a}
+.map-node b{font-size:12px;color:#9a799e}
+.map-node.visited{background:#dcf3e7;border-color:#70aa91}
+.map-services{top:29%;left:7%}.map-portfolio{top:5%;left:40%}
+.map-members{top:25%;right:7%}.map-diagnostic{bottom:11%;right:19%}
+.studio-map-avatar{position:absolute;left:50%;top:9%;width:18px;height:18px;
+  display:grid;place-items:center;
+  border:2px solid white;border-radius:50%;
+  color:#fff;background:#a77391;transform:translate(-50%,-50%);font-size:11px;
+  box-shadow:0 0 0 5px #bd95b939;pointer-events:none;transition:left .12s,top .12s}
+.studio-map p{font-size:11px;color:#606670;margin:0;line-height:1.5}
+@media(max-width:900px){
+  .studio-progress{bottom:107px;left:15px;width:196px;padding:11px}
+  .studio-map-toggle{bottom:102px;right:16px}
+  .studio-map{right:13px;bottom:150px}
+  .controls-tip{display:none}
+}
+@media(max-width:600px){
+  .studio-progress{display:none!important}
+  .studio-map-toggle{right:12px;bottom:155px;padding:10px 12px}
+  .studio-map{right:12px;bottom:205px;max-height:48vh;overflow-y:auto}
+  .studio-map-floor{height:180px}
+  .wayfinding-label{font-size:8px}
+}
+
+
+/* Interaction should be understood through real office objects, not colored circles. */
+.interaction-hint{
+  position:absolute;z-index:48;bottom:114px;left:50%;transform:translateX(-50%);
+  min-width:210px;max-width:calc(100vw - 36px);
+  display:flex;align-items:center;gap:13px;padding:11px 15px 11px 11px;
+  border:1px solid rgba(255,255,255,.36);
+  border-radius:13px;background:rgba(14,19,26,.91);color:#f8f4ed;
+  box-shadow:0 14px 50px rgba(0,0,0,.45);backdrop-filter:blur(16px);
+  pointer-events:none;
+}
+.interaction-hint[hidden]{display:none!important}
+.hint-key{display:grid;place-items:center;width:38px;height:38px;flex-shrink:0;
+  border:1px solid #fff6;border-bottom-width:3px;border-radius:8px;
+  background:linear-gradient(150deg,#eee7dd,#cfc8bc);color:#1b2631;
+  font-size:17px;font-weight:800}
+.interaction-hint>div{display:grid;gap:3px;min-width:0}
+.interaction-hint strong{font-size:12px;letter-spacing:.01em}
+.interaction-hint>div span{font-size:11px;color:#c4d0d5}
+.hint-arrow{margin-left:auto;font-size:20px;color:#ebdac0}
+.studio-map-avatar{font-size:10px!important;background:#232d37!important;color:#fff!important;
+  border-radius:4px 4px 7px 7px!important;box-shadow:0 0 0 3px #c2b6a35f!important}
+@media(max-width:700px){
+  .interaction-hint{bottom:110px;left:48%;padding:8px 10px;min-width:175px;}
+  .hint-key{width:30px;height:30px;font-size:13px}
+  .interaction-hint strong{font-size:11px}
+  .interaction-hint>div span{font-size:10px}
+}
+
+/* Closed interactive environment: no exterior photo, with realistic materials and
+   spatial UI. Only client contact remains as a centered web form. */
+.scene-container{background:#111e27}
+.scene-fallback{display:none!important}
+.studio-app.three-ready a-scene{opacity:1}
+.vignette{background:linear-gradient(90deg,rgba(6,15,22,.72),transparent 58%),
+linear-gradient(0deg,rgba(3,10,18,.36),transparent 35%,transparent 80%,rgba(7,14,22,.16))}
+.studio-app.in-tour .vignette{opacity:.08}
+.studio-app.in-tour .wayfinding{opacity:.26;transition:opacity .28s}
+.studio-app.in-tour .wayfinding:hover,.studio-app.in-tour .wayfinding:focus-within{opacity:1}
+.detail-panel{
+  left:50%!important;right:auto!important;top:50%!important;bottom:auto!important;
+  width:min(680px,calc(100vw - 28px))!important;
+  height:min(830px,calc(100svh - 105px))!important;
+  transform:translate(-50%,-45%) scale(.94)!important;
+  border-radius:18px;border:1px solid #e6e9e8;
+  box-shadow:0 32px 120px #0009;
+  overflow:hidden;
+}
+.detail-panel.open{transform:translate(-50%,-50%) scale(1)!important}
+.panel-head{background:#1b2b36}
+.panel-scroll{overscroll-behavior:contain}
+.panel-scrim.open{backdrop-filter:blur(11px)}
+.interaction-hint{display:none!important}
+@media(max-width:720px){
+ .detail-panel{height:calc(100svh - 80px)!important;top:52%!important;
+   width:calc(100vw - 14px)!important}
+ .studio-app.in-tour .wayfinding{opacity:1}
+}
