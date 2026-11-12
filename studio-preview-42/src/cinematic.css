@@ -1,0 +1,60 @@
+
+:root{--cinInk:#edf5f6;--cinIce:#9ceef0;--cinWarm:#f5c8a2}
+#eda-cinema{position:fixed;inset:0;z-index:99999;overflow:hidden;background:#070c11;color:var(--cinInk);isolation:isolate;font-family:"Manrope","DM Sans",Arial,sans-serif}
+#eda-cinema[hidden]{display:none!important}
+#eda-cinema:before{content:"";position:absolute;inset:-30%;background:radial-gradient(ellipse at 67% 33%,rgba(52,138,166,.27),transparent 36%),radial-gradient(ellipse at 36% 63%,rgba(156,105,172,.17),transparent 35%);filter:blur(55px);animation:cinShift 9s ease-in-out infinite alternate}
+#eda-cinema .cin-noise{position:absolute;inset:0;opacity:.2;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");mix-blend-mode:screen}
+#eda-cinema .cin-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse,#0000 22%,#04070bcc 120%)}
+#eda-cinema .cin-frame{position:absolute;inset:clamp(12px,3vw,38px);border:1px solid #f4f8fd27;pointer-events:none}
+#eda-cinema .cin-frame:before,#eda-cinema .cin-frame:after{content:"";position:absolute;width:27px;height:27px;border-color:#d2eaf0a9}
+#eda-cinema .cin-frame:before{left:-1px;top:-1px;border-top:2px solid;border-left:2px solid}
+#eda-cinema .cin-frame:after{right:-1px;bottom:-1px;border-bottom:2px solid;border-right:2px solid}
+#eda-cinema .cin-sweep{position:absolute;inset:-60%;background:linear-gradient(105deg,transparent 45%,#c3e9f10b 48%,#d5eff12d 49%,#d7eef00b 51%,transparent 54%);transform:translateX(-65%);mix-blend-mode:screen;animation:cinSweep 5.7s ease-in-out infinite;pointer-events:none}
+#eda-cinema .cin-grid{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(#c5faff24 1px,transparent 1px),linear-gradient(90deg,#c5faff24 1px,transparent 1px);background-size:8vw 8vw;transform:perspective(700px) rotateX(68deg) scale(1.6) translateY(18%);transform-origin:bottom;mask-image:linear-gradient(to top,#000,transparent 87%)}
+#eda-cinema .cin-orbit{position:absolute;width:min(56vw,750px);height:min(56vw,750px);border-radius:50%;border:1px solid #d5e9f023;left:55%;top:46%;transform:translate(-50%,-50%);box-shadow:0 0 100px #5bcadd12,inset 0 0 90px #7df2ff07;animation:cinOrbit 16s linear infinite;pointer-events:none}
+#eda-cinema .cin-orbit:before{content:"";position:absolute;inset:13%;border:2px dashed #e0f7ff19;border-radius:50%}
+#eda-cinema .cin-orbit:after{content:"";position:absolute;inset:37%;border:1px solid #e0f7ff38;border-radius:50%;box-shadow:0 0 80px #71b7d548}
+#eda-cinema .cin-top{position:absolute;z-index:7;left:clamp(24px,5vw,88px);right:clamp(24px,5vw,88px);top:clamp(24px,5vh,58px);display:flex;align-items:center;justify-content:space-between;gap:20px}
+#eda-cinema .cin-label{font-size:10px;font-weight:850;letter-spacing:.26em;color:#e8f1f1}
+#eda-cinema .cin-top button{background:none;border:1px solid #e1eff18a;color:#f4f9f9;padding:11px 16px;border-radius:999px;font-size:11px;letter-spacing:.07em;font-weight:800;backdrop-filter:blur(10px);cursor:pointer}
+#eda-cinema .cin-top button:hover{background:#e5f4f4;color:#0f181e}
+#eda-cinema .cin-shot{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(30px,7.4vw,145px);opacity:0;visibility:hidden;transform:translateY(28px) scale(.97);filter:blur(14px);transition:opacity .75s ease,transform .95s cubic-bezier(.18,.68,.18,1),filter .95s ease;z-index:3;pointer-events:none}
+#eda-cinema .cin-shot.active{opacity:1;visibility:visible;filter:blur(0);transform:translateY(0) scale(1)}
+#eda-cinema .cin-shot[data-shot="3"]{align-items:center;text-align:center}
+#eda-cinema .cin-counter{font-size:11px;font-weight:850;color:#9dcbd3;letter-spacing:.25em;margin-bottom:clamp(20px,3vh,43px)}
+#eda-cinema .cin-line{font-size:clamp(51px,8.6vw,146px);line-height:.98;letter-spacing:-.095em;margin:0;text-transform:uppercase;font-weight:850;max-width:1500px;text-wrap:balance}
+#eda-cinema .cin-line .accent{color:var(--cinIce);font-style:normal}
+#eda-cinema .cin-line .warm{color:var(--cinWarm);font-style:normal}
+#eda-cinema .cin-blurb{font-size:clamp(13px,1.4vw,20px);letter-spacing:.035em;color:#c9d6db;line-height:1.7;margin-top:clamp(25px,3vh,42px);max-width:650px}
+#eda-cinema .cin-wordmark{font-size:clamp(77px,12vw,187px);line-height:.86;font-weight:900;letter-spacing:-.1em}
+#eda-cinema .cin-wordmark em{font-style:normal;background:linear-gradient(115deg,#f8f7f2,#aae9e9);background-clip:text;-webkit-background-clip:text;color:transparent}
+#eda-cinema .cin-tagline{font-size:clamp(12px,1.45vw,19px);font-weight:750;letter-spacing:.19em;margin-top:36px}
+#eda-cinema .cin-shimmer{position:absolute;inset:0;background:linear-gradient(90deg,#0000,#e7faff19,#0000);transform:translateX(-115%);animation:cinShimmer 4s 2.8s infinite;pointer-events:none}
+#eda-cinema .cin-bottom{position:absolute;z-index:7;bottom:clamp(25px,5vh,52px);left:clamp(24px,5vw,88px);right:clamp(24px,5vw,88px);display:flex;align-items:center;justify-content:space-between;gap:26px}
+#eda-cinema .cin-progress{flex:1;height:3px;border-radius:5px;background:#ffffff24;overflow:hidden;max-width:480px}
+#eda-cinema .cin-progress span{height:100%;display:block;width:0;background:linear-gradient(90deg,#9cdded,#f5c8a2);transition:width .12s linear}
+#eda-cinema .cin-clock{font-size:11px;font-variant-numeric:tabular-nums;letter-spacing:.1em;color:#dce8e9}
+#eda-cinema .cin-sound{border:1px solid #dae7ea60;border-radius:999px;background:#151f27a1;color:#f6f6f7;cursor:pointer;padding:10px 16px;font-size:11px;font-weight:800}
+#eda-cinema .cin-sound:hover{background:#dae5e9;color:#172329}
+#eda-cinema .cin-enter{display:none;pointer-events:auto;background:#ecf6f3;color:#111b24;border:0;border-radius:999px;padding:17px 26px;font-size:12px;font-weight:850;letter-spacing:.06em;box-shadow:0 15px 60px #a8e0e43d;cursor:pointer;margin-top:40px}
+#eda-cinema .cin-enter:hover{background:#b4f2f5;transform:translateY(-2px)}
+#eda-cinema.is-finale .cin-enter{display:inline-block}
+#eda-cinema.cin-leaving{animation:cinExit .85s cubic-bezier(.22,.64,.19,1) forwards;pointer-events:none}
+@keyframes cinShift{to{transform:translate(-5%,4%) scale(1.1)}}
+@keyframes cinOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes cinSweep{20%,100%{transform:translateX(55%)}}
+@keyframes cinShimmer{50%,100%{transform:translateX(115%)}}
+@keyframes cinExit{to{opacity:0;filter:blur(18px);transform:scale(1.09)}}
+@media(max-width:600px){
+ #eda-cinema .cin-shot{padding:31px;align-items:flex-start}
+ #eda-cinema .cin-shot[data-shot="3"]{align-items:flex-start;text-align:left}
+ #eda-cinema .cin-wordmark{font-size:clamp(66px,16vw,116px)}
+ #eda-cinema .cin-line{font-size:clamp(54px,13vw,92px)}
+ #eda-cinema .cin-orbit{width:100vw;height:100vw;left:70%}
+ #eda-cinema .cin-top{gap:10px}
+ #eda-cinema .cin-label{font-size:9px}
+ #eda-cinema .cin-bottom{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+ #eda-cinema *,#eda-cinema *:before,#eda-cinema *:after{animation:none!important;transition:none!important}
+}
