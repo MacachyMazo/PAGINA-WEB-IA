@@ -5,7 +5,7 @@
  */
 if (!defined('ABSPATH')) { exit; }
 
-define('EDA_VERSION', '1.1.0');
+define('EDA_VERSION', '2.0.0');
 
 function eda_plans() {
     return [

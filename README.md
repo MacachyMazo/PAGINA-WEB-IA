@@ -1,64 +1,60 @@
-# Estudio de Autor · WordPress / Hostinger
+# Estudio de Autor · Tema WordPress 2.0
 
-Tema clásico de WordPress (PHP 8+, WordPress 6.2+), optimizado para una landing **de una sola página** con identidad editorial e inmersión tridimensional ligera.
+Diseño editorial minimalista e interactivo para un estudio digital independiente, preparado para instalarse en un WordPress nuevo alojado en Hostinger.
 
-**Versión 1.1: edición inmersiva**. La experiencia simula profundidad y movimiento en pantalla mediante CSS 3D, no es WebXR ni requiere visor VR. Se adapta al cursor y al desplazamiento. Incluye control de movimiento y respeta `prefers-reduced-motion`.
+## Propuesta visual
 
+Una página continua, con tipografía editorial, fondo limpio y acentos tecnológicos en azul. La portada incluye un pequeño laboratorio de capas con reacción al cursor y tres modos seleccionables. La inspiración es conceptual y no copia materiales ni interacciones completas de otros estudios.
 
-## Incluye realmente
+## Funcionalidades incluidas
 
-- Portada espacial con portal CSS 3D, tres rutas explorables y control de movimiento.
-- Recorrido inmersivo por scroll con tres capítulos y atajos accesibles.
-- Navegación de una sola página con menú móvil y desplazamiento por secciones.
-- Cinco membresías interactivas (Inicio, Impulso, Presencia, Evolución, Integral).
-- Selector dinámico de planes, beneficios, precios y horas. Sin compras automáticas.
-- Orientador interactivo por horas que sugiere plan según capacidad. No cotiza entregables complejos automáticamente.
-- Portafolio de PeekDex, IQ-Bites y Estacionamiento GUBE con links externos.
-- FAQ accesible, formulario de prospectos con validación y respuesta de folio.
-- Backend nativo de WordPress: solicitudes en base de datos, notificación al correo administrador si wp_mail está configurado y panel privado **WordPress → Solicitudes**.
-- Gestión privada de estados y límite de 55 horas activas mensuales, con cierre manual de planes.
-- Protección CSRF, saneamiento de campos, límite básico de envío por IP (hash efímero), honeypot antispam, permiso de administrador en gestión de datos.
-- Información clara sobre Mercado Pago, Discord y servicios complejos sin declarar funciones no habilitadas.
+- Secciones de servicios, proyectos, cinco membresías, orientador por horas, proceso, FAQ y formulario.
+- Portafolio con los logotipos proporcionados en los archivos del usuario: PeekDex, IQ-Bites y GUBE.
+- Selección dinámica de 5 membresías en JS; los planes y horas se corresponden con el backend de WordPress.
+- Formulario con validación, autorización de privacidad, nonce y guardado privado de solicitudes en WordPress.
+- Menú Solicitudes en WordPress para revisar clientes, administrar estados y controlar máximo 55 horas activas reservadas de forma manual.
+- Responsive, navegación por teclado, reducción de movimiento y componentes semánticos.
 
-## Instalar en Hostinger
+## Instalación en Hostinger
 
-1. En hPanel crea un **sitio WordPress nuevo**, con un dominio propio del nuevo negocio. No reutilices los WordPress de IQ-Bites, GUBE o otros negocios.
-2. Sube el archivo `estudio-de-autor-wordpress.zip` desde **WordPress → Apariencia → Temas → Añadir tema → Subir tema**.
-3. Activa **Estudio de Autor**.
-4. Ve a **Ajustes → Generales** y configura el email administrador. Verifica entrega de correo SMTP, aunque todos los prospectos quedan guardados en el panel incluso si el correo no funciona.
-5. En **WordPress → Solicitudes** revisa las solicitudes y cambia su estado manualmente. Marca `Activo` solo cuando haya contrato y cobro confirmado por Mercado Pago.
-6. Antes de campañas públicas, publica aviso de privacidad integral, T&C, correo de contacto real, nombre legal responsable y política de cancelación. El texto provisional del footer **no sustituye** el aviso completo.
-7. Para cobrar, crea planes reales en Mercado Pago → Planes de suscripción. Tras aprobar cada solicitud, comparte manualmente el link del plan correspondiente. **Nunca incluyas API keys en el tema**.
-8. Crea tu servidor de Discord y define políticas de acceso. El tema no asigna roles ni crea llamadas automáticamente.
+1. Crear un sitio WordPress nuevo en hPanel bajo el dominio definitivo de este emprendimiento. No instalar sobre IQ-Bites, GUBE ni PeekDex.
+2. En el administrador WordPress ir a Apariencia > Temas > Añadir > Subir tema.
+3. Subir el ZIP `Estudio_de_Autor_WordPress_Clean_v2.zip`, activar el tema y abrir la portada.
+4. En Ajustes > Generales verificar la dirección del administrador, además de entregar correo SMTP para recibir notificaciones; las solicitudes también se registran en el panel.
+5. Abrir la sección Solicitudes del administrador. No marcar una solicitud como activa sin acuerdo comercial y cobro confirmado.
+6. Publicar un aviso de privacidad **integral** y los términos de contratación antes de campañas, incluyendo razón social, contacto, tratamiento de datos, derechos ARCO y política de cancelación.
+7. Crear manualmente en Mercado Pago los planes reales y compartir sus enlaces solo tras aprobar un proyecto. Esta versión NO procesa pagos ni verifica suscripciones automáticamente.
+8. Crear servidor Discord y reglas de horarios y acceso antes de ofrecer invitaciones y sesiones de voz.
+9. Configurar respaldos, HTTPS, reCAPTCHA o Turnstile, y monitorización de entregas de correo antes de hacer campañas de volumen.
 
-## Seguridad y límites honestos
+## Pruebas realizadas
 
-- El tema no procesa pagos, no guarda tarjetas y no verifica estados de cobro: los administra Mercado Pago.
-- El control de 55 horas usa la suma de solicitudes marcadas como `Activo`, y requiere cerrar manualmente los planes cancelados. No es un ERP ni calendario de horas consumidas.
-- Los leads se guardan como post type privado y no se exponen en la REST API. Gestionarlos requiere la capacidad `manage_options`.
-- No almacenes secretos en GitHub, frontend ni wp-config público. Para crecer, añade un CRM con permisos, retención de datos, back-ups, CAPTCHA, SMTP y monitorización.
-- Los precios son iniciales; antes de lanzar sustituye gastos estimados por reales y revisa IVA/régimen fiscal.
-- Nombre comercial provisional hasta confirmar branding y dominio.
+- `php -l` en front-page.php y functions.php.
+- `node --check` en ambos scripts JS.
+- Navegación e interacciones probadas en navegador sin errores JS: selector de áreas del laboratorio, pestañas de planes, recomendador por horas, formulario sin backend y menú móvil.
+- Vista de escritorio 1440 px y móvil 390 px, sin desbordamiento horizontal.
+- **Pendiente:** comprobar almacenamiento real de solicitudes en un WordPress instalado y SMTP, conectar hosting, licencias y Mercado Pago.
 
-## Archivos
+## Seguridad y límites
 
-`wp-content/themes/estudio-de-autor/style.css` cabecera del tema, `functions.php` backend WordPress, `front-page.php` HTML editorial, `index.php` respaldo, `assets/css/studio.css`, `assets/js/studio.js`, `assets/css/immersive.css`, `assets/js/immersive.js`.
+- El tema no contiene contraseñas, tokens, ni claves API de Mercado Pago.
+- La demo HTML es visual; no envía formularios a WordPress y no debe usarse como página de captación real.
+- El trabajo Web3 es de viabilidad y prototipos; sistemas financieros requieren revisión y auditoría independiente.
+- La marca `Estudio de Autor` es un nombre provisional sin declaración de marca registrada.
+- El control de horas depende de registrar/actualizar manualmente solicitudes activas.
 
-## GitHub
+## Estructura
 
-Repositorio elegido: `MacachyMazo/PAGINA-WEB-IA`. La carpeta del tema debe ir bajo `wp-content/themes/estudio-de-autor/` para poder versionarlo y copiarlo a WordPress.
+- `estudio-de-autor/front-page.php` landing
+- `estudio-de-autor/functions.php` backend de prospectos y ajustes del tema
+- `estudio-de-autor/assets/css/studio.css` sistema visual
+- `estudio-de-autor/assets/css/immersive.css` estados visuales del laboratorio
+- `estudio-de-autor/assets/js/studio.js` planes, recomendador y formulario
+- `estudio-de-autor/assets/js/immersive.js` laboratorio, progreso, accesibilidad
+- `estudio-de-autor/assets/images/` logotipos de portafolio
 
-## Referencias oficiales
+## Referencias de inspiración consultadas
 
-- https://developer.wordpress.org/themes/classic-themes/your-first-theme/
-- https://developer.wordpress.org/reference/functions/register_post_type/
-- https://www.mercadopago.com.mx/developers/es/docs/subscription-plans/create-subscription-plan
-
-## Rendimiento y accesibilidad de la edición inmersiva
-
-- Animaciones de profundidad con CSS `transform` y opacidad, sin motor WebGL ni dependencias externas de JavaScript.
-- Interacciones de cursor en escritorio y experiencia táctil de desplazamiento normal en móvil.
-- Escenas con botones navegables por teclado, enlace de acceso directo a membresías, CTA de contacto visible.
-- Control para pausar movimiento decorativo; se respeta la configuración del sistema de movimiento reducido.
-- Si faltan animaciones, el contenido y los enlaces siguen siendo utilizables.
-- El archivo HTML de demostración no guarda formularios. El backend de solicitudes funciona solo al instalarse en WordPress y debe probarse en el hosting final.
+- https://bruno-simon.com/
+- https://www.cyclemon.com/index.html
+- https://www.latecheckout.studio/

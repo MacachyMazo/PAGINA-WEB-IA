@@ -4,149 +4,197 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Estudio digital independiente en México. Diseño web, WordPress, contenido, automatizaciones y experiencias digitales por suscripción mensual, con alcance definido.">
+  <meta name="theme-color" content="#f7f8f6">
+  <meta name="description" content="Estudio digital independiente. Diseño web, WordPress, identidad, contenido, UX/UI y automatizaciones por suscripción. Un proyecto claro, una entrega posible.">
   <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="inicio" class="site-wrap immersive-edition"><div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
+<a class="skip-link" href="#contenido">Ir al contenido</a>
+<div id="inicio" class="site-shell">
+  <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
   <header class="nav-shell" id="nav-shell">
-    <a href="#inicio" class="brand" aria-label="Estudio de Autor, inicio"><span class="brand-icon">e<span>·</span></span><span class="brand-name">ESTUDIO<br><em>DE AUTOR</em></span></a>
-    <div class="nav-center"><span class="nav-status"></span> ESTUDIO DIGITAL INDEPENDIENTE <span class="nav-divider">/</span> MÉXICO, REMOTO</div>
+    <a class="brand" href="#inicio" aria-label="Estudio de Autor, inicio">
+      <span class="brand-mark" aria-hidden="true">e<span>.</span></span>
+      <span class="brand-text">estudio<br><strong>de autor</strong></span>
+    </a>
+    <div class="nav-claim"><span class="status-dot" aria-hidden="true"></span> ESTUDIO DIGITAL INDEPENDIENTE <span class="nav-slash">/</span> MÉXICO, REMOTO</div>
     <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú"><span></span><span></span></button>
     <nav id="nav-links" aria-label="Navegación principal">
-      <a href="#servicios">Servicios</a><a href="#obra">Portafolio</a><a href="#membresias">Membresías</a><a class="nav-cta" href="#contacto">Presentar un proyecto <span aria-hidden="true">↗</span></a>
+      <a href="#servicios">Qué hacemos</a>
+      <a href="#obra">Proyectos</a>
+      <a href="#membresias">Membresías</a>
+      <a class="nav-cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
-  <main>
-    <!-- Immersive editorial portal: visual depth with no WebGL dependency. -->
-    <section class="immersive-hero" aria-labelledby="hero-title" id="experiencia">
-      <div class="hero-vignette" aria-hidden="true"></div>
-      <div class="hero-constellation" aria-hidden="true"></div>
-      <div class="hero-inner section-wrap">
-        <div class="immersive-copy">
-          <div class="hero-index"><span class="signal-dot" aria-hidden="true"></span> ESTUDIO DIGITAL DE AUTOR <span class="hero-index-line"></span> EDICIÓN INMERSIVA / 2026</div>
-          <h1 id="hero-title"><span class="headline-top">La idea es</span><em>otro mundo<span class="headline-period">.</span></em></h1>
-          <p class="immersive-sub">Nos adentramos en tus ideas para darles forma. Diseño, contenido, sitios web y experiencias digitales por suscripción, con atención personal y alcances posibles.</p>
-          <div class="immersive-actions"><a class="button portal-cta" href="#contacto">Explorar mi proyecto <span aria-hidden="true">↗</span></a><a class="ghost-cta" href="#recorrido">Vive la experiencia <span aria-hidden="true">↓</span></a></div>
-          <div class="hero-proof"><span>01 / PERSONALIZADO</span><span>02 / REMOTO</span><span>03 / POR ETAPAS</span></div>
-        </div>
-        <div class="vr-stage" id="vr-stage" tabindex="0" aria-label="Portal visual tridimensional interactivo; mueve el cursor, arrastra o usa flechas del teclado">
-          <div class="vr-sky" aria-hidden="true"></div>
-          <div class="vr-perspective" id="vr-perspective">
-            <div class="vr-architecture" aria-hidden="true"><span class="arch arch-a"></span><span class="arch arch-b"></span><span class="arch arch-c"></span><span class="arch arch-d"></span></div>
-            <div class="vr-rim rim-one" aria-hidden="true"></div><div class="vr-rim rim-two" aria-hidden="true"></div><div class="vr-rim rim-three" aria-hidden="true"></div>
-            <div class="vr-energy" aria-hidden="true"></div>
-            <div class="vr-artifact" aria-hidden="true"><span class="vr-artifact-grid"></span><span class="vr-artifact-glyph">✳</span><span class="vr-artifact-reflection"></span></div>
-            <a class="vr-waypoint waypoint-one" href="#servicios"><small>01 / IMAGINAR</small><strong>Tu idea</strong><span aria-hidden="true">↗</span></a>
-            <a class="vr-waypoint waypoint-two" href="#obra"><small>02 / CREAR</small><strong>Nuestra obra</strong><span aria-hidden="true">↗</span></a>
-            <a class="vr-waypoint waypoint-three" href="#membresias"><small>03 / EMPEZAR</small><strong>Tu plan</strong><span aria-hidden="true">↗</span></a>
+  <main id="contenido">
+    <!-- Una interacción con intención: los tres botones siempre son accesibles y no están dentro del objeto animado. -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pill-line"></span> ESTUDIO INDEPENDIENTE · EDICIÓN 01/26</div>
+          <h1 id="hero-title">Ideas con<br><em>carácter.</em><br>Digital por<br><span class="hero-outline">naturaleza.</span></h1>
+          <p>Diseño, experiencias web y contenido con una mirada personal. Para negocios que no quieren otra página más, sino una presencia que tenga sentido.</p>
+          <div class="hero-actions">
+            <a href="#contacto" class="button button-primary">Cuéntame tu proyecto <span aria-hidden="true">↗</span></a>
+            <a href="#obra" class="button-link">Ver trabajo propio <span aria-hidden="true">↓</span></a>
           </div>
-          <div class="vr-stage-label" aria-hidden="true"><span>EXPERIENCIA / 001</span><span>PROFUNDIDAD REACTIVA</span></div>
-          <div class="vr-stage-bottom"><span>GIRA LA MIRADA · EXPLORA LAS ETAPAS</span><button id="motion-toggle" class="motion-toggle" type="button" aria-pressed="false" aria-label="Detener animaciones">PAUSAR MOVIMIENTO <span aria-hidden="true">◌</span></button></div>
+          <div class="hero-metadata"><span><i></i> Por suscripción</span><span><i></i> Trabajo remoto</span><span><i></i> Alcances claros</span></div>
         </div>
-      </div>
-      <a href="#recorrido" class="hero-discover"><span>DESLIZA PARA ENTRAR</span><span class="discover-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
-    </section>
-
-    <div class="ticker" aria-hidden="true"><div>DISEÑO &nbsp; ✳ &nbsp; WORDPRESS &nbsp; ✳ &nbsp; CONTENIDO &nbsp; ✳ &nbsp; AUTOMATIZACIÓN &nbsp; ✳ &nbsp; EXPERIENCIA DIGITAL &nbsp; ✳ &nbsp; IA APLICADA &nbsp; ✳ &nbsp; IDENTIDAD VISUAL &nbsp; ✳</div></div>
-
-    <section class="journey" id="recorrido" aria-label="Recorrido creativo: de idea a entrega">
-      <div class="journey-sticky">
-        <div class="journey-halo" aria-hidden="true"></div>
-        <div class="journey-inner section-wrap">
-          <div class="journey-visual" aria-hidden="true"><div class="journey-window"><span class="journey-grid"></span><div class="journey-shape journey-shape-a">✳</div><div class="journey-shape journey-shape-b">◇</div><div class="journey-shape journey-shape-c">↗</div><div class="journey-glass"><span>ESTUDIO DE AUTOR</span><b id="journey-symbol">01</b><span>DEL CONCEPTO A LO REAL</span></div></div><div class="journey-coordinate">X 024.18 / Y 006.27 / Z ∞</div></div>
-          <div class="journey-narrative"><div class="eyebrow journey-eyebrow">RECORRIDO / DEL RETO A LA SOLUCIÓN</div>
-            <div class="journey-steps">
-              <article class="journey-step is-active" data-scene="0"><div class="journey-step-index">01 / ESCUCHAR</div><h2>Todo comienza<br>con una <em>pregunta.</em></h2><p>No empezamos con un software. Empezamos entendiendo qué necesita tu negocio y por qué importa.</p></article>
-              <article class="journey-step" data-scene="1"><div class="journey-step-index">02 / DAR FORMA</div><h2>Las ideas se<br>vuelven <em>tangibles.</em></h2><p>Elegimos las herramientas adecuadas, delimitamos las horas y construimos un primer resultado comprobable.</p></article>
-              <article class="journey-step" data-scene="2"><div class="journey-step-index">03 / EVOLUCIONAR</div><h2>Una entrega abre<br>otra <em>posibilidad.</em></h2><p>Revisamos lo realizado y decidimos juntos la siguiente mejora. Sin promesas ilimitadas: avance real por etapas.</p></article>
+        <div class="lab" id="lab-stage" tabindex="0" aria-label="Laboratorio interactivo: elige un servicio o mueve el cursor para cambiar la perspectiva">
+          <div class="lab-header"><span>ESTUDIO / LABORATORIO VISUAL</span><span class="lab-live"><i></i> EN EXPLORACIÓN</span></div>
+          <div class="lab-canvas">
+            <div class="lab-grid" aria-hidden="true"></div>
+            <div class="lab-corner corner-tl" aria-hidden="true">+</div><div class="lab-corner corner-tr" aria-hidden="true">+</div><div class="lab-corner corner-bl" aria-hidden="true">+</div><div class="lab-corner corner-br" aria-hidden="true">+</div>
+            <div class="lab-object" id="lab-object" aria-hidden="true">
+              <div class="object-shadow"></div>
+              <div class="object-plane plane-back"></div>
+              <div class="object-plane plane-middle"></div>
+              <div class="object-plane plane-front"><span>e.</span><small>ESTUDIO DE AUTOR</small></div>
+              <div class="object-glow"></div>
             </div>
-            <div class="journey-controls"><div class="scene-indicator" aria-label="Capítulos del recorrido"><button type="button" class="scene-dot is-active" data-scene-target="0" aria-label="Ver capítulo uno" aria-current="step"></button><button type="button" class="scene-dot" data-scene-target="1" aria-label="Ver capítulo dos"></button><button type="button" class="scene-dot" data-scene-target="2" aria-label="Ver capítulo tres"></button></div><a href="#membresias">Conoce las membresías <span aria-hidden="true">↗</span></a></div>
+            <div class="lab-side-note" aria-hidden="true">MUEVE TU IDEA ↗</div>
+            <div class="lab-controls" role="group" aria-label="Explorar áreas del estudio">
+              <button class="lab-choice is-active" type="button" data-lab="web" data-label="Sitios & UX" data-target="#servicios" aria-pressed="true"><span class="lab-choice-no">01</span> Sitios & UX <span aria-hidden="true">↗</span></button>
+              <button class="lab-choice" type="button" data-lab="marca" data-label="Marca & contenido" data-target="#servicios" aria-pressed="false"><span class="lab-choice-no">02</span> Marca & contenido <span aria-hidden="true">↗</span></button>
+              <button class="lab-choice" type="button" data-lab="sistemas" data-label="Automatización" data-target="#servicios" aria-pressed="false"><span class="lab-choice-no">03</span> Automatización <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+          <div class="lab-footer"><span id="lab-description" aria-live="polite">01 / Diseñamos experiencias fáciles de usar.</span><button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false">Reducir movimiento <span aria-hidden="true">◌</span></button></div>
+        </div>
+      </div>
+      <div class="hero-bottom wrap"><span>PROYECTOS REALES. CONVERSACIONES REALES.</span><a href="#recorrido">DESLIZA PARA DESCUBRIR <span aria-hidden="true">↓</span></a><span>DISEÑO CON INTENCIÓN / 2026</span></div>
+    </section>
+
+    <div class="soft-divider" aria-hidden="true"><span>DISEÑO WEB</span><b>·</b><span>IDENTIDAD DIGITAL</span><b>·</b><span>CONTENIDO</span><b>·</b><span>UX / UI</span><b>·</b><span>AUTOMATIZACIÓN</span></div>
+
+    <section class="story section-pad" id="recorrido" aria-labelledby="story-title">
+      <div class="wrap story-grid">
+        <div class="story-intro" data-reveal>
+          <span class="eyebrow eyebrow-muted">01 / LA FORMA DE TRABAJAR</span>
+          <h2 id="story-title">Menos ruido.<br><em>Más intención.</em></h2>
+          <p>La tecnología es el medio. Lo importante es que tus clientes comprendan, confíen y puedan dar el siguiente paso.</p>
+          <a class="inline-link" href="#contacto">Empecemos por tu idea <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="story-steps" aria-label="Tres etapas del proyecto">
+          <article class="story-step" data-reveal><span class="story-number">01 / ENTENDER</span><span class="story-icon icon-orbit" aria-hidden="true"><i></i></span><h3>Primero, una buena pregunta.</h3><p>¿Qué necesita hacer tu cliente? ¿Qué obstáculo estamos resolviendo? Lo definimos antes de abrir cualquier herramienta.</p></article>
+          <article class="story-step" data-reveal><span class="story-number">02 / CREAR</span><span class="story-icon icon-grid" aria-hidden="true"><i></i></span><h3>Después, una primera versión.</h3><p>Elegimos un alcance viable, construimos una pieza útil y la revisamos contigo. Sin vender imposibles.</p></article>
+          <article class="story-step" data-reveal><span class="story-number">03 / MEJORAR</span><span class="story-icon icon-wave" aria-hidden="true"><i></i></span><h3>Luego, lo hacemos evolucionar.</h3><p>Medimos lo que sí puede comprobarse, recibimos comentarios y priorizamos las siguientes mejoras.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="services section-pad" aria-labelledby="services-title">
+      <div class="wrap">
+        <div class="section-heading" data-reveal><span class="eyebrow eyebrow-muted">02 / LO QUE PODEMOS HACER</span><div><h2 id="services-title">Un estudio pequeño.<br><em>Muchas posibilidades.</em></h2><p>Conocimiento digital, herramientas creativas e IA como apoyo de producción. Cada servicio se contrata por horas y con entregables acordados.</p></div></div>
+        <div class="service-rows">
+          <details class="service-row" open><summary><span>01</span><b>Web, WordPress y experiencia UX/UI</b><span class="service-meta">DISEÑO + PRODUCCIÓN</span><span class="service-plus" aria-hidden="true">+</span></summary><div><p>Landing pages, sitios comerciales, tiendas sencillas, prototipos, diseño de interfaces y ajustes a sitios existentes.</p><a href="#contacto">Solicitar diagnóstico ↗</a></div></details>
+          <details class="service-row"><summary><span>02</span><b>Identidad, gráficos e imágenes</b><span class="service-meta">CANVA + IA VISUAL</span><span class="service-plus" aria-hidden="true">+</span></summary><div><p>Conceptos de marca, piezas para redes sociales, imágenes asistidas por IA, presentaciones y materiales digitales.</p><a href="#contacto">Solicitar diagnóstico ↗</a></div></details>
+          <details class="service-row"><summary><span>03</span><b>Video, guiones y storytelling</b><span class="service-meta">FILMORA + EDICIÓN</span><span class="service-plus" aria-hidden="true">+</span></summary><div><p>Guiones, edición de clips, piezas cortas de contenido y propuestas narrativas. Duración y complejidad sujetas a evaluación.</p><a href="#contacto">Solicitar diagnóstico ↗</a></div></details>
+          <details class="service-row"><summary><span>04</span><b>SEO, marketing y automatización</b><span class="service-meta">ESTRATEGIA + FLUJOS</span><span class="service-plus" aria-hidden="true">+</span></summary><div><p>SEO básico, mejoras de conversión, formularios y automatizaciones sencillas con herramientas disponibles y verificadas.</p><a href="#contacto">Solicitar diagnóstico ↗</a></div></details>
+          <details class="service-row"><summary><span>05</span><b>Prototipos, apps y conceptos Web3</b><span class="service-meta">EXPLORACIÓN + VIABILIDAD</span><span class="service-plus" aria-hidden="true">+</span></summary><div><p>Prototipos de aplicaciones y DApps, interfaces y validación conceptual. Infraestructura financiera y contratos productivos requieren especialistas y auditorías externas.</p><a href="#contacto">Solicitar diagnóstico ↗</a></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="obra" class="portfolio section-pad" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="portfolio-top" data-reveal><div><span class="eyebrow">03 / SELECCIÓN DE TRABAJO PROPIO</span><h2 id="work-title">Tres ideas.<br><em>Tres universos.</em></h2></div><p>Productos propios en diferentes etapas. El objetivo no es presumir cifras, sino mostrar cómo una idea toma forma en contextos distintos.</p></div>
+        <div class="portfolio-grid">
+          <a href="https://peekdex.com" class="case case-peek" target="_blank" rel="noopener noreferrer" aria-label="Visitar PeekDex en una nueva pestaña" data-reveal>
+            <div class="case-art"><div class="case-mockup mockup-peek"><span class="case-topline"><b>PEEK DEX</b><span>TCG / 001</span></span><div class="mini-deck"><span>01</span><span>02</span><span>03</span></div><img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/peekdex-logo.png'); ?>" alt="Logotipo de PeekDex"><small>COLECCIONAR / COMPARTIR / EXPLORAR</small></div><span class="case-link-icon" aria-hidden="true">↗</span></div>
+            <div class="case-details"><span>01 · EXPERIENCIA DIGITAL</span><h3>PeekDex</h3><p>Concepto de comunidad y plataforma para coleccionistas de cartas, desarrollado por etapas.</p><strong>Proyecto en evolución</strong></div>
+          </a>
+          <a href="https://iq-bites.com" class="case case-iq" target="_blank" rel="noopener noreferrer" aria-label="Visitar IQ-Bites en una nueva pestaña" data-reveal>
+            <div class="case-art"><div class="case-mockup mockup-iq"><span class="case-topline"><b>IQ-BITES</b><span>FOOD / 002</span></span><img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/iq-bites-logo.png'); ?>" alt="Logotipo original IQ-Bites"><small>SNACKS INTELIGENTES</small></div><span class="case-link-icon" aria-hidden="true">↗</span></div>
+            <div class="case-details"><span>02 · MARCA Y COMERCIO</span><h3>IQ-Bites</h3><p>Identidad, catálogo digital y comunicación para una marca propia de snacks.</p><strong>Marca en desarrollo comercial</strong></div>
+          </a>
+          <a href="https://estacionamientogube.com.mx" class="case case-gube" target="_blank" rel="noopener noreferrer" aria-label="Visitar Estacionamiento GUBE en una nueva pestaña" data-reveal>
+            <div class="case-art"><div class="case-mockup mockup-gube"><span class="case-topline"><b>GUBE</b><span>SERVICIOS / 003</span></span><img loading="lazy" src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/gube-logo.png'); ?>" alt="Logotipo de Estacionamiento GUBE"><small>SERVICIOS EN ZAPOPAN</small></div><span class="case-link-icon" aria-hidden="true">↗</span></div>
+            <div class="case-details"><span>03 · PRESENCIA DE NEGOCIO</span><h3>Estacionamiento GUBE</h3><p>Presencia digital y experiencia de servicio para un negocio local. Funciones de autofacturación aún por validar.</p><strong>Servicio real, mejoras en desarrollo</strong></div>
+          </a>
+        </div>
+        <p class="portfolio-note">* Estos son proyectos propios. Las funciones aún en desarrollo se describen como tales; no se atribuyen ventas ni resultados comerciales no comprobados.</p>
+      </div>
+    </section>
+
+    <section id="membresias" class="membership section-pad" aria-labelledby="plans-title">
+      <div class="wrap">
+        <div class="section-heading" data-reveal><span class="eyebrow eyebrow-muted">04 / TRABAJO POR SUSCRIPCIÓN</span><div><h2 id="plans-title">Un plan a tu medida.<br><em>Sin contratar un equipo completo.</em></h2><p>Selecciona cuántas horas de acompañamiento necesitas. Antes de cobrar, revisamos alcance, disponibilidad y entregables.</p></div></div>
+        <div class="plan-layout">
+          <div class="plan-list" role="tablist" aria-label="Elige una membresía">
+            <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Inicio"><span>01</span><strong>Inicio</strong><span>$790</span><b>↗</b></button>
+            <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Impulso"><span>02</span><strong>Impulso</strong><span>$1,990</span><b>↗</b></button>
+            <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Presencia"><span>03</span><strong>Presencia</strong><span>$4,990</span><b>↗</b></button>
+            <button role="tab" type="button" class="plan-tab is-current" aria-selected="true" data-plan="Evolución"><span>04</span><strong>Evolución</strong><span>$10,900</span><b>↗</b></button>
+            <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Integral"><span>05</span><strong>Integral</strong><span>$19,900</span><b>↗</b></button>
+            <p class="plans-note">Horas mensuales no acumulables. No incluye entregas ilimitadas, licencias, anuncios ni hosting de tu negocio.</p>
+          </div>
+          <div id="plan-display" class="plan-display" role="tabpanel" aria-live="polite">
+            <div class="plan-index"><span>MEMBRESÍA <strong id="plan-index">04</strong> / 05</span><span>ESTUDIO DE AUTOR</span></div>
+            <span class="plan-badge">PLANEACIÓN & PRODUCCIÓN</span>
+            <h3 id="plan-title">Las ideas toman forma.</h3>
+            <p id="plan-description" class="plan-description">Ideal para proyectos digitales que avanzan por etapas.</p>
+            <div class="plan-price"><strong id="plan-cost">$10,900</strong><span>MXN / MES<br>+ IVA CUANDO CORRESPONDA</span></div>
+            <p class="plan-hours" id="plan-hours">9 horas de trabajo por mes</p>
+            <ul id="plan-features"><li>9 horas de trabajo por mes</li><li>Desarrollo web por fases</li><li>Automatización evaluada</li><li>Diseño y contenido según prioridad</li></ul>
+            <p class="plan-limit" id="plan-limit">Los proyectos complejos pueden requerir varias mensualidades.</p>
+            <button class="button button-primary button-wide" id="apply-plan" type="button">Solicitar este plan <span aria-hidden="true">↗</span></button>
+            <p class="plan-disclaimer">Pago recurrente por Mercado Pago solo después de acordar alcance y disponibilidad. Discord comunitario sujeto a activación; voz bajo cita en Integral cuando esté disponible.</p>
           </div>
         </div>
-        <div class="journey-caption">UN PROCESO CLARO · UNA EXPERIENCIA EXTRAORDINARIA</div>
       </div>
     </section>
 
-    <section id="servicios" class="services section-wrap section-gap">
-      <div class="section-top"><div class="eyebrow">02 / QUÉ HACEMOS</div><h2>No es hacer <em>de todo.</em><br>Es hacer <span>lo que importa.</span></h2></div>
-      <div class="services-body"><aside class="services-statement"><div class="sunburst">✳</div><p>Combinamos estrategia práctica, herramientas visuales y asistencia de IA para convertir necesidades de negocio en piezas, páginas y procesos útiles.</p><small>CON CRITERIO HUMANO Y ALCANCE DEFINIDO.</small></aside><div class="services-lines">
-        <article class="service-line"><span>01</span><div><h3>Web, WordPress y UX/UI</h3><p>Landing pages, sitios, tiendas sencillas, prototipos, diseño de interfaces y mejoras por etapas.</p></div><b>+</b></article>
-        <article class="service-line"><span>02</span><div><h3>Identidad y diseño para redes</h3><p>Creatividades, imágenes asistidas por IA, conceptos visuales, presentaciones y materiales gráficos con Canva.</p></div><b>+</b></article>
-        <article class="service-line"><span>03</span><div><h3>Guiones, video y edición</h3><p>Guiones, storytelling, piezas audiovisuales y edición con Filmora. La complejidad se mide antes de empezar.</p></div><b>+</b></article>
-        <article class="service-line"><span>04</span><div><h3>SEO, marketing y automatización</h3><p>Optimización técnica y editorial, formularios, flujos de trabajo y automatizaciones sencillas cuando sean viables.</p></div><b>+</b></article>
-        <article class="service-line"><span>05</span><div><h3>Apps, DApps y conceptos Web3</h3><p>Exploración, prototipos y diseño funcional. Sistemas financieros productivos requieren pruebas y especialistas independientes.</p></div><b>+</b></article>
-      </div></div>
-    </section>
-
-    <section class="work-section section-gap" id="obra">
-      <div class="section-wrap"><div class="eyebrow light">03 / TRABAJO PROPIO</div><div class="work-heading"><h2>Proyectos con<br><em>historia propia.</em></h2><p>No son promesas abstractas. Son tres proyectos que muestran el enfoque que aplicamos a productos digitales, una marca de consumo y un servicio local.</p></div>
-        <div class="work-grid">
-          <a href="https://peekdex.com" class="work-item" target="_blank" rel="noopener noreferrer"><div class="work-image work-peek"><small>01 / IDEA EN EVOLUCIÓN</small><span class="work-symbol">P<span>°</span></span><span class="work-open">EXPLORAR ↗</span></div><div class="work-type">COMUNIDAD DIGITAL / PRODUCTO EN DESARROLLO</div><h3>PeekDex <span>↗</span></h3><p>Concepto de comunidad y plataforma de cartas coleccionables con experiencias de perfil, contenido y comercio planificadas por etapas.</p></a>
-          <a href="https://iq-bites.com" class="work-item" target="_blank" rel="noopener noreferrer"><div class="work-image work-iq"><small>02 / MARCA Y COMERCIO</small><span class="work-symbol">IQ<span>✳</span></span><span class="work-open">EXPLORAR ↗</span></div><div class="work-type">SNACKS / IDENTIDAD Y COMERCIO DIGITAL</div><h3>IQ-Bites <span>↗</span></h3><p>Marca de snacks con catálogo digital, comunicación comercial y una experiencia enfocada en presentar productos y facilitar la compra.</p></a>
-          <a href="https://estacionamientogube.com.mx" class="work-item" target="_blank" rel="noopener noreferrer"><div class="work-image work-gube"><small>03 / SERVICIOS LOCALES</small><span class="work-symbol">G<span>↗</span></span><span class="work-open">EXPLORAR ↗</span></div><div class="work-type">SERVICIO / EXPERIENCIA DIGITAL</div><h3>GUBE <span>↗</span></h3><p>Presencia digital para estacionamiento con información del servicio y desarrollo de experiencias para clientes, incluida la autofacturación como proyecto.</p></a>
-        </div><p class="portfolio-disclaimer">Proyectos propios y en evolución. Algunos módulos están en desarrollo; no se atribuyen ventas, métricas ni funciones productivas no verificadas.</p>
+    <section class="advisor section-pad" aria-labelledby="advisor-title"><div class="wrap advisor-layout">
+      <div><span class="eyebrow eyebrow-muted">05 / ENCUENTRA TU PUNTO DE PARTIDA</span><h2 id="advisor-title">¿Cuánto apoyo<br><em>necesitas?</em></h2><p>Desliza para explorar una sugerencia. No es una cotización automática, solo una forma rápida de orientarte.</p></div>
+      <div class="advisor-card"><div class="advisor-top"><span>HORAS DE TRABAJO AL MES</span><b id="advisor-hours">4 h</b></div>
+        <input type="range" min="0.5" max="16" step="0.5" value="4" id="hours-slider" aria-label="Horas mensuales necesarias">
+        <div class="range-labels"><span>30 MIN</span><span>16 H</span></div>
+        <div class="advisor-recommendation"><span>OPCIÓN SUGERIDA</span><b id="advisor-plan">Presencia</b><small id="advisor-price">4 h · $4,990 mensuales</small></div>
+        <button type="button" id="advisor-action" class="button button-primary button-wide">Ver el plan sugerido <span aria-hidden="true">↗</span></button>
+        <p>La estimación de cada tarea se confirma antes de contratar; no garantiza que un proyecto termine en ese número de horas.</p>
       </div>
-    </section>
+    </div></section>
 
-    <section id="membresias" class="section-wrap section-gap membership">
-      <div class="eyebrow">04 / UNA FORMA MÁS SIMPLE DE TRABAJAR</div>
-      <div class="membership-heading"><h2>Cinco maneras<br><em>de crear juntos.</em></h2><p>Elige una escala de trabajo. Cada membresía tiene un límite real de horas. Primero revisamos si tu proyecto cabe; después acordamos la contratación.</p></div>
-      <div class="plan-layout"><div class="plan-list" role="tablist" aria-label="Elige una membresía">
-        <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Inicio"><span>01</span><strong>Inicio</strong><span>$790</span><b>↗</b></button>
-        <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Impulso"><span>02</span><strong>Impulso</strong><span>$1,990</span><b>↗</b></button>
-        <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Presencia"><span>03</span><strong>Presencia</strong><span>$4,990</span><b>↗</b></button>
-        <button role="tab" type="button" class="plan-tab is-current" aria-selected="true" data-plan="Evolución"><span>04</span><strong>Evolución</strong><span>$10,900</span><b>↗</b></button>
-        <button role="tab" type="button" class="plan-tab" aria-selected="false" data-plan="Integral"><span>05</span><strong>Integral</strong><span>$19,900</span><b>↗</b></button>
-        <div class="plan-footnote">No se acumulan horas automáticamente ni se incluyen trabajos ilimitados. Los precios son propuestas comerciales en MXN.</div>
-      </div><div class="plan-display" id="plan-display" role="tabpanel" aria-live="polite">
-        <div class="plan-edition"><span>MEMBRESÍA / <strong id="plan-index">04</strong></span><span>✳</span></div>
-        <h3 id="plan-title">Las ideas toman forma.</h3><p class="plan-description" id="plan-description">Ideal para proyectos digitales que avanzan por etapas.</p>
-        <div class="plan-cost"><strong id="plan-cost">$10,900</strong><span>MXN / MES<br>+ IVA CUANDO CORRESPONDA</span></div>
-        <div class="plan-hours" id="plan-hours">9 horas de trabajo por mes</div>
-        <ul id="plan-features"><li>Desarrollo web por etapas</li><li>Automatizaciones sencillas evaluadas</li><li>Diseño y contenido según prioridades</li><li>Discord comunitario, cuando esté habilitado</li></ul>
-        <p class="plan-limit" id="plan-limit">Los proyectos complejos pueden requerir varias mensualidades.</p>
-        <button class="button button-dark button-full" id="apply-plan" type="button">Consultar disponibilidad <span>↗</span></button>
-        <div class="plan-smallprint">El pago recurrente por Mercado Pago se comparte después de aprobar alcance y disponibilidad.</div>
-      </div></div>
-      <div class="membership-bottom"><span>✓ SIN TRABAJOS ILIMITADOS</span><span>✓ HOSTING Y LICENCIAS DEL CLIENTE APARTE</span><span>✓ DISCORD Y SALAS DE VOZ SUJETAS A ACTIVACIÓN Y AGENDA</span></div>
-    </section>
+    <section class="process section-pad" aria-labelledby="process-title"><div class="wrap">
+      <div class="section-heading" data-reveal><span class="eyebrow eyebrow-muted">06 / UN PROCESO SIN COMPLICACIONES</span><div><h2 id="process-title">Primero claridad.<br><em>Después resultados comprobables.</em></h2></div></div>
+      <div class="process-grid"><div><span>01</span><h3>Cuéntanos el reto.</h3><p>Un mensaje claro sobre lo que necesitas. Sin tener que saber de tecnología.</p></div><div><span>02</span><h3>Definimos la entrega.</h3><p>Revisamos viabilidad, horas, herramientas externas y fecha acordada.</p></div><div><span>03</span><h3>Acordamos el pago.</h3><p>Si ambos aceptamos, enviamos el enlace de suscripción de Mercado Pago.</p></div><div><span>04</span><h3>Hacemos y revisamos.</h3><p>Entregas por etapas y seguimiento remoto en horario acordado.</p></div></div>
+    </div></section>
 
-    <section class="advisor section-gap"><div class="section-wrap advisor-inner"><div><div class="eyebrow light">05 / ORIENTACIÓN RÁPIDA</div><h2>¿No sabes<br><em>por dónde empezar?</em></h2><p>Mueve el indicador según las horas de apoyo que imaginas al mes. Te mostraremos una membresía orientativa, no una cotización automática.</p></div><div class="advisor-panel"><div class="advisor-head"><span>CUÁNTO ACOMPAÑAMIENTO BUSCAS</span><b id="advisor-hours">4 h</b></div><input type="range" min="0.5" max="16" step="0.5" value="4" id="hours-slider" aria-label="Horas mensuales necesarias"><div class="range-markers"><span>30 MIN</span><span>16 H</span></div><div class="advisor-result"><span>UNA OPCIÓN PARA COMENZAR</span><strong id="advisor-plan">Presencia</strong><small id="advisor-price">4 h · $4,990 mensuales</small></div><button id="advisor-action" type="button" class="button button-lime">Explorar este plan <span>↗</span></button><p>La complejidad de cada tarea se confirma antes de contratar. La sugerencia no asegura que el proyecto termine en ese número de horas.</p></div></div></section>
+    <section id="contacto" class="contact section-pad" aria-labelledby="contact-title"><div class="wrap contact-layout">
+      <div class="contact-intro" data-reveal><span class="eyebrow">07 / EMPECEMOS</span><h2 id="contact-title">¿Y si esa idea<br><em>ya empieza?</em></h2><p>No necesitas un brief perfecto. Cuéntanos el problema y analizamos juntos una primera entrega viable.</p><div class="contact-claims"><span>Sin costo por preguntar</span><span>Sin contratación automática</span><span>Respuesta sujeta a agenda</span></div></div>
+      <div class="form-card"><div class="form-top"><span>FORMULARIO / 001</span><span>ESTUDIO DE AUTOR</span></div>
+        <form id="studio-form" novalidate>
+          <div class="form-row"><label>Tu nombre *<input name="name" required minlength="2" maxlength="100" autocomplete="name" placeholder="¿Cómo te llamas?"></label><label>Empresa o marca<input name="company" maxlength="120" placeholder="Opcional"></label></div>
+          <div class="form-row"><label>Correo electrónico *<input name="email" required type="email" maxlength="160" autocomplete="email" placeholder="hola@tuempresa.com"></label><label>WhatsApp<input name="phone" maxlength="30" autocomplete="tel" placeholder="Opcional"></label></div>
+          <div class="form-row"><label>¿Qué servicio buscas?<select name="service" required><option>Web / WordPress</option><option>Diseño / redes</option><option>Video / guiones</option><option>SEO / marketing</option><option>Prototipos / automatización</option><option>Blockchain / viabilidad</option><option>Otra idea</option></select></label><label>Plan que te interesa<select name="plan" id="form-plan" required><option>Inicio</option><option>Impulso</option><option>Presencia</option><option selected>Evolución</option><option>Integral</option></select></label></div>
+          <label>¿Qué te gustaría resolver? *<textarea name="description" required minlength="15" maxlength="2000" rows="4" placeholder="Cuéntanos qué quieres lograr, aunque sea en pocas palabras..."></textarea></label>
+          <div class="bot-field" aria-hidden="true"><label>No completar<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="consent-line"><input type="checkbox" name="consent" value="1" required><span>Autorizo el uso de mis datos para revisar y responder mi solicitud. No compartiré información confidencial. <a href="#privacidad">Ver privacidad.</a></span></label>
+          <div id="form-result" class="form-result" role="status" aria-live="polite"></div>
+          <button class="button button-primary button-wide" id="form-submit" type="submit">Enviar mi idea <span aria-hidden="true">↗</span></button>
+          <small>Este formulario no procesa pagos ni activa suscripciones.</small>
+        </form>
+      </div>
+    </div></section>
 
-    <section class="section-wrap section-gap process"><div class="eyebrow">06 / NUESTRO MÉTODO</div><div class="process-grid"><h2>Una buena relación<br>empieza con <em>claridad.</em></h2><div class="process-steps">
-      <div><span>01</span><section><h3>Cuéntanos tu reto</h3><p>Nos dices qué problema necesitas resolver, sin tecnicismos.</p></section><b>↗</b></div>
-      <div><span>02</span><section><h3>Definimos una entrega posible</h3><p>Evaluamos qué sí podemos hacer, cuánto toma y qué queda fuera.</p></section><b>↗</b></div>
-      <div><span>03</span><section><h3>Acordamos el plan</h3><p>Si hay disponibilidad, recibes una propuesta y después un enlace de Mercado Pago.</p></section><b>↗</b></div>
-      <div><span>04</span><section><h3>Desarrollamos y revisamos</h3><p>Trabajo remoto, entregas programadas, comunicación clara y sin soporte 24/7.</p></section><b>↗</b></div>
-    </div></div></section>
-
-    <section id="contacto" class="contact-section section-gap"><div class="section-wrap contact-grid"><div class="contact-copy"><div class="eyebrow light">07 / HABLEMOS DE TU IDEA</div><h2>¿Y si lo hacemos <em>realidad?</em></h2><p>Cuéntanos qué quieres lograr. Esta solicitud no tiene costo, no activa ninguna membresía y no te compromete a comprar.</p><div class="contact-qualifiers"><span>↗ RESPUESTA SUJETA A AGENDA</span><span>↗ HORAS REALES, SIN PROMESAS IMPOSIBLES</span><span>↗ TRABAJO 100% REMOTO</span></div></div><div class="form-paper"><div class="form-paper-top"><span>UNA NUEVA IDEA / FORMULARIO 01</span><span>✳</span></div>
-      <form id="studio-form" novalidate>
-        <div class="form-row"><label>Tu nombre *<input name="name" required minlength="2" maxlength="100" autocomplete="name" placeholder="¿Cómo te llamas?"></label><label>Empresa o marca<input name="company" maxlength="120" placeholder="Opcional"></label></div>
-        <div class="form-row"><label>Correo electrónico *<input name="email" required type="email" maxlength="160" autocomplete="email" placeholder="hola@tuempresa.com"></label><label>WhatsApp<input name="phone" maxlength="30" autocomplete="tel" placeholder="Opcional"></label></div>
-        <div class="form-row"><label>¿Qué servicio necesitas?<select name="service" required><option>Web / WordPress</option><option>Diseño / redes</option><option>Video / guiones</option><option>SEO / marketing</option><option>Prototipos / automatización</option><option>Blockchain / viabilidad</option><option>Otra idea</option></select></label><label>Plan de interés<select name="plan" id="form-plan" required><option>Inicio</option><option>Impulso</option><option>Presencia</option><option selected>Evolución</option><option>Integral</option></select></label></div>
-        <label>¿Qué quieres resolver? *<textarea name="description" required minlength="15" maxlength="2000" rows="4" placeholder="Cuéntanos el problema y qué te gustaría que ocurriera..."></textarea></label>
-        <div class="bot-field" aria-hidden="true"><label>No completar<input name="website" tabindex="-1" autocomplete="off"></label></div>
-        <label class="consent-line"><input type="checkbox" name="consent" value="1" required><span>Autorizo que usen mis datos para revisar y responder esta solicitud. No compartiré información confidencial. <a href="#privacidad">Leer el aviso de privacidad resumido.</a></span></label>
-        <div id="form-result" class="form-result" aria-live="polite" role="status"></div><button class="button button-dark button-full" type="submit" id="form-submit">Enviar mi proyecto <span>↗</span></button><small>Este formulario registra una solicitud. No procesa pagos ni activa suscripciones.</small>
-      </form>
-    </div></div></section>
-
-    <section class="section-gap section-wrap questions" id="preguntas"><div class="eyebrow">08 / LO QUE VALE LA PENA ACLARAR</div><div class="questions-grid"><h2>Sin letras<br><em>pequeñas.</em></h2><div class="question-list">
-      <details><summary><span>01</span>¿Cada plan incluye una página web completa?<b>+</b></summary><p>No. Las membresías incluyen el tiempo indicado. Una web o app se divide en entregas según complejidad y horas disponibles.</p></details>
-      <details><summary><span>02</span>¿Cómo se cobra por Mercado Pago?<b>+</b></summary><p>Primero revisamos el proyecto. Si ambas partes aceptamos alcance y agenda, enviamos el enlace de suscripción de Mercado Pago generado desde nuestra cuenta de vendedor. Este sitio todavía no cobra en automático.</p></details>
-      <details><summary><span>03</span>¿Qué puedo pedir con el plan Integral?<b>+</b></summary><p>Acceso a todas las categorías del estudio dentro de 16 horas mensuales; no entregas ilimitadas. Incluye prioridad de agenda y posibilidad de salas de voz por Discord al habilitarse y siempre bajo cita.</p></details>
-      <details><summary><span>04</span>¿Qué costos se pagan por separado?<b>+</b></summary><p>Dominio, hosting de tu proyecto, publicidad, APIs, servicios externos y especialistas o auditorías cuando sean necesarios, siempre previa autorización.</p></details>
-      <details><summary><span>05</span>¿Realizan proyectos de blockchain y trading?<b>+</b></summary><p>Podemos explorar conceptos, interfaces y prototipos. No garantizamos rentabilidades ni construimos sistemas financieros productivos sin una evaluación técnica y de seguridad especializada.</p></details>
+    <section class="faq section-pad" id="preguntas" aria-labelledby="faq-title"><div class="wrap faq-layout"><div><span class="eyebrow eyebrow-muted">08 / SIN CONFUSIONES</span><h2 id="faq-title">Lo que conviene<br><em>saber.</em></h2></div><div class="faq-list">
+      <details><summary>¿Cada plan incluye una web completa? <span>+</span></summary><p>No necesariamente. Se contratan horas y tareas acordadas. Una web o aplicación puede necesitar varias etapas o mensualidades.</p></details>
+      <details><summary>¿Cómo se hace el pago? <span>+</span></summary><p>Primero aprobamos el alcance y la agenda. Después enviamos un enlace generado en Mercado Pago. Los cobros automáticos aún no están conectados a esta página.</p></details>
+      <details><summary>¿El plan Integral lo incluye todo? <span>+</span></summary><p>Ofrece acceso al catálogo elegible dentro de 16 horas mensuales, no entregas ilimitadas. Las llamadas de voz por Discord serán bajo cita, una vez habilitado el servicio.</p></details>
+      <details><summary>¿Qué costos no están incluidos? <span>+</span></summary><p>Hosting, dominios, herramientas de pago, campañas publicitarias, APIs, auditorías y especialistas externos. Se presentan para aprobación antes de contratarlos.</p></details>
+      <details><summary>¿También trabajan con blockchain y apps? <span>+</span></summary><p>Se pueden explorar conceptos, diseñar interfaces y construir prototipos. Para sistemas financieros o contratos en producción hacen falta evaluación, pruebas y especialistas.</p></details>
     </div></div></section>
   </main>
 
-  <div class="floating-conversion" id="floating-conversion"><span class="float-orb" aria-hidden="true">✳</span><span>¿Tienes una idea?</span><a href="#contacto">Hablemos <span aria-hidden="true">↗</span></a></div>
-
-  <footer class="site-footer" id="privacidad"><div class="section-wrap"><div class="footer-head"><div>Algo bueno comienza<br><em>con una conversación.</em></div><a href="#contacto" aria-label="Ir al formulario">↗</a></div><div class="footer-bottom"><span>ESTUDIO DE AUTOR · NOMBRE COMERCIAL PROVISIONAL</span><span>© <?php echo esc_html((string) date('Y')); ?> · MÉXICO · REMOTO</span><a href="<?php echo esc_url(wp_login_url()); ?>">ACCESO PRIVADO ↗</a></div><div class="privacy"><strong>Aviso de privacidad resumido de lanzamiento:</strong> La información del formulario se almacena en este WordPress para contactar al solicitante y evaluar su proyecto. No se comparte con terceros con fines publicitarios. Para solicitar acceso, rectificación o eliminación, responde al correo desde el que se te contacte. Antes de iniciar campañas públicas se publicará un aviso integral con identidad y domicilio del responsable, contacto y derechos ARCO. Mercado Pago y Discord aún necesitan configuración.</div></div></footer>
+  <div class="floating-cta" id="floating-conversion"><span>¿Tienes algo en mente?</span><a href="#contacto">Hablemos ↗</a></div>
+  <footer class="site-footer" id="privacidad"><div class="wrap">
+    <div class="footer-lead"><div><span class="eyebrow">ESTUDIO DIGITAL INDEPENDIENTE</span><h2>Hagamos algo<br><em>que valga la pena.</em></h2></div><a class="footer-arrow" href="#contacto" aria-label="Ir al formulario de contacto">↗</a></div>
+    <div class="footer-bottom"><span>ESTUDIO DE AUTOR · NOMBRE COMERCIAL PROVISIONAL</span><span>© <?php echo esc_html((string) date('Y')); ?> · MÉXICO, REMOTO</span><a href="<?php echo esc_url(wp_login_url()); ?>">ACCESO PRIVADO ↗</a></div>
+    <div class="privacy"><b>Privacidad provisional:</b> Tus datos se almacenan en este WordPress para valorar tu solicitud y contactarte. No se venden ni se usan para campañas no autorizadas. Antes de publicar comercialmente se requiere aviso de privacidad integral, datos del responsable, condiciones de contratación y mecanismo de derechos ARCO. Mercado Pago y Discord se configuran por separado.</div>
+  </div></footer>
 </div>
 <?php wp_footer(); ?>
 </body></html>
