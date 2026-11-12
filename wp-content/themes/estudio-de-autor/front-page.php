@@ -9,7 +9,7 @@
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="inicio" class="site-wrap">
+<div id="inicio" class="site-wrap immersive-edition"><div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
   <header class="nav-shell" id="nav-shell">
     <a href="#inicio" class="brand" aria-label="Estudio de Autor, inicio"><span class="brand-icon">e<span>·</span></span><span class="brand-name">ESTUDIO<br><em>DE AUTOR</em></span></a>
     <div class="nav-center"><span class="nav-status"></span> ESTUDIO DIGITAL INDEPENDIENTE <span class="nav-divider">/</span> MÉXICO, REMOTO</div>
@@ -20,22 +20,55 @@
   </header>
 
   <main>
-    <section class="hero section-wrap" aria-labelledby="hero-title">
-      <div class="hero-content reveal">
-        <div class="eyebrow"><span class="small-star">✳</span> UN ESTUDIO, NO UNA FÁBRICA DE PÁGINAS</div>
-        <h1 id="hero-title">Lo digital,<br><em>con carácter.</em><span class="hero-stop">*</span></h1>
-        <p class="hero-lead">Tu idea merece algo más que otra plantilla. Diseño, contenido y soluciones digitales desarrolladas con dirección creativa y herramientas de IA. Por encargo. Sin humo.</p>
-        <div class="hero-buttons"><a class="button button-dark" href="#contacto">Quiero contar mi idea <span>↗</span></a><a class="text-link" href="#obra">Ver trabajo propio <span>↗</span></a></div>
-        <div class="hero-lower"><span>01 / 06</span><span>ATENCIÓN PERSONAL, CUPO LIMITADO</span></div>
+    <!-- Immersive editorial portal: visual depth with no WebGL dependency. -->
+    <section class="immersive-hero" aria-labelledby="hero-title" id="experiencia">
+      <div class="hero-vignette" aria-hidden="true"></div>
+      <div class="hero-constellation" aria-hidden="true"></div>
+      <div class="hero-inner section-wrap">
+        <div class="immersive-copy">
+          <div class="hero-index"><span class="signal-dot" aria-hidden="true"></span> ESTUDIO DIGITAL DE AUTOR <span class="hero-index-line"></span> EDICIÓN INMERSIVA / 2026</div>
+          <h1 id="hero-title"><span class="headline-top">La idea es</span><em>otro mundo<span class="headline-period">.</span></em></h1>
+          <p class="immersive-sub">Nos adentramos en tus ideas para darles forma. Diseño, contenido, sitios web y experiencias digitales por suscripción, con atención personal y alcances posibles.</p>
+          <div class="immersive-actions"><a class="button portal-cta" href="#contacto">Explorar mi proyecto <span aria-hidden="true">↗</span></a><a class="ghost-cta" href="#recorrido">Vive la experiencia <span aria-hidden="true">↓</span></a></div>
+          <div class="hero-proof"><span>01 / PERSONALIZADO</span><span>02 / REMOTO</span><span>03 / POR ETAPAS</span></div>
+        </div>
+        <div class="vr-stage" id="vr-stage" aria-label="Portal visual tridimensional interactivo; mueve el cursor o usa sus enlaces">
+          <div class="vr-sky" aria-hidden="true"></div>
+          <div class="vr-perspective" id="vr-perspective">
+            <div class="vr-architecture" aria-hidden="true"><span class="arch arch-a"></span><span class="arch arch-b"></span><span class="arch arch-c"></span><span class="arch arch-d"></span></div>
+            <div class="vr-rim rim-one" aria-hidden="true"></div><div class="vr-rim rim-two" aria-hidden="true"></div><div class="vr-rim rim-three" aria-hidden="true"></div>
+            <div class="vr-energy" aria-hidden="true"></div>
+            <div class="vr-artifact" aria-hidden="true"><span class="vr-artifact-grid"></span><span class="vr-artifact-glyph">✳</span><span class="vr-artifact-reflection"></span></div>
+            <a class="vr-waypoint waypoint-one" href="#servicios"><small>01 / IMAGINAR</small><strong>Tu idea</strong><span aria-hidden="true">↗</span></a>
+            <a class="vr-waypoint waypoint-two" href="#obra"><small>02 / CREAR</small><strong>Nuestra obra</strong><span aria-hidden="true">↗</span></a>
+            <a class="vr-waypoint waypoint-three" href="#membresias"><small>03 / EMPEZAR</small><strong>Tu plan</strong><span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="vr-stage-label" aria-hidden="true"><span>EXPERIENCIA / 001</span><span>PROFUNDIDAD REACTIVA</span></div>
+          <div class="vr-stage-bottom"><span>GIRA LA MIRADA · EXPLORA LAS ETAPAS</span><button id="motion-toggle" class="motion-toggle" type="button" aria-pressed="false" aria-label="Detener animaciones">PAUSAR MOVIMIENTO <span aria-hidden="true">◌</span></button></div>
+        </div>
       </div>
-      <div class="artwork" aria-label="Composición editorial geométrica del estudio">
-        <div class="paper paper-back"><small>ARCHIVO DE IDEAS / 001</small><b>DISEÑAR<br>ES DECIDIR.</b><small>EDICIÓN 2026</small></div>
-        <div class="paper paper-main"><div class="paper-top"><span>FORM × PURPOSE</span><span>001/26</span></div><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orb-center">✳</div><div class="paper-bottom">UNA IDEA BIEN HECHA <span>↗</span></div></div>
-        <div class="art-sticker"><span>HECHO<br>CON<br>INTENCIÓN</span></div><div class="art-note">IDEAS QUE SE PUEDEN TOCAR ↗</div>
-      </div>
+      <a href="#recorrido" class="hero-discover"><span>DESLIZA PARA ENTRAR</span><span class="discover-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
     </section>
 
     <div class="ticker" aria-hidden="true"><div>DISEÑO &nbsp; ✳ &nbsp; WORDPRESS &nbsp; ✳ &nbsp; CONTENIDO &nbsp; ✳ &nbsp; AUTOMATIZACIÓN &nbsp; ✳ &nbsp; EXPERIENCIA DIGITAL &nbsp; ✳ &nbsp; IA APLICADA &nbsp; ✳ &nbsp; IDENTIDAD VISUAL &nbsp; ✳</div></div>
+
+    <section class="journey" id="recorrido" aria-label="Recorrido creativo: de idea a entrega">
+      <div class="journey-sticky">
+        <div class="journey-halo" aria-hidden="true"></div>
+        <div class="journey-inner section-wrap">
+          <div class="journey-visual" aria-hidden="true"><div class="journey-window"><span class="journey-grid"></span><div class="journey-shape journey-shape-a">✳</div><div class="journey-shape journey-shape-b">◇</div><div class="journey-shape journey-shape-c">↗</div><div class="journey-glass"><span>ESTUDIO DE AUTOR</span><b id="journey-symbol">01</b><span>DEL CONCEPTO A LO REAL</span></div></div><div class="journey-coordinate">X 024.18 / Y 006.27 / Z ∞</div></div>
+          <div class="journey-narrative"><div class="eyebrow journey-eyebrow">RECORRIDO / DEL RETO A LA SOLUCIÓN</div>
+            <div class="journey-steps">
+              <article class="journey-step is-active" data-scene="0"><div class="journey-step-index">01 / ESCUCHAR</div><h2>Todo comienza<br>con una <em>pregunta.</em></h2><p>No empezamos con un software. Empezamos entendiendo qué necesita tu negocio y por qué importa.</p></article>
+              <article class="journey-step" data-scene="1"><div class="journey-step-index">02 / DAR FORMA</div><h2>Las ideas se<br>vuelven <em>tangibles.</em></h2><p>Elegimos las herramientas adecuadas, delimitamos las horas y construimos un primer resultado comprobable.</p></article>
+              <article class="journey-step" data-scene="2"><div class="journey-step-index">03 / EVOLUCIONAR</div><h2>Una entrega abre<br>otra <em>posibilidad.</em></h2><p>Revisamos lo realizado y decidimos juntos la siguiente mejora. Sin promesas ilimitadas: avance real por etapas.</p></article>
+            </div>
+            <div class="journey-controls"><div class="scene-indicator" aria-label="Capítulos del recorrido"><button type="button" class="scene-dot is-active" data-scene-target="0" aria-label="Ver capítulo uno" aria-current="step"></button><button type="button" class="scene-dot" data-scene-target="1" aria-label="Ver capítulo dos"></button><button type="button" class="scene-dot" data-scene-target="2" aria-label="Ver capítulo tres"></button></div><a href="#membresias">Conoce las membresías <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </div>
+        <div class="journey-caption">UN PROCESO CLARO · UNA EXPERIENCIA EXTRAORDINARIA</div>
+      </div>
+    </section>
 
     <section id="servicios" class="services section-wrap section-gap">
       <div class="section-top"><div class="eyebrow">02 / QUÉ HACEMOS</div><h2>No es hacer <em>de todo.</em><br>Es hacer <span>lo que importa.</span></h2></div>
@@ -110,6 +143,8 @@
       <details><summary><span>05</span>¿Realizan proyectos de blockchain y trading?<b>+</b></summary><p>Podemos explorar conceptos, interfaces y prototipos. No garantizamos rentabilidades ni construimos sistemas financieros productivos sin una evaluación técnica y de seguridad especializada.</p></details>
     </div></div></section>
   </main>
+
+  <div class="floating-conversion" id="floating-conversion"><span class="float-orb" aria-hidden="true">✳</span><span>¿Tienes una idea?</span><a href="#contacto">Hablemos <span aria-hidden="true">↗</span></a></div>
 
   <footer class="site-footer" id="privacidad"><div class="section-wrap"><div class="footer-head"><div>Algo bueno comienza<br><em>con una conversación.</em></div><a href="#contacto" aria-label="Ir al formulario">↗</a></div><div class="footer-bottom"><span>ESTUDIO DE AUTOR · NOMBRE COMERCIAL PROVISIONAL</span><span>© <?php echo esc_html((string) date('Y')); ?> · MÉXICO · REMOTO</span><a href="<?php echo esc_url(wp_login_url()); ?>">ACCESO PRIVADO ↗</a></div><div class="privacy"><strong>Aviso de privacidad resumido de lanzamiento:</strong> La información del formulario se almacena en este WordPress para contactar al solicitante y evaluar su proyecto. No se comparte con terceros con fines publicitarios. Para solicitar acceso, rectificación o eliminación, responde al correo desde el que se te contacte. Antes de iniciar campañas públicas se publicará un aviso integral con identidad y domicilio del responsable, contacto y derechos ARCO. Mercado Pago y Discord aún necesitan configuración.</div></div></footer>
 </div>
