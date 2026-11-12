@@ -55,14 +55,32 @@
     dirty = true;
     requestPaint();
   }
-  stage.addEventListener('pointermove', (event) => setPerspectiveFromPointer(event.clientX, event.clientY), { passive: true });
+  stage.addEventListener('pointermove', (event) => {
+    if (dragStart && event.buttons) {
+      pointerX = Math.max(-1, Math.min(1, dragStart.x0 + (event.clientX - dragStart.x) / 150));
+      pointerY = Math.max(-1, Math.min(1, dragStart.y0 + (event.clientY - dragStart.y) / 150));
+      dirty = true; requestPaint();
+    } else { setPerspectiveFromPointer(event.clientX, event.clientY); }
+  }, { passive: true });
   stage.addEventListener('pointerleave', () => { pointerX = 0; pointerY = 0; dirty = true; requestPaint(); });
   // The stage remains scrollable on touch, and pointer motion is purely decorative.
   stage.addEventListener('pointerdown', (event) => {
     if (event.pointerType !== 'mouse' || event.target.closest('a,button')) return;
-    dragStart = { x: event.clientX, y: event.clientY };
+    dragStart = { x: event.clientX, y: event.clientY, x0: pointerX, y0: pointerY };
+    if (stage.setPointerCapture) stage.setPointerCapture(event.pointerId);
   });
   stage.addEventListener('pointerup', () => { dragStart = null; });
+  stage.addEventListener('pointercancel', () => { dragStart = null; });
+  stage.addEventListener('keydown', (event) => {
+    if (event.target !== stage || isMotionDisabled()) return;
+    const steps = { ArrowLeft:[-.15,0], ArrowRight:[.15,0], ArrowUp:[0,-.15], ArrowDown:[0,.15] };
+    const step = steps[event.key];
+    if (!step) return;
+    event.preventDefault();
+    pointerX = Math.max(-1, Math.min(1, pointerX + step[0]));
+    pointerY = Math.max(-1, Math.min(1, pointerY + step[1]));
+    dirty = true; requestPaint();
+  });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && dragStart) { dragStart = null; pointerX = 0; pointerY = 0; dirty = true; requestPaint(); }
   });
@@ -116,6 +134,8 @@
         perspective.style.setProperty('--vr-x', `${(-4 - pointerY * 10).toFixed(1)}deg`);
         perspective.style.setProperty('--vr-y', `${(7 + pointerX * 13).toFixed(1)}deg`);
       }
+      const heroFraction = Math.max(0, Math.min(1, -hero.getBoundingClientRect().top / Math.max(1,hero.offsetHeight)));
+      perspective.style.setProperty('--vr-zoom', (!isMotionDisabled() && window.innerWidth > 640 ? Math.round(heroFraction*110) : 0) + 'px');
       dirty = false;
     }
     // CSS handles continuous visual motion. JS paints only on pointer, scroll, resize or preferences.
