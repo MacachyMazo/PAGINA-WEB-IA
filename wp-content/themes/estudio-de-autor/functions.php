@@ -5,7 +5,7 @@
  */
 if (!defined('ABSPATH')) { exit; }
 
-define('EDA_VERSION', '1.0.0');
+define('EDA_VERSION', '1.1.0');
 
 function eda_plans() {
     return [
@@ -27,6 +27,8 @@ add_action('wp_enqueue_scripts', function () {
     $uri = get_template_directory_uri();
     wp_enqueue_style('eda-styles', $uri . '/assets/css/studio.css', [], EDA_VERSION);
     wp_enqueue_script('eda-app', $uri . '/assets/js/studio.js', [], EDA_VERSION, true);
+    wp_enqueue_style('eda-immersive', $uri . '/assets/css/immersive.css', ['eda-styles'], EDA_VERSION);
+    wp_enqueue_script('eda-immersive', $uri . '/assets/js/immersive.js', ['eda-app'], EDA_VERSION, true);
     wp_localize_script('eda-app', 'EstudioConfig', [
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'nonce'   => wp_create_nonce('eda_submit'),
