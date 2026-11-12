@@ -1,58 +1,41 @@
-# Estudio de Autor | Interactive World 3.0
+# Estudio de Autor · Oficina VR 3.1
 
-Una experiencia digital de una sola página presentada como un mundo isométrico explorable, con suscripciones mensuales, portafolio propio y captación de prospectos.
+Experiencia de oficina **3D en primera persona**, con recorrido de teclado/ratón, controles táctiles y entrada WebXR para visores compatibles.
 
-## Funcionalidad de la versión 3.0
+## Qué funciona
 
-- Exploración mediante un pequeño dron: teclado WASD / flechas, controles táctiles y clic sobre el escenario para desplazarse automáticamente. Shift acelera; las estaciones también son pulsables y el menú superior ofrece acceso directo.
-- Cuatro estaciones: Estudio (servicios), Archivo (PeekDex, IQ-Bites, GUBE), Membresías (cinco planes) y Diagnóstico (solicitud).
-- Personaje, plataformas, arquitectura, carreteras y señalización ilustrados con Canvas 2D y perspectiva isométrica, sin dependencias JavaScript externas ni herramientas 3D pesadas.
-- Panel lateral interactivo, selector de planes, accesibilidad con teclado, foco, adaptación móvil y control para reducir movimiento.
-- Formulario vinculado a WordPress vía admin-ajax.php; lista de solicitudes protegida en WordPress > Solicitudes.
-- Capacidad de 55 horas activas controlada manualmente por el administrador.
+- Oficina 3D con mobiliario geométrico interactivo, panorama fotográfico 360°, iluminación ambiental y cuatro estaciones.
+- WASD / flechas para caminar; arrastrar el ratón o pantalla para mirar; E para abrir una estación cercana.
+- Menú de acceso directo y botones táctiles para evitar bloquear conversiones.
+- Modo VR WebXR: A-Frame habilita render estereoscópico y selección por controladores; además hay cursor de mirada. Para mayor comodidad el recorrido en VR utiliza puntos de teletransporte, no desplazamiento continuo.
+- Cinco membresías: Inicio $790 (0.5h), Impulso $1,990 (1.5h), Presencia $4,990 (4h), Evolución $10,900 (9h), Integral $19,900 (16h). Precios mensuales antes de los impuestos aplicables. Son propuestas, no tarifas validadas.
+- PeekDex, IQ-Bites y GUBE con descripciones honestas de su estado.
+- Formularios de prospectos en WordPress: protección nonce, validación, límite de solicitudes, registro privado y panel admin con tope manual de 55h.
+- Demo HTML independiente: formulario en modo simulación, no almacena ni envía información.
 
-**Importante:** Es una experiencia visual isométrica 2.5D. No es un videojuego con física real, un mundo WebGL ni VR para visores. No requiere gafas.
+## Requisitos técnicos
 
-## Instalar en WordPress con Hostinger
+- WordPress 6.2+, PHP 8+, hosting de WordPress (Hostinger compatible).
+- HTTPS obligatorio para usar WebXR en un visor; también hace falta un navegador WebXR y dispositivo compatible.
+- A-Frame **1.8.0** desde `https://aframe.io/releases/1.8.0/aframe.min.js`; internet necesario para cargar el motor. Se recomienda autoalojar esta dependencia antes de campañas comerciales después de revisar licencia y actualizaciones.
+- Las fotografías del entorno son referencias visuales generadas para el sitio. La geometría es WebGL 3D en tiempo real, no captura de un espacio físico ni un gemelo digital real.
+- VR no está probado en hardware real dentro de esta entrega: hace falta una prueba de Meta Quest u otro visor WebXR y comprobar rendimiento, teletransporte y lectura de textos en casco.
 
-1. En el panel hPanel de Hostinger crea un **WordPress nuevo** para la marca independiente. No cambies las instalaciones de IQ-Bites ni GUBE.
-2. En WordPress entra a **Apariencia → Temas → Añadir nuevo → Subir tema**.
-3. Sube `Estudio_de_Autor_WordPress_Interactive_World_v3.zip` y activa **Estudio de Autor · Mundo Interactivo**.
-4. Comprueba en una ventana privada que la portada abre y permite explorar, y prueba el formulario con un correo propio.
-5. Comprueba que el registro aparezca en **Escritorio → Solicitudes**. El correo de aviso depende de `wp_mail`; configura SMTP para entrega confiable.
-6. Completa el aviso de privacidad integral, contacto legal, condiciones comerciales, licencias, política de cancelación, HTTPS, respaldos y controles de spam antes de captar datos reales.
-7. Configura los enlaces/planes **reales** en tu cuenta de Mercado Pago. Tras revisar el proyecto y aprobar el alcance, envía manualmente al cliente el enlace. En esta versión no hay integración de cobro automático ni comprobación de webhook.
-8. Crea y prueba el servidor Discord antes de promocionar beneficios asociados. Las salas de voz del plan Integral están sujetas a agenda.
+## Instalación en Hostinger
 
-## Planes actuales (MXN por mes, IVA según corresponda)
+1. Crear un WordPress independiente para el nuevo negocio. No intervenir sitios de GUBE o IQ-Bites.
+2. Instalar el tema ZIP desde **Apariencia → Temas → Añadir → Subir tema** y activar.
+3. Asegurar HTTPS y abrir la web en computadora/móvil. Probar que carga A-Frame y se ven objetos 3D.
+4. Hacer una solicitud de prueba y verificar que aparece en **Escritorio → Solicitudes**; revisar el correo SMTP.
+5. Probar WebXR en visor compatible y navegador seguro; la experiencia se usa sin gafas en todos los demás casos.
+6. Completar el aviso de privacidad integral, condiciones, marca/dominio, correo legal, backups, seguridad, caché, política de cancelación y consentimiento.
+7. Configurar planes en Mercado Pago, enviar links solo tras aprobación del alcance; el tema no procesa tarjetas ni consulta webhooks.
+8. Configurar Discord real antes de ofrecer acceso a canales o salas de voz.
 
-| Plan | Precio | Horas / mes |
-|---|---:|---:|
-| Inicio | $790 | 0.5 |
-| Impulso | $1,990 | 1.5 |
-| Presencia | $4,990 | 4 |
-| Evolución | $10,900 | 9 |
-| Integral | $19,900 | 16 |
+## Seguridad y veracidad
 
-Ninguna membresía es de trabajo ilimitado. Hosting, APIs, dominio, publicidad, licencias y especialistas requeridos por proyectos complejos se presupuestan aparte. Los precios necesitan revisión final con los gastos e impuestos reales.
+Esta oficina es un entorno virtual promocional y no una oficina física abierta al público. El responsable presta servicio remoto con IA y herramientas visuales; desarrollo complejo y tareas de seguridad deben ser evaluados antes de aceptar. En VR, por comodidad, el usuario debe salir del visor para llenar el formulario. No se prometen resultados comerciales ni funcionalidades de terceros aún no habilitadas.
 
-## Seguridad y límites
+Repositorio de referencia: https://github.com/MacachyMazo/PAGINA-WEB-IA
 
-- El formulario utiliza la verificación de nonce de WordPress, saneamiento y validación en servidor, honeypot y límite básico de envíos por IP con hash efímero.
-- Nunca publiques credenciales de Mercado Pago, contraseñas ni claves de API dentro del tema o en GitHub.
-- El control de capacidad cuenta las horas declaradas de solicitudes marcadas como activas, y requiere cerrar manualmente las canceladas. No es un registro de horas consumidas ni conciliación de cobros.
-- La demo HTML independiente **no envía formularios ni guarda datos**. Solo después de instalar y validar WordPress puede registrarse una solicitud.
-- Este proyecto no fue publicado ni instalado en Hostinger en esta entrega. Es necesario verificar conexión al hosting, dominio, SSL y pruebas de producción.
-- El estudio trabaja con IA, herramientas visuales y coordinación de especialistas. No se presentan soluciones financieras, blockchain y trading complejas como seguras o listas para producción sin pruebas y auditorías independientes.
-
-## Archivos
-
-`estudio-de-autor/` tema WordPress listo para instalar; su `front-page.php` contiene la interfaz, `assets/js/world.js` la navegación e interacciones, `assets/css/world.css` el diseño, `functions.php` el backend de solicitudes y el panel privado. `assets/images/` contiene logotipos originales de proyectos propios.
-
-La demo HTML es autocontenida (CSS, JS e imágenes en un solo archivo) y puede abrirse localmente para revisar la experiencia; no sustituye una instalación de WordPress.
-
-## GitHub
-
-Repositorio designado: `https://github.com/MacachyMazo/PAGINA-WEB-IA`.
-
-Para mantener el proyecto versionado, incluye el tema en `wp-content/themes/estudio-de-autor/` y no subas credenciales de producción. La instalación en Hostinger y el código de GitHub son pasos separados.
+Dependencia A-Frame, licencia MIT: https://github.com/aframevr/aframe
