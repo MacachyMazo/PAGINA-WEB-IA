@@ -1,10 +1,15 @@
 # Estudio de Autor · WordPress / Hostinger
 
-Tema clásico de WordPress (PHP 8+, WordPress 6.2+), optimizado para una landing **de una sola página** con identidad editorial.
+Tema clásico de WordPress (PHP 8+, WordPress 6.2+), optimizado para una landing **de una sola página** con identidad editorial e inmersión tridimensional ligera.
+
+**Versión 1.1: edición inmersiva**. La experiencia simula profundidad y movimiento en pantalla mediante CSS 3D, no es WebXR ni requiere visor VR. Se adapta al cursor y al desplazamiento. Incluye control de movimiento y respeta `prefers-reduced-motion`.
+
 
 ## Incluye realmente
 
-- Navegación con menú móvil y desplazamiento por secciones.
+- Portada espacial con portal CSS 3D, tres rutas explorables y control de movimiento.
+- Recorrido inmersivo por scroll con tres capítulos y atajos accesibles.
+- Navegación de una sola página con menú móvil y desplazamiento por secciones.
 - Cinco membresías interactivas (Inicio, Impulso, Presencia, Evolución, Integral).
 - Selector dinámico de planes, beneficios, precios y horas. Sin compras automáticas.
 - Orientador interactivo por horas que sugiere plan según capacidad. No cotiza entregables complejos automáticamente.
@@ -37,7 +42,7 @@ Tema clásico de WordPress (PHP 8+, WordPress 6.2+), optimizado para una landing
 
 ## Archivos
 
-`wp-content/themes/estudio-de-autor/style.css` cabecera del tema, `functions.php` backend WordPress, `front-page.php` HTML editorial, `index.php` respaldo, `assets/css/studio.css`, `assets/js/studio.js`.
+`wp-content/themes/estudio-de-autor/style.css` cabecera del tema, `functions.php` backend WordPress, `front-page.php` HTML editorial, `index.php` respaldo, `assets/css/studio.css`, `assets/js/studio.js`, `assets/css/immersive.css`, `assets/js/immersive.js`.
 
 ## GitHub
 
@@ -48,3 +53,12 @@ Repositorio elegido: `MacachyMazo/PAGINA-WEB-IA`. La carpeta del tema debe ir ba
 - https://developer.wordpress.org/themes/classic-themes/your-first-theme/
 - https://developer.wordpress.org/reference/functions/register_post_type/
 - https://www.mercadopago.com.mx/developers/es/docs/subscription-plans/create-subscription-plan
+
+## Rendimiento y accesibilidad de la edición inmersiva
+
+- Animaciones de profundidad con CSS `transform` y opacidad, sin motor WebGL ni dependencias externas de JavaScript.
+- Interacciones de cursor en escritorio y experiencia táctil de desplazamiento normal en móvil.
+- Escenas con botones navegables por teclado, enlace de acceso directo a membresías, CTA de contacto visible.
+- Control para pausar movimiento decorativo; se respeta la configuración del sistema de movimiento reducido.
+- Si faltan animaciones, el contenido y los enlaces siguen siendo utilizables.
+- El archivo HTML de demostración no guarda formularios. El backend de solicitudes funciona solo al instalarse en WordPress y debe probarse en el hosting final.
