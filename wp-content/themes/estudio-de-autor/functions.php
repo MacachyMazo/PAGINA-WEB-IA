@@ -5,7 +5,7 @@
  */
 if (!defined('ABSPATH')) { exit; }
 
-define('EDA_VERSION', '3.0.0');
+define('EDA_VERSION', '3.1.0');
 
 function eda_plans() {
     return [
@@ -25,9 +25,12 @@ add_action('after_setup_theme', function () {
 
 add_action('wp_enqueue_scripts', function () {
     $uri = get_template_directory_uri();
-    wp_enqueue_style('eda-world', $uri . '/assets/css/world.css', [], EDA_VERSION);
-    wp_enqueue_script('eda-world', $uri . '/assets/js/world.js', [], EDA_VERSION, true);
-    wp_localize_script('eda-world', 'EstudioConfig', [
+    wp_enqueue_style('eda-office-vr', $uri . '/assets/css/office-vr.css', [], EDA_VERSION);
+    // A-Frame is open-source. The production site requires an internet connection to fetch this library.
+    // For strict self-hosting, replace this URL with a tested local copy from its official release.
+    wp_enqueue_script('eda-aframe', 'https://aframe.io/releases/1.8.0/aframe.min.js', [], '1.8.0', false);
+    wp_enqueue_script('eda-office-vr', $uri . '/assets/js/office-vr.js', ['eda-aframe'], EDA_VERSION, true);
+    wp_localize_script('eda-office-vr', 'EstudioConfig', [
         'ajaxUrl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('eda_submit'),
     ]);
