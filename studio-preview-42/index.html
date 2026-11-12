@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111418">
+<meta name="description" content="Estudio de Autor. Explora nuestra oficina 3D en primera persona. Diseño, WordPress, contenido y tecnología por suscripción, con atención personal y un alcance claro.">
+<title>Estudio de Autor · Oficina Interactiva VR</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--ink:#161a22;--paper:#fbfaf7;--white:#fff;--accent:#dbc5f5;--glass:rgba(15,19,26,.67);--sans:'DM Sans',Arial,sans-serif;--display:'Manrope',Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body.eda-office-vr{margin:0;background:#0e141b;color:var(--paper);font-family:var(--sans);overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.65}a{color:inherit;text-decoration:none}img{max-width:100%;height:auto}h1,h2,h3,p{margin-top:0}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #d6b6ff;outline-offset:3px}.skip-link{position:absolute;top:-100px;left:20px;padding:14px;background:#fff;color:#111;z-index:9999}.skip-link:focus{top:10px}
+.global-header{height:80px;padding-inline:clamp(20px,3vw,53px);position:relative;z-index:90;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#0c1117eb;backdrop-filter:blur(17px);border-bottom:1px solid #ffffff17}.brand{display:flex;align-items:center;gap:16px;white-space:nowrap}.brand-glyph{font:800 43px/.8 var(--display);letter-spacing:-.15em}.brand-glyph span{color:#d5baf5}.brand-copy{display:grid;gap:4px}.brand-copy strong{font-size:13px;letter-spacing:.14em}.brand-copy small{color:#a5b0bc;font-size:9px;letter-spacing:.13em}.global-nav{display:flex;align-items:center;gap:clamp(12px,2.3vw,30px)}.global-nav button{border:0;background:transparent;color:#e9e6e2;font-size:12px;font-weight:700;padding:12px 0}.global-nav button:hover{color:#d9c4f9}.global-nav .header-contact{display:flex;align-items:center;gap:16px;padding:13px 18px;background:#faf8f4;color:#1b1f27;border-radius:99px}.global-nav .header-contact:hover{background:#d9c9f4;color:#15151c}.nav-menu-btn{display:none;background:#1a2028;border:1px solid #ffffff46;color:#fff;border-radius:11px;width:43px;height:41px;font-size:19px}
+.experience{position:relative;overflow:hidden}.scene-container{position:relative;height:calc(100svh - 80px);min-height:610px;max-height:1200px;background:#111821;overflow:hidden;isolation:isolate}.scene-fallback{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(90deg,#0b1116da 0,#10151c5b 47%,#0c111720 100%),var(--office-photo);background-position:center;background-size:cover}.scene-container a-scene{display:block!important;position:absolute!important;inset:0;width:100%!important;height:100%!important;opacity:0;z-index:1;transition:opacity .6s}.studio-app.three-ready a-scene{opacity:1}.vignette{position:absolute;z-index:2;pointer-events:none;inset:0;background:linear-gradient(90deg,#070d17cc 0,transparent 54%),linear-gradient(0deg,#070a10a8 0,transparent 30%,transparent 70%,#080b1266)}.studio-app.in-tour .vignette{opacity:.56}.orientation-tag{position:absolute;z-index:10;top:22px;left:clamp(19px,3vw,53px);display:flex;align-items:center;gap:10px;font-size:9px;font-weight:800;letter-spacing:.17em;text-shadow:0 2px 4px #000}.orientation-tag .led{width:8px;height:8px;background:#9ce2be;border-radius:50%;box-shadow:0 0 12px #b4ffdd}.tag-delimiter{color:#d5b8ed}.scene-wait{position:absolute;z-index:16;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:10px;background:#101721e5;border:1px solid #ffffff38;padding:16px;border-radius:12px;max-width:calc(100% - 24px);font-size:12px;text-align:center}.scene-wait.hidden{display:none}.scene-wait.error{top:auto;bottom:100px;transform:translateX(-50%)}.wait-orb{display:block;width:12px;height:12px;border:2px solid #ffffff56;border-top-color:#dcc6f5;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.welcome{position:absolute;z-index:20;left:clamp(22px,4.5vw,76px);top:48%;transform:translateY(-50%);width:min(530px,calc(100% - 44px));pointer-events:none;transition:opacity .38s,transform .38s,visibility .38s}.welcome>*{pointer-events:auto}.welcome.dismissed{opacity:0;transform:translate(-24px,-50%);visibility:hidden}.welcome.dismissed>*{pointer-events:none}.eyebrow{font-size:10px;font-weight:800;color:#d9baa1;letter-spacing:.2em;margin-bottom:19px}.welcome h1{font:700 clamp(51px,5.4vw,84px)/1.06 var(--display);letter-spacing:-.073em;margin:0 0 23px;text-shadow:0 9px 35px #0008}.welcome h1 em{font-style:normal;color:#e1c8ff}.welcome-copy{max-width:405px;font-size:16px;line-height:1.7;color:#f1eeeb;text-shadow:0 2px 7px #0009}.welcome-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:27px}.button{display:inline-flex;align-items:center;justify-content:space-between;gap:23px;min-height:52px;padding:14px 19px;border-radius:9px;font-size:13px;font-weight:800;border:0;transition:transform .2s,background .2s}.button:hover{transform:translateY(-2px)}.button-light{background:#fff;color:#171921}.button-light:hover{background:#e0cafa}.button-transparent{background:#ffffff18;border:1px solid #ffffff74;color:#fff;backdrop-filter:blur(9px)}.button-transparent:hover{background:#ffffff35}.button-dark{background:#1b202b;color:#fff}.button-dark:hover{background:#33364b}.button.full{width:100%}.welcome-meta{display:flex;align-items:center;flex-wrap:wrap;gap:11px;color:#decfc3;font-size:9px;font-weight:800;letter-spacing:.13em;margin-top:35px}
+.wayfinding{position:absolute;right:clamp(15px,3vw,50px);top:clamp(80px,11vh,135px);z-index:22;width:246px;padding:10px;background:#0c111ac0;backdrop-filter:blur(22px);border:1px solid #ffffff3b;border-radius:17px;box-shadow:0 22px 68px #0005}.wayfinding-label{font-size:10px;letter-spacing:.16em;font-weight:800;color:#aab3c2;padding:13px 13px 8px}.wayfinding button{display:flex;align-items:center;text-align:left;width:100%;padding:12px 10px;gap:12px;border:0;border-radius:11px;background:transparent;color:#fff}.wayfinding button:hover,.wayfinding button:focus-visible{background:#ffffff1c}.wayfinding button>span:nth-child(2){display:grid;gap:2px;flex:1}.wayfinding button strong{font-size:12px}.wayfinding button small{color:#b9c3cf;font-size:10px}.wayfinding-number{width:31px;height:31px;border-radius:9px;border:1px solid #cab0ff85;color:#e2ccff;display:grid;place-items:center;font-size:10px;font-weight:800}.wayfinding button>span:last-child{color:#cfc0e9;font-size:16px}
+.game-hud{position:absolute;z-index:25;bottom:26px;left:clamp(16px,3vw,53px);right:clamp(16px,3vw,53px);display:flex;justify-content:space-between;align-items:end;gap:20px;pointer-events:none}.game-hud>*{pointer-events:auto}.controls-tip{display:flex;gap:8px;align-items:center;font-size:9px;font-weight:750;letter-spacing:.06em;text-shadow:0 2px 6px #000}.controls-tip b{background:#fff;color:#1a1d25;padding:6px 8px;border-radius:5px}.controls-tip span{color:#c6c4be}.status-help{position:absolute;bottom:41px;left:0;font-size:12px;font-weight:600;text-shadow:0 2px 8px #000}.hud-actions{display:flex;gap:8px;align-items:center;margin-left:auto}.hud-actions button{border:1px solid #ffffff4a;color:#fff;background:#111821d9;border-radius:11px;padding:11px 13px;font-size:11px;font-weight:750;display:flex;align-items:center;gap:7px;white-space:nowrap;backdrop-filter:blur(10px)}.hud-actions button:hover:not(:disabled){background:#292939}.hud-actions #vr-button{background:#e1cff7;color:#181922;border-color:#e1cff7}.reticle{position:absolute;top:50%;left:50%;z-index:22;pointer-events:none;transform:translate(-50%,-50%);opacity:0}.reticle span{width:10px;height:10px;border:1.5px solid white;border-radius:50%;display:block;box-shadow:0 0 0 4px #0005}.studio-app.in-tour .reticle{opacity:.9}.mobile-pad,.mobile-interact,.screen-fallback-navigation{display:none}
+.panel-scrim{position:absolute;z-index:100;inset:0;background:#060a10ad;opacity:0;pointer-events:none;transition:opacity .35s}.panel-scrim.open{opacity:1;pointer-events:auto}.detail-panel{position:absolute;z-index:101;right:0;top:0;bottom:0;width:min(575px,100%);transform:translateX(102%);transition:transform .4s cubic-bezier(.2,.8,.2,1);visibility:hidden;display:flex;flex-direction:column;background:#fbfaf6;color:#1b1d23;box-shadow:-20px 0 80px #0007}.detail-panel.open{transform:translateX(0);visibility:visible}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 30px;background:#151b24;color:white;min-height:78px}.panel-head>div{display:grid;gap:5px}.panel-head small{color:#b2b3bd;font-size:9px;letter-spacing:.16em;font-weight:800}.panel-head strong{font-size:13px;letter-spacing:.09em}.panel-close{border:1px solid #ffffff36;background:#ffffff1a;color:#fff;border-radius:9px;width:40px;height:40px;display:grid;place-items:center}.panel-scroll{padding:40px clamp(24px,3vw,43px) 65px;overflow-y:auto;overscroll-behavior:contain;flex:1}.panel-screen{display:none}.panel-screen.active{display:block}.panel-kicker{font-size:10px;font-weight:800;letter-spacing:.17em;color:#787289;margin-bottom:19px}.panel-screen h2{font:700 clamp(34px,3.1vw,51px)/1.06 var(--display);letter-spacing:-.065em;margin:0 0 20px}.panel-screen h2 em{font-style:normal;color:#8069a5}.intro-text{color:#57606d;font-size:14px;line-height:1.75;margin-bottom:27px}.disclaimer{background:#f0ede7;border-left:2px solid #aa9bc5;color:#6e6e7a;padding:12px 15px;font-size:11px;line-height:1.7;margin:21px 0}
+.service-catalog{border-top:1px solid #d9d9d9;margin:26px 0}.service-catalog details{border-bottom:1px solid #d9d9d9}.service-catalog summary{cursor:pointer;list-style:none;padding:19px 0;display:grid;grid-template-columns:25px 1fr 19px;gap:12px;align-items:center;font-size:13px;font-weight:800}.service-catalog summary::-webkit-details-marker{display:none}.service-catalog summary span{color:#8271a1;font-size:11px}.service-catalog summary b{font-size:20px;font-weight:400}.service-catalog details[open] summary b{transform:rotate(45deg)}.service-catalog details p{font-size:13px;line-height:1.7;color:#5a616f;margin:0;padding:0 30px 18px 37px}.case{display:block;border:1px solid #e1dfdb;border-radius:14px;overflow:hidden;margin:18px 0 23px;background:#fff;transition:transform .2s,box-shadow .2s}.case:hover{transform:translateY(-3px);box-shadow:0 15px 30px #0001}.case-image{height:160px;display:grid;place-items:center;padding:20px}.case-image img{max-width:82%;max-height:120px;object-fit:contain;mix-blend-mode:multiply}.case-image.lilac{background:#e9e4f5}.case-image.cream{background:#f9e9d9}.case-image.mint{background:#e2f0e7}.case>div:nth-child(2){padding:17px 19px 22px}.case small{color:#87828b;font-size:9px;font-weight:800;letter-spacing:.15em}.case h3{font-size:23px;display:flex;justify-content:space-between;margin:7px 0}.case p{font-size:12px;color:#626a75;line-height:1.7;margin:0}
+.plan-choice-row{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:26px 0 12px}.plan-choice-row button{height:44px;border:1px solid #dcd8df;border-radius:9px;background:#fff;color:#272c35;font-weight:800;font-size:12px}.plan-choice-row button.selected{color:#fff;background:#202632;border-color:#202632}.selected-plan{background:#fff;border-radius:15px;border:1px solid #dedcda;padding:25px;box-shadow:0 12px 38px #1618210a}.selected-top{display:flex;justify-content:space-between;gap:13px;color:#746e7e;font-size:10px;font-weight:800}.selected-plan h3{font:800 42px/1 var(--display);letter-spacing:-.07em;margin:20px 0 10px}.selected-plan>p{color:#687180;font-size:13px;line-height:1.6}.selected-price{padding:22px 0;border-block:1px solid #e9e8e5;margin:21px 0;display:flex;align-items:end;gap:18px}.selected-price strong{font-size:44px;letter-spacing:-.08em}.selected-price span{font-size:10px;font-weight:800;color:#616775;line-height:1.6}.selected-plan ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}.selected-plan li{font-size:13px;color:#3b4350;line-height:1.5;padding-left:23px;position:relative}.selected-plan li:before{content:'✓';position:absolute;left:0;color:#806baa;font-weight:800}.selected-plan .plan-warning{font-size:11px;border-top:1px solid #e8e8e6;padding-top:12px}
+.studio-form{display:grid;gap:18px}.studio-form label{display:grid;gap:8px;font-size:11px;font-weight:800;color:#333b48}.studio-form .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.studio-form input:not([type=checkbox]),.studio-form select,.studio-form textarea{width:100%;border:1px solid #d8d9dc;border-radius:9px;background:white;color:#2c3340;padding:13px 12px;line-height:1.4;font-size:13px}.studio-form textarea{resize:vertical;min-height:112px}.studio-form .honeypot{position:absolute;left:-100000px;width:1px;height:1px;overflow:hidden}.studio-form .consent{display:flex;align-items:flex-start;gap:11px;font-size:11px;line-height:1.65;color:#666b74;font-weight:500}.studio-form .consent input{margin-top:3px}.text-button{font:inherit;text-decoration:underline;color:#806baa;border:0;background:transparent;padding:0}.form-note{font-size:10px;line-height:1.6;color:#777b82}.form-result{display:none;background:#e9f7ee;color:#286246;border-radius:9px;padding:13px;font-size:12px;line-height:1.6}.form-result.visible{display:block}.form-result.error{background:#ffece8;color:#8d3936}.panel-footer{display:flex;justify-content:space-between;border-top:1px solid #e1e0de;padding:17px 25px;color:#85838a;font-size:9px;font-weight:800;letter-spacing:.10em}.panel-footer span{color:#8068a6}.site-underbar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:9px clamp(16px,3vw,53px);background:#101820;color:#a6b1bb;font-size:9px;letter-spacing:.08em}.site-underbar button{background:transparent;border:0;color:#efeee9;text-decoration:underline;font-size:10px}
+@media(max-width:1100px){.global-nav{gap:13px}.brand-copy small{display:none}.wayfinding{right:14px;width:214px}.controls-tip{display:none}.welcome h1{font-size:clamp(49px,7vw,75px)}}
+@media(max-width:800px){.global-header{height:70px;padding-inline:15px}.brand-glyph{font-size:37px}.brand-copy strong{font-size:11px}.nav-menu-btn{display:block}.global-nav{display:none;position:absolute;top:75px;left:12px;right:12px;padding:12px;z-index:150;background:#141b25f6;border:1px solid #ffffff30;border-radius:14px;box-shadow:0 15px 35px #0006;flex-direction:column;align-items:stretch;gap:2px}.global-nav.is-open{display:flex}.global-nav button{text-align:left;padding:14px;font-size:14px}.global-nav .header-contact{justify-content:space-between}.scene-container{height:calc(100svh - 70px);min-height:620px}.wayfinding{top:auto;bottom:90px;width:210px}.welcome{left:22px;width:min(450px,calc(100% - 44px))}.welcome h1{font-size:clamp(51px,9vw,78px)}.hud-actions button span{display:none}.hud-actions #vr-button span{display:inline}.status-help{bottom:42px}.site-underbar{font-size:8px}}
+@media(max-width:590px){.orientation-tag{top:16px;left:16px;font-size:8px;letter-spacing:.09em}.scene-container .vignette{background:linear-gradient(90deg,#0a0f18cb,transparent 100%),linear-gradient(0deg,#0a101ab8,transparent 55%)}.welcome{top:38%;transform:translateY(-50%)}.welcome h1{font-size:clamp(43px,10.7vw,61px)}.welcome-copy{font-size:14px}.welcome-actions .button{min-height:45px;font-size:11px;padding:12px 13px}.welcome-meta{font-size:8px;gap:6px}.wayfinding{left:12px;right:12px;bottom:98px;width:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;padding:7px}.wayfinding-label{grid-column:1/-1;padding:6px;font-size:9px}.wayfinding button{padding:7px;gap:6px;min-width:0}.wayfinding-number{width:26px;height:26px;font-size:9px}.wayfinding button>span:nth-child(2){min-width:0}.wayfinding button strong{font-size:10px}.wayfinding button small{font-size:9px}.wayfinding button>span:last-child{display:none}.studio-app.in-tour .wayfinding{opacity:0;pointer-events:none;visibility:hidden}.game-hud{left:12px;right:12px;bottom:14px}.hud-actions button{padding:9px;font-size:10px}.status-help{left:0;right:0;text-align:center;font-size:10px}.mobile-pad{display:none;position:absolute;z-index:35;left:12px;bottom:67px;align-items:center;flex-direction:column;gap:4px;touch-action:none}.studio-app.in-tour .mobile-pad{display:flex}.mobile-pad>div{display:flex;gap:4px}.mobile-pad button{width:41px;height:41px;background:#111924d4;border:1px solid #ffffff6a;border-radius:11px;color:#fff;font-size:20px;touch-action:none}.mobile-pad button:active{background:#d8c0fa;color:#131722}.mobile-interact{display:none;position:absolute;right:13px;bottom:84px;z-index:35;background:#ead7fc;color:#191b21;border:0;border-radius:9px;font-size:10px;font-weight:800;padding:13px;gap:8px}.studio-app.in-tour .mobile-interact{display:flex}.panel-head{padding:15px 22px;min-height:70px}.panel-scroll{padding:27px 21px 55px}.panel-screen h2{font-size:38px}.studio-form .fields{grid-template-columns:1fr}.selected-plan{padding:20px}.selected-price strong{font-size:38px}.site-underbar{font-size:7px}.site-underbar button{font-size:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene-wait .wait-orb{animation:none}*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+
+
+</head>
+<body class="eda-office-vr">
+
+<div id="studio-app" class="studio-app">
+<a class="skip-link" href="#direct-nav">Saltar a navegación directa</a>
+<header class="global-header" aria-label="Menú del estudio">
+  <a class="brand" href="#inicio" id="brand-home" aria-label="Volver a recepción">
+    <span class="brand-glyph">e<span>·</span>a</span>
+    <span class="brand-copy"><strong>ESTUDIO DE AUTOR</strong><small>CREATIVE TECHNOLOGY STUDIO / MÉXICO</small></span>
+  </a>
+  <nav class="global-nav" id="direct-nav" aria-label="Navegación directa">
+    <button type="button" data-screen="servicios">Servicios</button>
+    <button type="button" data-screen="portafolio">Proyectos</button>
+    <button type="button" data-screen="membresias">Membresías</button>
+    <button type="button" class="header-contact" data-screen="diagnostico">Solicitar diagnóstico <span aria-hidden="true">↗</span></button>
+  </nav>
+  <button type="button" class="nav-menu-btn" id="nav-menu-btn" aria-expanded="false" aria-controls="direct-nav" aria-label="Abrir menú">☰</button>
+</header>
+<main id="inicio" class="experience">
+  <section id="scene-container" class="scene-container" aria-label="Oficina virtual fotorrealista en primera persona" >
+    
+    <div class="scene-wait" id="scene-wait" role="status"><span class="wait-orb"></span> Preparando oficina interactiva…</div>
+    <a-scene id="office-scene" embedded background="color:#17232a" fog="type:linear; color:#17232a; near:16; far:29" renderer="antialias:true; colorManagement:true; physicallyCorrectLights:true; shadowMapEnabled:true" vr-mode-ui="enabled:false" loading-screen="enabled:false" device-orientation-permission-ui="enabled:true">
+      <a-entity light="type:ambient; color:#daebf4; intensity:.92"></a-entity>
+      <a-entity light="type:directional; color:#fff2da; intensity:1.18; castShadow:true; shadowMapWidth:1024; shadowMapHeight:1024" position="-4 8 -2"></a-entity>
+      <a-entity light="type:point; color:#90e9f8; intensity:1.10; distance:12" position="1.8 3 -3.5"></a-entity>
+      <a-entity light="type:point; color:#f7cba4; intensity:1.08; distance:13" position="-4 3 0"></a-entity>
+      <a-entity id="office-furniture"></a-entity>
+      <a-entity id="office-points"></a-entity>
+      <a-entity id="player-rig" position="0 0 4.5" eda-walk="speed:2.35">
+        <a-entity id="player-camera" camera look-controls="pointerLockEnabled:true; touchEnabled:true; magicWindowTrackingEnabled:false" wasd-controls="enabled:false" position="0 1.64 0" cursor="rayOrigin:mouse; fuse:false" raycaster="objects:.interactive-object; far:14">
+          <a-entity id="gaze-cursor" position="0 0 -1" geometry="primitive:ring; radiusInner:.007; radiusOuter:.011" material="color:#fff; shader:flat; depthTest:false; opacity:.9" cursor="fuse:true; fuseTimeout:1350" raycaster="enabled:false; objects:.interactive-object; far:12" visible="false"></a-entity>
+        </a-entity>
+        <a-entity id="vr-left" laser-controls="hand:left" raycaster="objects:.interactive-object;far:14;showLine:true" line="color:#a1b9ff"></a-entity>
+        <a-entity id="vr-right" laser-controls="hand:right" raycaster="objects:.interactive-object;far:14;showLine:true" line="color:#a1b9ff"></a-entity>
+      </a-entity>
+      <a-entity id="vr-information" visible="false" position="0 1.5 1">
+        <a-plane width="2.55" height="1.72" color="#141c25" opacity=".97" material="side:double;shader:flat" position="0 0 -.02"></a-plane>
+        <a-text id="vr-info-title" value="ESTUDIO DE AUTOR" font="roboto" width="2.25" color="#d7bbf9" align="left" position="-1.07 .64 .01"></a-text>
+        <a-text id="vr-info-copy" value="Elige una estación para explorar." width="2.2" color="#ffffff" align="left" wrap-count="36" position="-1.07 .22 .02"></a-text>
+        <a-text value="Pulsa en otra estación para cambiar.\nPara contratar, sal de VR y usa el formulario." width="2.2" color="#a7b6c9" wrap-count="42" position="-1.07 -.63 .02"></a-text>
+      </a-entity>
+    </a-scene>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="reticle" id="reticle" aria-hidden="true"><span></span></div>
+    <div class="interaction-hint" id="interaction-hint" hidden role="status" aria-live="polite">
+      <span class="hint-key">E</span>
+      <div><strong id="hint-object">Monitor principal</strong>
+      <span id="hint-action">ver proyectos</span></div>
+      <span class="hint-arrow">↗</span>
+    </div>
+    <div class="studio-progress" id="studio-progress" aria-live="polite">
+      <span class="studio-progress-kicker">EXPEDICIÓN / 01</span>
+      <strong>Tu recorrido, a tu ritmo.</strong>
+      <span class="studio-progress-caption" id="studio-progress-caption">Encuentra los cuatro espacios del estudio.</span>
+      <div class="studio-progress-bar"><span id="studio-progress-fill"></span></div>
+    </div>
+    <button id="studio-map-toggle" class="studio-map-toggle" type="button" aria-expanded="false" aria-controls="studio-map">⌖ <span>Mapa</span></button>
+    <div class="studio-map" id="studio-map" hidden aria-label="Mapa interactivo de la oficina">
+      <div class="studio-map-top"><div><small>PLANO DEL ESTUDIO</small><strong>¿A dónde vamos?</strong></div><button id="studio-map-close" type="button" aria-label="Cerrar mapa">✕</button></div>
+      <div class="studio-map-floor">
+        <div class="studio-map-grid" aria-hidden="true"></div>
+        <button type="button" data-goto="servicios" class="map-node map-services"><b>01</b><span>Creativo</span></button>
+        <button type="button" data-goto="portafolio" class="map-node map-portfolio"><b>02</b><span>Proyectos</span></button>
+        <button type="button" data-goto="membresias" class="map-node map-members"><b>03</b><span>Planes</span></button>
+        <button type="button" data-goto="diagnostico" class="map-node map-diagnostic"><b>04</b><span>Reunión</span></button>
+        <span class="studio-map-avatar" id="studio-map-avatar" aria-hidden="true">▲</span>
+      </div>
+      <p>Elige una zona para llegar directamente. También puedes caminar con WASD.</p>
+    </div>
+    <div class="orientation-tag"><span class="led"></span> OFICINA ESPACIAL / HOLOGRAMAS <span class="tag-delimiter">/</span> EDICIÓN 4.0</div>
+    <div class="welcome" id="welcome">
+      <p class="eyebrow">BIENVENIDO AL ESTUDIO / 001</p>
+      <h1>Las ideas<br>toman <em>espacio.</em></h1>
+      <p class="welcome-copy">Recorre el estudio. Al mirar hacia una estación, la información aparece como un holograma dentro del espacio.</p>
+      <div class="welcome-actions"><button class="button button-light" id="enter-office" type="button">Entrar y explorar <span aria-hidden="true">↗</span></button><button class="button button-transparent" data-screen="diagnostico" type="button">Ir al diagnóstico</button></div>
+      <div class="welcome-meta"><span>OFICINA INTERACTIVA</span><span>◦</span><span>100% REMOTO</span><span>◦</span><span>MÉXICO</span></div>
+    </div>
+    <aside class="wayfinding" id="wayfinding" aria-label="Puntos de interés de la oficina">
+      <div class="wayfinding-label">ORIENTACIÓN EN EL ESTUDIO <span id="discovery-count">00 / 04</span></div>
+      <button type="button" data-goto="servicios"><span class="wayfinding-number">01</span><span><strong>Zona creativa</strong><small>Servicios</small></span><span aria-hidden="true">↗</span></button>
+      <button type="button" data-goto="portafolio"><span class="wayfinding-number">02</span><span><strong>Monitor principal</strong><small>Proyectos</small></span><span aria-hidden="true">↗</span></button>
+      <button type="button" data-goto="membresias"><span class="wayfinding-number">03</span><span><strong>Panel de acceso</strong><small>Planes</small></span><span aria-hidden="true">↗</span></button>
+      <button type="button" data-goto="diagnostico"><span class="wayfinding-number">04</span><span><strong>Mesa de reuniones</strong><small>Diagnóstico</small></span><span aria-hidden="true">↗</span></button>
+    </aside>
+    <div class="game-hud" id="game-hud">
+      <div class="controls-tip"><b>W ↑</b> AVANZAR <span>·</span> <b>S ↓</b> VOLVER <span>·</span> <b>A / D</b> LADOS <span>·</span> <b>RATÓN</b> MIRAR <span>·</span> <b>E</b> INTERACTUAR</div>
+      <div class="status-help" id="status-help" aria-live="polite">Explora los objetos de la oficina o elige un destino.</div>
+      <div class="hud-actions"><button type="button" id="reset-view" title="Volver a recepción">⌖ <span>Recepción</span></button><button type="button" id="soundless" title="Cambiar la iluminación del estudio">◐ <span>Estudio noche</span></button><button type="button" id="vr-button" aria-label="Entrar en realidad virtual" disabled>◎ <span>VR · Comprobando</span></button></div>
+    </div>
+    <div class="mobile-pad" id="mobile-pad" aria-label="Controles de movimiento táctiles"><button type="button" data-move="forward" aria-label="Caminar adelante">↑</button><div><button type="button" data-move="left" aria-label="Mover izquierda">←</button><button type="button" data-move="back" aria-label="Caminar atrás">↓</button><button type="button" data-move="right" aria-label="Mover derecha">→</button></div></div>
+    <button type="button" class="mobile-interact" id="interact-button">INTERACTUAR <span>↗</span></button>
+    <div class="screen-fallback-navigation" id="fallback-navigation"><span>También puedes navegar sin usar el mundo 3D:</span><button type="button" data-screen="servicios">Servicios</button><button type="button" data-screen="portafolio">Portafolio</button><button type="button" data-screen="membresias">Planes</button><button type="button" data-screen="diagnostico">Diagnóstico</button></div>
+  </section>
+  <aside id="detail-panel" class="detail-panel" aria-hidden="true" inert aria-label="Formulario y privacidad del estudio">
+    <header class="panel-head"><div><small>ESTUDIO DE AUTOR / EXPERIENCIA</small><strong id="panel-location">SERVICIOS</strong></div><button class="panel-close" id="panel-close" aria-label="Cerrar información" type="button">✕</button></header>
+    <div class="panel-scroll">
+      <section class="panel-screen" data-screen-content="servicios" aria-labelledby="servicios-title">
+        <p class="panel-kicker">01 / QUÉ HACEMOS</p><h2 id="servicios-title">La herramienta correcta.<br><em>Para tu idea.</em></h2>
+        <p class="intro-text">Creamos soluciones digitales por etapas: un proyecto personal, apoyado por herramientas de IA, diseño visual y colaboradores especializados cuando se necesitan.</p>
+        <div class="service-catalog">
+          <details open><summary><span>01</span> WEB & UX/UI <b>+</b></summary><p>Landing pages, WordPress, tiendas sencillas, estructuras web, interfaces y experiencia de usuario.</p></details>
+          <details><summary><span>02</span> CONTENIDO & DISEÑO <b>+</b></summary><p>Branding funcional, imágenes, creatividades para redes, presentaciones y gráficos con Canva y herramientas de IA.</p></details>
+          <details><summary><span>03</span> VIDEO & STORYTELLING <b>+</b></summary><p>Guiones, edición de video con Filmora y producción visual según alcance y disponibilidad.</p></details>
+          <details><summary><span>04</span> MARKETING & AUTOMATIZACIÓN <b>+</b></summary><p>SEO básico, embudos de captación, mejora de conversión, formularios e integraciones viables.</p></details>
+          <details><summary><span>05</span> PRODUCTO & WEB3 <b>+</b></summary><p>Exploración de apps web, DApps, experiencias blockchain y prototipos. Las funciones críticas requieren validación y especialistas.</p></details>
+        </div>
+        <p class="disclaimer">No ofrecemos entregables ilimitados ni garantizamos programación especializada, resultados de marketing o seguridad financiera sin evaluación previa.</p>
+        <button class="button button-dark full" type="button" data-screen="membresias">Ver los cinco planes <span>→</span></button>
+      </section>
+      <section class="panel-screen" data-screen-content="portafolio" aria-labelledby="portafolio-title">
+        <p class="panel-kicker">02 / TRABAJO PROPIO</p><h2 id="portafolio-title">Tres ideas.<br><em>Tres mundos.</em></h2>
+        <p class="intro-text">Casos propios que muestran cómo planteamos productos, marcas y experiencias digitales.</p>
+        <a href="https://peekdex.com" target="_blank" rel="noopener noreferrer" class="case"><div class="case-image lilac"><img src="https://raw.githubusercontent.com/MacachyMazo/PAGINA-WEB-IA/main/wp-content/themes/estudio-de-autor/assets/images/peekdex-logo.png" alt="Logo de PeekDex"></div><div><small>COMUNIDAD / COLECCIONISMO</small><h3>PeekDex <span>↗</span></h3><p>Concepto de plataforma para coleccionistas de cartas con comunidad, contenido y comercio desarrollados por etapas.</p></div></a>
+        <a href="https://iq-bites.com" target="_blank" rel="noopener noreferrer" class="case"><div class="case-image cream"><img src="https://raw.githubusercontent.com/MacachyMazo/PAGINA-WEB-IA/main/wp-content/themes/estudio-de-autor/assets/images/iq-bites-logo.png" alt="Logo original de IQ-Bites"></div><div><small>BRANDING / COMERCIO</small><h3>IQ-Bites <span>↗</span></h3><p>Marca de snacks con identidad visual, contenido comercial y experiencia digital para presentar productos y facilitar pedidos.</p></div></a>
+        <a href="https://estacionamientogube.com.mx" target="_blank" rel="noopener noreferrer" class="case"><div class="case-image mint"><img src="https://raw.githubusercontent.com/MacachyMazo/PAGINA-WEB-IA/main/wp-content/themes/estudio-de-autor/assets/images/gube-logo.png" alt="Logo de Estacionamiento GUBE"></div><div><small>SERVICIO LOCAL / EXPERIENCIA</small><h3>GUBE <span>↗</span></h3><p>Presencia digital para estacionamiento y herramientas para clientes, con autofacturación como proyecto en desarrollo.</p></div></a>
+        <p class="disclaimer">No atribuimos métricas comerciales ni funcionalidades productivas sin comprobación.</p>
+        <button class="button button-dark full" type="button" data-screen="diagnostico">Quiero mi proyecto <span>→</span></button>
+      </section>
+      <section class="panel-screen" data-screen-content="membresias" aria-labelledby="membresias-title">
+        <p class="panel-kicker">03 / CINCO NIVELES</p><h2 id="membresias-title">Tu equipo creativo.<br><em>A tu ritmo.</em></h2>
+        <p class="intro-text">Elige cuánto acompañamiento necesitas. En cada plan las horas son limitadas y las entregas se acuerdan antes de cobrar.</p>
+        <div class="plan-choice-row" role="tablist" aria-label="Selecciona suscripción">
+          <button type="button" role="tab" data-plan="Inicio">01</button><button type="button" role="tab" data-plan="Impulso">02</button><button type="button" role="tab" data-plan="Presencia">03</button><button type="button" role="tab" data-plan="Evolución">04</button><button type="button" role="tab" data-plan="Integral">05</button>
+        </div>
+        <div class="selected-plan" role="tabpanel" aria-live="polite"><div class="selected-top"><small id="selected-number">NIVEL / 04</small><small id="selected-hours">9 HORAS MENSUALES</small></div><h3 id="selected-name">Evolución</h3><p id="selected-tagline"></p><div class="selected-price"><strong id="selected-price">$10,900</strong><span>MXN / MES<br>IVA SEGÚN CORRESPONDA</span></div><ul id="selected-benefits"></ul><p class="plan-warning" id="selected-limit"></p><button type="button" id="plan-apply" class="button button-dark full">Solicitar este plan <span>→</span></button></div>
+        <p class="disclaimer">Hosting del cliente, APIs, dominios, licencias y publicidad no están incluidos. Discord comunitario y voz en Integral se ofrecerán cuando se encuentren habilitados, con cita y dentro del horario disponible.</p>
+      </section>
+      <section class="panel-screen" data-screen-content="diagnostico" aria-labelledby="diagnostico-title">
+        <p class="panel-kicker">04 / CONVERSEMOS</p><h2 id="diagnostico-title">Una buena idea<br><em>empieza aquí.</em></h2>
+        <p class="intro-text">Describe tu objetivo sin tecnicismos. Revisaremos la viabilidad, la agenda y el alcance antes de proponerte un plan.</p>
+        <form id="studio-form" class="studio-form" novalidate>
+          <div class="fields"><label>Nombre *<input name="name" autocomplete="name" minlength="2" maxlength="100" required placeholder="Tu nombre"></label><label>Negocio<input name="company" maxlength="120" placeholder="Opcional"></label></div>
+          <label>Correo *<input type="email" name="email" autocomplete="email" maxlength="160" required placeholder="hola@tuempresa.com"></label>
+          <label>WhatsApp<input name="phone" autocomplete="tel" maxlength="30" placeholder="Opcional"></label>
+          <div class="fields"><label>Servicio<select name="service" id="form-service"><option>Web / WordPress</option><option>Diseño / redes</option><option>Video / guiones</option><option>SEO / marketing</option><option>Prototipos / automatización</option><option>Blockchain / viabilidad</option><option>Otra idea</option></select></label><label>Plan<select name="plan" id="form-plan"><option>Inicio</option><option>Impulso</option><option>Presencia</option><option selected>Evolución</option><option>Integral</option></select></label></div>
+          <label>¿Qué necesitas resolver? *<textarea name="description" required minlength="15" maxlength="2000" rows="4" placeholder="Cuéntanos qué necesitas cambiar, crear o mejorar…"></textarea></label>
+          <label class="honeypot" aria-hidden="true">Sitio web<input name="website" tabindex="-1" autocomplete="off"></label>
+          <label class="consent"><input type="checkbox" name="consent" value="1" required><span>Autorizo utilizar mis datos para responder esta solicitud. <button type="button" class="text-button" data-screen="privacidad">Ver privacidad</button>.</span></label>
+          <div class="form-result" id="form-result" role="status" aria-live="polite"></div>
+          <button type="submit" id="submit-form" class="button button-dark full">Enviar mi proyecto <span>↗</span></button><small class="form-note">Sin cobro inmediato. Los enlaces de Mercado Pago se enviarán después de aprobar el alcance y la disponibilidad.</small>
+        </form>
+      </section>
+      <section class="panel-screen" data-screen-content="privacidad">
+        <p class="panel-kicker">TRANSPARENCIA</p><h2>Tu información<br><em>es tuya.</em></h2><p class="intro-text">Los datos se almacenan en WordPress para evaluar y responder esta solicitud. La demostración local no los almacena ni transmite.</p>
+        <p class="disclaimer">Antes de publicar comercialmente se requiere aviso integral de privacidad, domicilio y contacto del responsable, tratamiento y derechos ARCO, condiciones comerciales y política de cancelación.</p><button type="button" class="button button-dark full" data-screen="diagnostico">Regresar al formulario →</button>
+      </section>
+    </div>
+    <footer class="panel-footer">ESTUDIO DE AUTOR <span>✳</span> PROYECTOS POR ETAPAS</footer>
+  </aside>
+  <div id="panel-scrim" class="panel-scrim"></div>
+</main>
+<div class="site-underbar"><span>ESTUDIO DE AUTOR © 2026 · OFICINA DIGITAL, NO SEDE FÍSICA ABIERTA AL PÚBLICO</span><button type="button" data-screen="privacidad">Privacidad</button></div>
+</div>
+
+
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>
