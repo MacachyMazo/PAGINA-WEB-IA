@@ -39,6 +39,7 @@
     <button type="button" data-screen="servicios">Servicios</button>
     <button type="button" data-screen="portafolio">Proyectos</button>
     <button type="button" data-screen="membresias">Membresías</button>
+    <button type="button" data-screen="discord">Discord</button>
     <button type="button" class="header-contact" data-screen="diagnostico">Solicitar diagnóstico <span aria-hidden="true">↗</span></button>
   </nav>
   <button type="button" class="nav-menu-btn" id="nav-menu-btn" aria-expanded="false" aria-controls="direct-nav" aria-label="Abrir menú">☰</button>
@@ -79,7 +80,7 @@
     <div class="studio-progress" id="studio-progress" aria-live="polite">
       <span class="studio-progress-kicker">EXPEDICIÓN / 01</span>
       <strong>Tu recorrido, a tu ritmo.</strong>
-      <span class="studio-progress-caption" id="studio-progress-caption">Encuentra los cuatro espacios del estudio.</span>
+      <span class="studio-progress-caption" id="studio-progress-caption">Encuentra los cinco espacios del estudio.</span>
       <div class="studio-progress-bar"><span id="studio-progress-fill"></span></div>
     </div>
     <button id="studio-map-toggle" class="studio-map-toggle" type="button" aria-expanded="false" aria-controls="studio-map">⌖ <span>Mapa</span></button>
@@ -91,6 +92,7 @@
         <button type="button" data-goto="portafolio" class="map-node map-portfolio"><b>02</b><span>Proyectos</span></button>
         <button type="button" data-goto="membresias" class="map-node map-members"><b>03</b><span>Planes</span></button>
         <button type="button" data-goto="diagnostico" class="map-node map-diagnostic"><b>04</b><span>Reunión</span></button>
+        <button type="button" data-goto="discord" class="map-node map-discord"><b>05</b><span>Discord</span></button>
         <span class="studio-map-avatar" id="studio-map-avatar" aria-hidden="true">▲</span>
       </div>
       <p>Elige una zona para llegar directamente. También puedes caminar con WASD.</p>
@@ -104,11 +106,12 @@
       <div class="welcome-meta"><span>OFICINA INTERACTIVA</span><span>◦</span><span>100% REMOTO</span><span>◦</span><span>MÉXICO</span></div>
     </div>
     <aside class="wayfinding" id="wayfinding" aria-label="Puntos de interés de la oficina">
-      <div class="wayfinding-label">ORIENTACIÓN EN EL ESTUDIO <span id="discovery-count">00 / 04</span></div>
+      <div class="wayfinding-label">ORIENTACIÓN EN EL ESTUDIO <span id="discovery-count">00 / 05</span></div>
       <button type="button" data-goto="servicios"><span class="wayfinding-number">01</span><span><strong>Zona creativa</strong><small>Servicios</small></span><span aria-hidden="true">↗</span></button>
       <button type="button" data-goto="portafolio"><span class="wayfinding-number">02</span><span><strong>Monitor principal</strong><small>Proyectos</small></span><span aria-hidden="true">↗</span></button>
       <button type="button" data-goto="membresias"><span class="wayfinding-number">03</span><span><strong>Panel de acceso</strong><small>Planes</small></span><span aria-hidden="true">↗</span></button>
       <button type="button" data-goto="diagnostico"><span class="wayfinding-number">04</span><span><strong>Mesa de reuniones</strong><small>Diagnóstico</small></span><span aria-hidden="true">↗</span></button>
+      <button type="button" data-goto="discord"><span class="wayfinding-number">05</span><span><strong>Terminal de comunicación</strong><small>Discord · Chat y voz</small></span><span aria-hidden="true">↗</span></button>
     </aside>
     <div class="game-hud" id="game-hud">
       <div class="controls-tip"><b>W ↑</b> AVANZAR <span>·</span> <b>S ↓</b> VOLVER <span>·</span> <b>A / D</b> LADOS <span>·</span> <b>RATÓN</b> MIRAR <span>·</span> <b>E</b> INTERACTUAR</div>
@@ -117,7 +120,7 @@
     </div>
     <div class="mobile-pad" id="mobile-pad" aria-label="Controles de movimiento táctiles"><button type="button" data-move="forward" aria-label="Caminar adelante">↑</button><div><button type="button" data-move="left" aria-label="Mover izquierda">←</button><button type="button" data-move="back" aria-label="Caminar atrás">↓</button><button type="button" data-move="right" aria-label="Mover derecha">→</button></div></div>
     <button type="button" class="mobile-interact" id="interact-button">INTERACTUAR <span>↗</span></button>
-    <div class="screen-fallback-navigation" id="fallback-navigation"><span>También puedes navegar sin usar el mundo 3D:</span><button type="button" data-screen="servicios">Servicios</button><button type="button" data-screen="portafolio">Portafolio</button><button type="button" data-screen="membresias">Planes</button><button type="button" data-screen="diagnostico">Diagnóstico</button></div>
+    <div class="screen-fallback-navigation" id="fallback-navigation"><span>También puedes navegar sin usar el mundo 3D:</span><button type="button" data-screen="servicios">Servicios</button><button type="button" data-screen="portafolio">Portafolio</button><button type="button" data-screen="membresias">Planes</button><button type="button" data-screen="diagnostico">Diagnóstico</button><button type="button" data-screen="discord">Discord</button></div>
   </section>
   <aside id="detail-panel" class="detail-panel" aria-hidden="true" inert aria-label="Formulario y privacidad del estudio">
     <header class="panel-head"><div><small>ESTUDIO DE AUTOR / EXPERIENCIA</small><strong id="panel-location">SERVICIOS</strong></div><button class="panel-close" id="panel-close" aria-label="Cerrar información" type="button">✕</button></header>

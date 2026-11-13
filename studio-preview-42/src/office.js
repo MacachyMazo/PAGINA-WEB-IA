@@ -11,7 +11,8 @@ const locations={
  servicios:{label:'LABORATORIO CREATIVO',x:-4.3,z:-.64,stand:[-2.8,0,1.55],color:'#6de7e9',summary:'Diseño, web, video, SEO e IA con alcances definidos.'},
  portafolio:{label:'PORTAFOLIO',x:0,z:-4.85,stand:[.35,0,-1.25],color:'#b5c0ff',summary:'PeekDex, IQ-Bites y GUBE: proyectos propios.'},
  membresias:{label:'MEMBRESÍAS',x:4.10,z:-4.26,stand:[2.30,0,-1.12],color:'#cbbaff',summary:'Cinco suscripciones con horas y precios mensuales.'},
- diagnostico:{label:'DIAGNÓSTICO',x:2.95,z:3.67,stand:[.3,0,4.42],color:'#9ef0d3',summary:'Revisamos tu idea antes de contratar.'}
+ diagnostico:{label:'DIAGNÓSTICO',x:2.95,z:3.67,stand:[.3,0,4.42],color:'#9ef0d3',summary:'Revisamos tu idea antes de contratar.'},
+ discord:{label:'DISCORD',x:-4.72,z:3.00,stand:[-2.5,0,3.1],color:'#a3a8ff',summary:'Widget de comunidad, mensajería y acceso a voz o vídeo.'}
 };
 const plans={
  Inicio:{n:'01',price:790,hours:.5,tag:'Una mejora pequeña, con atención personal.',features:['30 minutos de trabajo mensual','Una revisión o microtarea acordada','Seguimiento escrito','Discord comunitario cuando esté habilitado'],limit:'No incluye crear una página completa.'},
@@ -29,7 +30,7 @@ function dismiss(){started=true;intro.classList.add('dismissed');app.classList.a
 const visited=new Set();
 const map=selectOne('#studio-map'),mapToggle=selectOne('#studio-map-toggle');
 const mapClose=selectOne('#studio-map-close');
-const locOrder=['servicios','portafolio','membresias','diagnostico'];
+const locOrder=['servicios','portafolio','membresias','diagnostico','discord'];
 const stationText = {
   servicios: {object:'Pantalla de diseño',action:'ver servicios'},
   portafolio: {object:'Monitor principal',action:'ver proyectos'},
@@ -67,11 +68,11 @@ function markDiscovered(key) {
  if(!locOrder.includes(key))return;
  visited.add(key);
  const count=String(visited.size).padStart(2,'0');
- selectOne('#discovery-count').textContent=count+' / 04';
- selectOne('#studio-progress-fill').style.width=(visited.size*25)+'%';
- selectOne('#studio-progress-caption').textContent=visited.size===4?
+ selectOne('#discovery-count').textContent=count+' / 05';
+ selectOne('#studio-progress-fill').style.width=(visited.size*20)+'%';
+ selectOne('#studio-progress-caption').textContent=visited.size===5?
    'Recorrido completo. Cuéntanos qué quieres construir.':
-   'Descubiertos '+visited.size+' de 4 espacios.';
+   'Descubiertos '+visited.size+' de 5 espacios.';
  for(const k of locOrder){
    selectAll('[data-goto="'+k+'"]').forEach(el=>el.classList.toggle('visited',visited.has(k)));
  }
@@ -80,9 +81,9 @@ function markDiscovered(key) {
 function closeMenu(){selectOne('#direct-nav').classList.remove('is-open');selectOne('#nav-menu-btn').setAttribute('aria-expanded','false');}
 selectOne('#nav-menu-btn').addEventListener('click',()=>{let o=!selectOne('#direct-nav').classList.contains('is-open');selectOne('#direct-nav').classList.toggle('is-open',o);selectOne('#nav-menu-btn').setAttribute('aria-expanded',String(o));});
 function open(name){
-  if(!['servicios','portafolio','membresias','diagnostico','privacidad'].includes(name))return;
+  if(!['servicios','portafolio','membresias','diagnostico','discord','privacidad'].includes(name))return;
   dismiss();closeMenu();hideMap();markDiscovered(name);
-  if(name==='servicios'||name==='portafolio'||name==='membresias'){
+  if(name==='servicios'||name==='portafolio'||name==='membresias'||name==='discord'){
     close();
     window.EDA_V4?.focus(name,true);
     message('Mira hacia la zona: la información aparecerá en un holograma.');

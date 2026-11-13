@@ -1,5 +1,6 @@
 import './styles.css';
 import 'aframe';
+import './studio-config.js';
 import './scene-v4.js';
 import './office.js';
 import './holo-v4.js';
@@ -7,3 +8,5 @@ import './graphics-v43.js';
 import './office-v32.css';
 import './cinematic.css';
 import './cinematic.js';
+import './spatial-v5.css';
+import './spatial-v5.js';

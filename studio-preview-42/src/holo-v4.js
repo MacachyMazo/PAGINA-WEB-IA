@@ -12,7 +12,8 @@ const destinations={
   servicios: {target:[-4.3,1.52,-.64],anchor:[-3.62,1.88,-.10],color:'#6de7e9',label:'ZONA CREATIVA'},
   portafolio:{target:[0,1.56,-4.85],anchor:[1.14,1.91,-3.19],color:'#b5c0ff',label:'PORTAFOLIO'},
   membresias:{target:[4.10,1.8,-4.26],anchor:[2.85,1.90,-2.86],color:'#cbbaff',label:'MEMBRESÍAS'},
-  diagnostico:{target:[2.95,1.77,3.67],anchor:[1.77,1.88,3.10],color:'#9ef0d3',label:'DIAGNÓSTICO'}
+  diagnostico:{target:[2.95,1.77,3.67],anchor:[1.77,1.88,3.10],color:'#9ef0d3',label:'DIAGNÓSTICO'},
+  discord:{target:[-4.72,1.56,3.00],anchor:[-3.35,1.92,2.28],color:'#a3a8ff',label:'DISCORD / COMUNIDAD'}
 };
 const activePlans=[
   {name:'Inicio',price:'$790',time:'30 MIN',detail:'Microtarea y seguimiento escrito'},
@@ -84,6 +85,12 @@ function draw(id) {
    }
    ctxText(cx,'SELECCIÓN: '+activePlans[currentPlan].name.toUpperCase(),55,934,'#a6f0f3','bold 27px Arial');
    ctxText(cx,'TECLAS 1–5: COMPARAR   •   E: DIAGNÓSTICO',55,994,'#dbe8ed','23px Arial');
+ } else if(id==='discord'){
+   title('UNA CONVERSACIÓN PUEDE CREARLO TODO.');y+=74;
+   item('CANAL DE TEXTO','Escríbenos en el servidor de Estudio de Autor cuando esté configurado.');
+   item('SALA DE VOZ','Reuniones por cita para los planes que incluyan esa modalidad.');
+   item('VIDEOLLAMADA','Se inicia dentro de Discord; no capturamos vídeo desde la web.');
+   ctxText(cx,'WIDGET OFICIAL Y ENLACES AL MIRAR ESTA ESTACIÓN',55,944,'#b4c4ff','bold 24px Arial');
  } else if(id==='diagnostico'){
    title('CUÉNTANOS QUÉ QUIERES CONSTRUIR.');y+=77;
    item('01 / TU IDEA','Cuéntanos el problema que necesitas resolver, sin tecnicismos.');
@@ -127,7 +134,7 @@ function chooseFocus(id,hold=false){
  // Direct links bring the visitor close enough to read, rather than opening a sidebar.
  const stands={
   servicios:[-2.8,0,1.55],portafolio:[.35,0,-1.25],
-  membresias:[2.30,0,-1.12],diagnostico:[.3,0,4.42]
+  membresias:[2.30,0,-1.12],diagnostico:[.3,0,4.42],discord:[-2.5,0,3.1]
  };
  if(rigPos)rigPos.set(...stands[id]);
  const look=destinations[id].target;

@@ -300,6 +300,18 @@ const buildStudio = () => {
   box(2.95,1.78,3.68,2.10,1.25,.03,metal('#203f4b',.22,.3));
   textMesh('P R O J E C T   B R I E F',2.95,1.97,3.636,1.93,'#d9f7ff');
   decal(2.95,1.33,3.63,1.6,.025,'#63dfeb',.9);
+  // Discord / COMMS workstation: 3D terminal integrated in the architecture.
+  box(-4.72,.78,3.05,2.24,.10,.76,trimMat);
+  for(const x of [-5.61,-3.83])box(x,.39,3.06,.07,.7,.07,dark);
+  box(-4.72,1.64,3.42,1.78,1.18,.13,dark);
+  box(-4.72,1.64,3.35,1.61,1.02,.025,metal('#28364f',.35,.3));
+  textMesh('D I S C O R D / C O M M S',-4.72,1.83,3.311,1.52,'#d7dcff');
+  decal(-4.72,1.43,3.315,1.38,.03,'#939efa',.87);
+  for(let i=0;i<6;i++)decal(-5.30+i*.23,1.20,3.315,.15,.015,'#b0aff0',.72);
+  box(-4.72,.93,2.77,.93,.032,.34,dark);
+  for(let i=0;i<4;i++)box(-5.03+i*.20,.956,2.74,.12,.01,.15,steel);
+  cylinder(-5.47,.91,2.83,.085,.17,trimMat);
+  textMesh('CONNECT / CREATE / COLLABORATE',-4.72,2.43,3.47,2.00,'#e1e7ff');
   // Art direction: display cabinet, plants with metallic planters, pendant lamps.
   for(let y of [.65,1.27,1.88,2.5])box(-5.45,y,2.07,.38,.055,2.35,steel);
   for(let i=0;i<13;i++){
