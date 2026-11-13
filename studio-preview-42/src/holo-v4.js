@@ -44,7 +44,7 @@ function draw(id) {
  const can=canvases[id],cx=can.getContext('2d'),W=1024,H=1072;
  cx.clearRect(0,0,W,H);
  const g=cx.createLinearGradient(0,0,1024,1072);
- g.addColorStop(0,'rgba(8,28,43,.12)');g.addColorStop(.65,'rgba(5,19,32,.08)');g.addColorStop(1,'rgba(11,31,42,.06)');
+ g.addColorStop(0,'rgba(8,28,43,.88)');g.addColorStop(.65,'rgba(5,19,32,.84)');g.addColorStop(1,'rgba(11,31,42,.80)');
  cx.fillStyle=g;cx.fillRect(0,0,W,H);
  cx.strokeStyle='rgba(123,235,245,.35)';cx.lineWidth=4;// Open hologram: no enclosing window frame.
  for(let y=70;y<1060;y+=34){cx.fillStyle='rgba(124,214,238,.023)';cx.fillRect(22,y,980,1)}
@@ -57,7 +57,7 @@ function draw(id) {
  const title=(s,yOff=0)=>ctxText(cx,s,55,y+yOff,'#9de7ef','bold 31px Arial');
  const item=(name,desc)=>{
    ctxText(cx,name,55,y,'#f4f7fa','bold 31px Arial');y+=39;
-   cx.font='24px Arial';cx.fillStyle='#b7cbd3';y=wrap(cx,desc,55,y,897,33,3)+29;
+   cx.font='30px Arial';cx.fillStyle='#b7cbd3';y=wrap(cx,desc,55,y,897,39,3)+29;
  };
  if(id==='servicios'){
    title('UN ESTUDIO. MUCHAS FORMAS DE CREAR.'); y+=65;
@@ -84,7 +84,7 @@ function draw(id) {
      y+=120;
    }
    ctxText(cx,'SELECCIÓN: '+activePlans[currentPlan].name.toUpperCase(),55,934,'#a6f0f3','bold 27px Arial');
-   ctxText(cx,'TECLAS 1–5 O CONTROLES DEL HOLOGRAMA',55,994,'#dbe8ed','23px Arial');
+   ctxText(cx,'1–5: ELEGIR  /  E: DETALLES Y SUSCRIPCIÓN',55,994,'#dbe8ed','23px Arial');
  } else if(id==='discord'){
    title('UNA CONVERSACIÓN PUEDE CREARLO TODO.');y+=74;
    item('CANAL DE TEXTO','Escríbenos en el servidor de Estudio de Autor cuando esté configurado.');
@@ -109,7 +109,7 @@ function createHologram(id) {
  const tx=new THREE.CanvasTexture(c);
  tx.colorSpace=THREE.SRGBColorSpace;tx.anisotropy=4;
  const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:true,toneMapped:false});
- const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.2),mat);
+ const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.35,2.46),mat);
  obj.position.set(...destinations[id].anchor);obj.scale.set(.87,.87,1);
  obj.visible=false;scene.object3D.add(obj);
  const lineMat=new THREE.LineBasicMaterial({color:new THREE.Color(destinations[id].color),transparent:true,opacity:.0,depthWrite:false});
@@ -135,7 +135,7 @@ function chooseFocus(id,hold=false){
  // Direct links bring the visitor close enough to read, rather than opening a sidebar.
  const stands={
   servicios:[-1.25,0,-.6],portafolio:[0,0,-1.25],
-  membresias:[1.25,0,-.6],diagnostico:[.2,0,4.4],discord:[-1.25,0,4.4]
+  membresias:[.1,0,-1.5],diagnostico:[.2,0,4.4],discord:[-1.25,0,4.4]
  };
  if(rigPos)rigPos.set(...stands[id]);
  const look=destinations[id].target;
@@ -178,7 +178,7 @@ function gazeTick(now){
  else if(!candidate&&!uiHovered&&now-lookSince>820){focused=null;}
  const blocked=document.querySelector('#detail-panel')?.classList.contains('open');
  for(const [id,x] of Object.entries(entities)){
-   const target=focused===id&&!blocked&&id!=='portafolio'?1:0;
+   const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY)?1:0;
    const mat=materials[id],mesh=x.mesh;
    const prev=mat.opacity;
    mat.opacity+=(target*.93-mat.opacity)*.18;
@@ -190,7 +190,7 @@ function gazeTick(now){
  }
  const hints=document.querySelector('#status-help');
  if(hints&&focused&&!blocked){
-   hints.textContent=focused==='membresias'?'Mira las membresías. Pulsa 1–5 para comparar; E para diagnóstico.':
+   hints.textContent=focused==='membresias'?'Membresías: elige 1–5 y pulsa E para ver beneficios y suscripción.':
      focused==='diagnostico'?'Diagnóstico: revisa el proceso en el holograma.':
      'Estás consultando '+destinations[focused].label.toLowerCase()+' mediante un holograma.';
  }
@@ -215,6 +215,7 @@ document.addEventListener('keydown',e=>{
 });
 window.EDA_V4={
  focus:chooseFocus,
+ get planIndex(){return currentPlan},
  clearFocus,
  setPlan,
  get active(){return focused},
