@@ -22,6 +22,17 @@
  const status=()=>window.EDA_V4?.active;
  const add=(tag,parent,attrs={})=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e};
  const groups=[];
+ const T=window.AFRAME.THREE;
+ function caption(parent,lines,width,height,y){
+   const c=document.createElement('canvas');c.width=768;c.height=Math.round(768*height/width);
+   const cx=c.getContext('2d');cx.fillStyle='#071b2bf5';cx.fillRect(0,0,c.width,c.height);
+   cx.textAlign='center';cx.textBaseline='middle';
+   lines.forEach((line,i)=>{cx.font=(i===0?'600 ':'400 ')+(i===0?38:32)+'px Arial';cx.fillStyle=i===0?'#e8faff':'#bed4dd';cx.fillText(line,384,34+i*44);});
+   const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;
+   const mesh=new T.Mesh(new T.PlaneGeometry(width,height),new T.MeshBasicMaterial({map:tx,transparent:true,depthTest:false,depthWrite:false,toneMapped:false}));
+   mesh.position.set(0,y,.045);mesh.renderOrder=51;parent.object3D.add(mesh);
+ }
+
  let selectedProject=0;
  document.addEventListener('eda:project-select',event=>{selectedProject=Math.max(0,Math.min(2,event.detail));});
  document.addEventListener('eda:project-open',()=>{if(status()==='portafolio'){window.EDA_SFX?.play('confirm');window.open(projects[selectedProject].link,'_blank','noopener,noreferrer');}});
@@ -31,10 +42,9 @@
   projects.forEach((p,i)=>{
    const node=add('a-entity',root,{position:`${p.x} 2.3 -4.65`,rotation:`0 ${i===0?10:i===2?-10:0} 0`});
    add('a-plane',node,{width:'.96',height:String(p.height),position:'0 .06 .034',
-    material:`shader:mono-hologram;src:${p.asset};mode:${p.mode};transparent:true;side:double;depthWrite:false`});
-   add('a-text',node,{value:p.name,align:'center',color:'#e8faff',
-    position:'0 -.49 .042',width:'2.3','wrap-count':'28',
-    material:'color:#e8faff;shader:flat'});
+    material:`shader:mono-hologram;src:${p.asset};mode:${p.mode};transparent:true;side:double;depthWrite:false;depthTest:false`});
+   const descriptions=[['Comunidad de coleccionistas','Contenido y comercio digital'],['Marca de snacks','Identidad y experiencia de compra'],['Estacionamiento en Zapopan','Presencia y servicios digitales']];
+   caption(node,[p.name,...descriptions[i]],1.82,.48,-.55);
    add('a-box',node,{width:'.85',height:'.017',depth:'.025',position:'0 -.63 .031',
     material:'color:#78deea;emissive:#5bc9dd;emissiveIntensity:1.2'});
    const target=add('a-plane',node,{class:'interactive-object',width:'1.08',
@@ -56,9 +66,7 @@
    groups.push({node,i,x:p.x});
   });
   const laser=add('a-entity',root,{position:'0 1.15 -4.65'});
-  add('a-text',laser,{value:'1-3: ELEGIR PROYECTO / E: ABRIR',
-   color:'#a5eef3',align:'center',width:'3.5',
-   position:'0 0 0','side':'double'});
+  caption(laser,['1–3: elegir proyecto  ·  E: visitar página'],3.5,.22,0);
   let last=0,visible=false;
   function frame(t){
    if(!document.body.contains(scene))return;

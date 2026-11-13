@@ -36,7 +36,7 @@
   }
   const wood=makeTexture('wood'),leather=makeTexture('leather'),brushed=makeTexture('steel');
   const metallic=(c=.72,r=.32,map)=>new THREE.MeshPhysicalMaterial({color:'#e9eff0',map,metalness:c,roughness:r,clearcoat:0.14,clearcoatRoughness:.35});
-  const walnut=new THREE.MeshPhysicalMaterial({map:wood,metalness:.05,roughness:.48,clearcoat:.24,clearcoatRoughness:.31,color:'#c6a88e'});
+  const walnut=new THREE.MeshPhysicalMaterial({metalness:.02,roughness:.62,clearcoat:.16,clearcoatRoughness:.4,color:'#eeeae0'});
   const upholstery=new THREE.MeshStandardMaterial({map:leather,metalness:.08,roughness:.91,color:'#b1b5b8',bumpMap:leather,bumpScale:.009});
   const chrome=metallic(.94,.19,brushed);
   const titanium=metallic(.84,.38,brushed);
@@ -118,10 +118,21 @@
     m.rotation.y=.04*(i-4);
   }
   add(new THREE.BoxGeometry(.11,.013,.06),chrome,-4.73,.913,-.21);
-  // Hardware grooves: brushed steel vent rails inside the lounge.
-  for(const x of [-5.66,5.65])for(let j=0;j<17;j++){
-    add(new THREE.BoxGeometry(.028,.038,.33),titanium,x,.62+j*.078,-4.85);
+
+  const ivory=new THREE.MeshStandardMaterial({color:'#dedbd2',roughness:.78,metalness:.02});
+  const fabric=new THREE.MeshStandardMaterial({color:'#878e81',roughness:1,metalness:0});
+  const rug=add(new THREE.BoxGeometry(5.3,.018,3.25),fabric,0,.008,-3.9);
+  for(const x of [-1.64,1.64]){
+    roundbox(.62,.69,1.10,.024,ivory,x,.39,-4.32);
+    for(const y of [.23,.45,.65])add(new THREE.BoxGeometry(.48,.009,.012),rubber,x,y,-3.758);
   }
+  // Warm white lampshade on a dark stem, matching the supplied interior reference.
+  add(new THREE.CylinderGeometry(.12,.12,.025,24),rubber,-1.72,.92,-4.54);
+  add(new THREE.CylinderGeometry(.012,.012,.48,12),titanium,-1.72,1.17,-4.54);
+  add(new THREE.BoxGeometry(.29,.28,.25),new THREE.MeshStandardMaterial({
+    color:'#f4eddf',roughness:.95,emissive:'#e7c999',emissiveIntensity:.22
+  }),-1.72,1.49,-4.54);
+
   // Optional 2D performance warning is not injected into the 3D scene.
   window.EDA_REALISM_V6={ready:true,textures:['walnut','leather','brushed titanium'],detailLevel:mobile?'mobile':'desktop'};
  }

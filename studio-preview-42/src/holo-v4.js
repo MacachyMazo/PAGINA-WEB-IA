@@ -41,78 +41,75 @@ const wrap=(ctx,value,x,y,maxW,lh=38,maxLines=6)=>{
  if(line)ctx.fillText(line,x,y);
  return y+lh;
 };
+// One typography scale and one reading distance for every information surface.
+window.EDA_HOLO = {
+  scale(position, camera, height=2.46, width=2.35) {
+    const bounds=document.querySelector('#scene-container').getBoundingClientRect();
+    const v=position.clone().applyMatrix4(camera.matrixWorldInverse);
+    const depth=Math.max(.5,-v.z);
+    const pixels=Math.min(bounds.height*.70, (bounds.width-48)*height/width, 760);
+    return Math.max(.25,Math.min(4,pixels*2*depth/(bounds.height*camera.projectionMatrix.elements[5]*height)));
+  }
+};
 function draw(id) {
  const can=canvases[id],cx=can.getContext('2d'),W=1024,H=1072;
  cx.clearRect(0,0,W,H);
- const g=cx.createLinearGradient(0,0,1024,1072);
- g.addColorStop(0,'rgba(8,28,43,.88)');g.addColorStop(.65,'rgba(5,19,32,.84)');g.addColorStop(1,'rgba(11,31,42,.80)');
+ const g=cx.createLinearGradient(0,0,W,H);
+ g.addColorStop(0,'rgba(9,31,43,.98)');g.addColorStop(1,'rgba(5,18,28,.96)');
  cx.fillStyle=g;cx.fillRect(0,0,W,H);
- cx.strokeStyle='rgba(123,235,245,.35)';cx.lineWidth=4;// Open hologram: no enclosing window frame.
- for(let y=70;y<1060;y+=34){cx.fillStyle='rgba(124,214,238,.023)';cx.fillRect(22,y,980,1)}
- cx.fillStyle=destinations[id].color;cx.fillRect(52,66,67,6);
- ctxText(cx,'ESTUDIO DE AUTOR     /     EXPERIENCIA ESPACIAL',52,115,'#b4d6e1','bold 22px Arial');
- ctxText(cx,destinations[id].label,52,190,'#f9fafd','bold 67px Arial');
- cx.fillStyle='rgba(170,221,237,.22)';cx.fillRect(52,216,920,2);
- let y=270;
- const small=(s,yOff=0)=>ctxText(cx,s,55,y+yOff,'#bdd1d9','25px Arial');
- const title=(s,yOff=0)=>ctxText(cx,s,55,y+yOff,'#9de7ef','bold 31px Arial');
- const item=(name,desc)=>{
-   ctxText(cx,name,55,y,'#f4f7fa','bold 31px Arial');y+=39;
-   cx.font='30px Arial';cx.fillStyle='#b7cbd3';y=wrap(cx,desc,55,y,897,39,3)+29;
+ cx.fillStyle='#8de7eb';cx.fillRect(56,44,72,4);
+ ctxText(cx,'ESTUDIO DE AUTOR',56,96,'#9cbcc8','600 24px Arial');
+ const headings={servicios:'Ideas que toman forma',portafolio:'Proyectos del estudio',membresias:'Elige tu membresía',discord:'Conversemos',diagnostico:'Tu próximo proyecto'};
+ ctxText(cx,headings[id],56,177,'#f1fbff','600 54px Arial');
+ const subtitles={servicios:'Diseño, tecnología y contenido a tu medida.',portafolio:'Tres marcas. Tres maneras de crear.',membresias:'Tiempo dedicado a tus ideas. Precios en MXN / mes.',discord:'Un espacio para conectar y trabajar juntos.',diagnostico:'Primero entendemos tu idea. Después, el plan.'};
+ ctxText(cx,subtitles[id],56,231,'#bed3dc','30px Arial');
+ cx.fillStyle='#8de7eb40';cx.fillRect(56,263,912,1);
+ let y=324;
+ const item=(name,desc,index)=>{
+   ctxText(cx,String(index).padStart(2,'0'),56,y,'#7cbdc7','26px Arial');
+   ctxText(cx,name,116,y,'#eef9fc','600 34px Arial');
+   cx.font='32px Arial';cx.fillStyle='#c1d6df';
+   wrap(cx,desc,116,y+48,850,43,2);
+   y+=154;
  };
  if(id==='servicios'){
-   title('UN ESTUDIO. MUCHAS FORMAS DE CREAR.'); y+=65;
-   item('WEB & PRODUCTO','WordPress, landing pages, tiendas sencillas, UX/UI y prototipos de aplicaciones web.');
-   item('DISEÑO & CONTENIDO','Identidad visual, creatividades para redes, imágenes y presentaciones con Canva e IA.');
-   item('VIDEO & COMUNICACIÓN','Guiones, edición con Filmora, contenidos cortos y narrativa comercial.');
-   item('CRECIMIENTO & TECNOLOGÍA','SEO, embudos, automatizaciones viables e ideas Web3 evaluadas por etapas.');
- } else if(id==='portafolio'){
-   title('TRES PROYECTOS REALES DEL ESTUDIO.');y+=69;
-   item('PEEKDEX / COMUNIDAD DIGITAL','Plataforma conceptual para coleccionistas de cartas, contenidos y comercio digital por etapas.');
-   item('IQ-BITES / MARCA Y COMERCIO','Identidad, catálogo, comunicación y experiencia de compra de una marca de snacks.');
-   item('GUBE / SERVICIO LOCAL','Presencia web y herramientas para clientes de un estacionamiento; autofacturación en desarrollo.');
-   ctxText(cx,'PROYECTOS PROPIOS  /  FUNCIONES EN EVOLUCIÓN',55,960,'#83bfcc','bold 22px Arial');
- } else if(id==='membresias'){
-   title('CINCO NIVELES. HORAS CLARAS.');y+=50;
+   item('Web y producto','Páginas, tiendas, UX/UI y prototipos para dar el siguiente paso.',1);
+   item('Diseño y contenido','Identidad, redes sociales, imágenes y presentaciones.',2);
+   item('Video y comunicación','Guiones, edición y contenido breve con intención comercial.',3);
+   item('Crecimiento y tecnología','SEO, embudos y automatizaciones evaluadas por etapas.',4);
+ }else if(id==='membresias'){
    for(let i=0;i<activePlans.length;i++){
-     const plan=activePlans[i],active=i===currentPlan;
-     cx.fillStyle=active?'rgba(117,219,230,.2)':'rgba(255,255,255,.045)';
-     cx.fillRect(49,y-27,928,102);
-     if(active){cx.fillStyle='#79e6f1';cx.fillRect(49,y-27,7,102)}
-     ctxText(cx,'0'+(i+1)+'  '+plan.name,74,y+18,active?'#f9ffff':'#cedee4','bold 32px Arial');
-     ctxText(cx,plan.price,744,y+18,active?'#b5f9ff':'#f3e1c9','bold 33px Arial');
-     ctxText(cx,plan.time+' / MES',74,y+52,'#9fc0cb','22px Arial');
-     y+=120;
+     const p=activePlans[i],on=i===currentPlan,top=294+i*110;
+     cx.fillStyle=on?'#73dce820':'#ffffff06';cx.fillRect(56,top,912,96);
+     if(on){cx.fillStyle='#91e9ed';cx.fillRect(56,top,3,96);}
+     ctxText(cx,'0'+(i+1),78,top+41,'#8cc8d1','26px Arial');
+     ctxText(cx,p.name,144,top+41,'#f1fbff','600 34px Arial');
+     ctxText(cx,p.time+' de trabajo',144,top+76,'#bdd2da','26px Arial');
+     cx.textAlign='right';ctxText(cx,p.price,940,top+49,'#cef5ef','600 34px Arial');cx.textAlign='left';
    }
-   ctxText(cx,'SELECCIÓN: '+activePlans[currentPlan].name.toUpperCase(),55,934,'#a6f0f3','bold 27px Arial');
-   ctxText(cx,'1–5: ELEGIR  /  E: DETALLES Y SUSCRIPCIÓN',55,994,'#dbe8ed','23px Arial');
- } else if(id==='discord'){
-   title('UNA CONVERSACIÓN PUEDE CREARLO TODO.');y+=74;
-   item('CANAL DE TEXTO','Escríbenos en el servidor de Estudio de Autor cuando esté configurado.');
-   item('SALA DE VOZ','Reuniones por cita para los planes que incluyan esa modalidad.');
-   item('VIDEOLLAMADA','Se inicia dentro de Discord; no capturamos vídeo desde la web.');
-   ctxText(cx,'WIDGET OFICIAL Y ENLACES AL MIRAR ESTA ESTACIÓN',55,944,'#b4c4ff','bold 24px Arial');
- } else if(id==='diagnostico'){
-   title('CUÉNTANOS QUÉ QUIERES CONSTRUIR.');y+=77;
-   item('01 / TU IDEA','Cuéntanos el problema que necesitas resolver, sin tecnicismos.');
-   item('02 / DIAGNÓSTICO','Revisamos el alcance y si el proyecto cabe en la agenda.');
-   item('03 / PROPUESTA','Recibes una recomendación de plan y horas antes de pagar.');
-   ctxText(cx,'PULSA E PARA ESCRIBIR TU PROYECTO',55,840,'#a3f2e0','bold 30px Arial');
-   ctxText(cx,'SIN COBROS AUTOMÁTICOS EN LA DEMO',55,936,'#b6d0d4','23px Arial');
+ }else if(id==='diagnostico'){
+   item('Cuéntanos tu idea','Qué necesitas resolver y dónde quieres llegar.',1);
+   item('Revisamos el alcance','Evaluamos prioridades, viabilidad y disponibilidad.',2);
+   item('Recibe una propuesta','Acordamos el plan y las horas antes de pagar.',3);
+   ctxText(cx,'Sin cobros automáticos al enviar tu consulta.',116,841,'#a8c7d2','28px Arial');
+ }else if(id==='discord'){
+   item('Canal de texto','Conversación y seguimiento dentro de Discord.',1);
+   item('Voz por cita','Reuniones según el alcance de tu membresía.',2);
+ }else{
+   item('PeekDex','Comunidad digital para coleccionistas.',1);
+   item('IQ-Bites','Identidad y comercio para una marca de snacks.',2);
+   item('GUBE','Presencia digital para un servicio local.',3);
  }
- // Deliberately no fake ROI claims or unlimited-service promises.
- ctxText(cx,'ASISTENCIA PERSONAL  /  SERVICIOS POR SUSCRIPCIÓN',55,1038,'#74a9b7','20px Arial');
- const tex=materials[id].map;
- tex.needsUpdate=true;
+ materials[id].map.needsUpdate=true;
 }
 function createHologram(id) {
  const c=document.createElement('canvas');c.width=1024;c.height=1072;canvases[id]=c;
  const tx=new THREE.CanvasTexture(c);
  tx.colorSpace=THREE.SRGBColorSpace;tx.anisotropy=4;
- const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:true,toneMapped:false});
+ const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:false,toneMapped:false});
  const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.35,2.46),mat);
  obj.position.set(...destinations[id].anchor);obj.scale.set(.87,.87,1);
- obj.visible=false;scene.object3D.add(obj);
+ obj.visible=false;obj.renderOrder=50;scene.object3D.add(obj);
  const lineMat=new THREE.LineBasicMaterial({color:new THREE.Color(destinations[id].color),transparent:true,opacity:.0,depthWrite:false});
  const outline=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(2.71,2.83)),lineMat);
  obj.add(outline);
@@ -185,10 +182,10 @@ function gazeTick(now){
    const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY)&&!(id==='diagnostico'&&window.EDA_BRIEF_OPEN)&&!(id==='membresias'&&window.EDA_MEMBERSHIP_EXPANDED)?1:0;
    const mat=materials[id],mesh=x.mesh;
    const prev=mat.opacity;
-   mat.opacity+=(target*.93-mat.opacity)*.18;
+   mat.opacity+=(target*1-mat.opacity)*.18;
    x.outline.material.opacity=0;
    mesh.visible=mat.opacity>.014;
-   const scale=.88+(mat.opacity/.93)*.12;
+   const scale=window.EDA_HOLO.scale(mesh.position,camObj);
    mesh.scale.set(scale,scale,1);
    if(mesh.visible)mesh.lookAt(pos);
  }

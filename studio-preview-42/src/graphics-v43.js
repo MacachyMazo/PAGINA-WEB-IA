@@ -58,28 +58,7 @@
   }
   const textile=flatTex('#27323c',6200,.94);
   const brushing=flatTex('#87959b',5100,.26);
-  // High-detail ceiling: HVAC vents with vanes, recessed fixtures, visible fasteners.
-  const ventMat=rough('#131f29',.83,.4);
-  for(const x of [-4.6,-1.7,1.7,4.6])for(const z of [-4.6,-1.2,2.5]){
-    add(x,3.32,z,1.20,.08,.64,graphite);
-    for(let i=0;i<7;i++)add(x-.48+i*.16,3.275,z,.045,.012,.52,ventMat);
-    for(let i=0;i<4;i++)add(x-.43+i*.29,3.269,z+.25,.035,.012,.02,satin);
-  }
-  // Bevelled casing accents in the architecture, and micro bolted panels.
-  for(const x of [-5.94,5.94])for(let z=-5.6;z<=5.6;z+=1.18){
-     const depth=x<0?.1:-.1;
-     add(x+depth,2.72,z,.08,.36,.84,brushing);
-     add(x+depth*1.2,2.72,z,.024,.19,.63,graphite);
-     for(const yy of [2.56,2.88])for(const zz of [z-.37,z+.37]){
-       const screw=new THREE.Mesh(new THREE.CylinderGeometry(.019,.019,.008,12),graphite);
-       screw.rotation.z=Math.PI/2;screw.position.set(x+depth*1.7,yy,zz);root.add(screw);
-     }
-  }
-  // Premium sound-treated wall ribs with independent shadow and subtle metal wear.
-  for(let z=-5.5;z<=5.4;z+=.74){
-    add(-6.07,1.29,z,.052,1.8,.048,brushing);
-    add(6.07,1.29,z,.052,1.8,.048,brushing);
-  }
+  // Quiet architectural detail: avoid industrial wall armor and dense vent grids.
   // Desk details: physical keys with slight rounded profiles and secondary macro pad.
   const keyMat=rough('#161d26',.22,.45);
   for(let row=0;row<4;row++){
@@ -167,7 +146,7 @@
   requestAnimationFrame(animateFrame);
   // Ambient volumetric fake: restrained edge light beams, no aggressive neon.
   const glowMaterial=new THREE.MeshBasicMaterial({color:'#93d5f0',transparent:true,opacity:.065,depthWrite:false,side:THREE.DoubleSide});
-  for(let x of [-5.7,5.7]){
+  for(let x of []){
     const beam=new THREE.Mesh(new THREE.PlaneGeometry(.5,4.1),glowMaterial);
     beam.position.set(x,1.6,1.2);beam.rotation.y=x>0?Math.PI/2:-Math.PI/2;root.add(beam);
   }

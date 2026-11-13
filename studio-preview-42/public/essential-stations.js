@@ -27,6 +27,15 @@
     .world-html-hologram>button{margin-top:12px;padding:10px;color:#c5f8ff;background:#123f51;border:1px solid #80dfff;cursor:pointer}
     .world-html-hologram details{font-size:12px;line-height:1.6;margin-top:12px}.world-html-hologram summary{cursor:pointer}
   `;
+  style.textContent+=`
+    .world-html-hologram{font:16px/1.5 Arial,sans-serif;border-radius:4px;border-color:#91e8ff50;box-shadow:0 0 32px #70e9ff18;padding:28px;background:linear-gradient(145deg,#091f2bfa,#05121cf5);scrollbar-width:thin;scrollbar-color:#74bdc7 #0b2130}
+    .world-html-hologram h2{font:600 26px/1.2 Arial;margin:0 0 24px}
+    .world-html-hologram .studio-form label{font:500 14px/1.5 Arial}
+    .world-html-hologram .studio-form input:not([type=checkbox]),.world-html-hologram .studio-form select,.world-html-hologram .studio-form textarea{font:16px/1.5 Arial;min-height:42px}
+    .world-html-hologram .studio-form .consent,.world-html-hologram .form-note{font:13px/1.6 Arial}
+    #discord-world-widget{border-radius:4px;box-shadow:0 0 32px #70e9ff18}
+    #discord-world-widget p{font:16px/1.7 Arial;white-space:pre-line}
+    `;
   document.head.appendChild(style);
   function show(name) {
     if (!names.includes(name)) return;
@@ -46,7 +55,7 @@
     window.EDA_V4?.setPlan(i);
     redrawDetails?.();
     methods?.setAttribute('visible', false);
-    if (status) status.setAttribute('value', 'Selecciona un medio de pago.');
+    if (status) status.setValue( 'Selecciona un medio de pago.');
   }
   function expand() {
     if (window.EDA_V4?.active !== 'membresias') return;
@@ -102,65 +111,96 @@
       const root = add('a-entity', scene, { id, position, visible: false });
       roots.push(root); return root;
     }
-    function text(parent, value, y, width = 2.6) {
-      return add('a-text', parent, { value, position: `0 ${y} .04`, align: 'center', width, color: '#ecfcff', 'wrap-count': 32 });
+    // Canvas labels share the same physical font size as the information texture.
+    // A-Frame's default text width previously made action labels several times larger.
+    function labelSurface(parent,value,x,y,width,height=.22,size=30) {
+      const node=add('a-plane',parent,{position: `${x} ${y} .04`,width,height,
+        material:'shader:flat;transparent:true;opacity:0;depthWrite:false'});
+      const canvas=document.createElement('canvas');
+      canvas.width=Math.round(width*436);canvas.height=Math.round(height*436);
+      const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
+      const mesh=new THREE.Mesh(new THREE.PlaneGeometry(width,height),new THREE.MeshBasicMaterial({
+        map:texture,transparent:true,depthTest:false,depthWrite:false,toneMapped:false,side:THREE.DoubleSide
+      }));
+      mesh.renderOrder=52;node.object3D.add(mesh);
+      node.setValue=(value,button=false)=>{
+        const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
+        if(button){ctx.fillStyle='#123d4b';ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.strokeStyle='#8fe5e955';ctx.lineWidth=2;ctx.strokeRect(1,1,canvas.width-2,canvas.height-2);}
+        let fontSize=size;ctx.font=`500 ${fontSize}px Arial`;
+        while(ctx.measureText(value).width>canvas.width-24&&fontSize>20){ctx.font=`500 ${--fontSize}px Arial`;}
+        ctx.fillStyle=button?'#e6fbfc':'#afcbd6';ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(value,canvas.width/2,canvas.height/2);texture.needsUpdate=true;
+      };
+      node.setValue(value);
+      return node;
     }
-    function button(parent, label, x, y, width, action) {
-      const plane = add('a-plane', parent, { position: `${x} ${y} .03`, width, height: .28, class: 'holo-action', material: 'shader:flat;color:#123f51;transparent:true;opacity:.94;side:double' });
-      add('a-text', parent, { value: label, position: `${x} ${y} .05`, align: 'center', width: width * 2.6, color: '#c9faff', 'wrap-count': 24 });
-      plane.addEventListener('click', event => { event.stopPropagation();
+    function text(parent,value,y,width=2.08){return labelSurface(parent,value,0,y,width,.19,25);}
+    function button(parent,label,x,y,width,action) {
+      const plane=labelSurface(parent,label,x,y,width,parent===methods ? .14 : .20,30);
+      plane.classList.add('holo-action');plane.setValue(label,true);
+      plane.addEventListener('click',event=>{
+        event.stopPropagation();
         for(let node=plane;node&&node!==scene;node=node.parentElement){if([false,'false'].includes(node.getAttribute('visible')))return;}
-        window.EDA_SFX?.play('click');action(); });
+        window.EDA_SFX?.play('click');action();
+      });
+      return plane;
     }
-    controls = group('world-membership-controls', '4.55 .43 -1.5');
-    for (let i = 0; i < 5; i++) button(controls, String(i + 1), (i - 2) * .37, .18, .31, () => selectPlan(i));
-    button(controls, 'E / VER BENEFICIOS', 0, -.16, 1.9, expand);
-    details = group('world-plan-details', '3.85 1.85 -1.5');
-    const canvas = document.createElement('canvas'); canvas.width = 900; canvas.height = 1400;
+    controls = group('world-membership-controls', '4.65 1.9 -1.5');
+    for (let i = 0; i < 5; i++) button(controls, String(i + 1), (i - 2) * .37, -.85, .31, () => selectPlan(i));
+    button(controls, 'Ver beneficios  ·  E', 0, -1.10, 2.08, expand);
+    details = group('world-plan-details', '4.65 1.9 -1.5');
+    const canvas = document.createElement('canvas'); canvas.width = 1024; canvas.height = 1072;
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 3.1), new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthWrite: false, toneMapped: false }));
-    details.object3D.add(mesh);
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.35, 2.46), new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthTest:false, depthWrite: false, toneMapped: false }));
+    mesh.renderOrder=50;details.object3D.add(mesh);
     redrawDetails = () => {
-      const p = plans[selected], ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, 900, 1400); ctx.fillStyle = 'rgba(4,19,30,.93)'; ctx.fillRect(0, 0, 900, 1400);
-      ctx.fillStyle = '#8de9ff'; ctx.fillRect(46, 42, 160, 5);
-      function line(value, y, size = 36, color = '#edfaff') { ctx.font = `600 ${size}px Arial`; ctx.fillStyle = color; ctx.fillText(value, 48, y); }
-      function wrap(value, y, size = 34) {
-        ctx.font = `500 ${size}px Arial`; ctx.fillStyle = '#e3f2fa'; let row = '';
-        for (const word of value.split(' ')) { if (ctx.measureText(row + word).width > 800) { ctx.fillText(row, 48, y); y += 46; row = ''; } row += word + ' '; }
-        ctx.fillText(row, 48, y); return y + 46;
+      const p=plans[selected],ctx=canvas.getContext('2d');
+      ctx.clearRect(0,0,1024,1072);
+      const gradient=ctx.createLinearGradient(0,0,1024,1072);gradient.addColorStop(0,'#091f2bfa');gradient.addColorStop(1,'#05121cf5');
+      ctx.fillStyle=gradient;ctx.fillRect(0,0,1024,1072);
+      function line(value,y,size=32,color='#edfaff'){ctx.font=`500 ${size}px Arial`;ctx.fillStyle=color;ctx.fillText(value,56,y);}
+      function wrap(value,y,size=30){
+        ctx.font=`400 ${size}px Arial`;ctx.fillStyle='#c1d6df';let row='';
+        for(const word of value.split(' ')){
+          const next=row?row+' '+word:word;
+          if(ctx.measureText(next).width>912&&row){ctx.fillText(row,56,y);y+=40;row=word;}else row=next;
+        }
+        ctx.fillText(row,56,y);return y+40;
       }
-      line('LO QUE INCLUYE', 175, 30, '#8de9ff'); line(p.name.toUpperCase(), 250, 60);
-      line('$' + p.price.toLocaleString('es-MX') + ' MXN / mes', 315, 44);
-      line(p.hours + ' de trabajo mensual', 375, 34, '#9deaff');
-      let y = 470; for (const item of p.items) { y = wrap('• ' + item, y) + 40; }
-      wrap(p.limit, 790, 29); wrap('Impuestos según corresponda. Alcance acordado.', 850, 25);
-      texture.needsUpdate = true;
-
+      ctx.fillStyle='#8de7eb';ctx.fillRect(56,44,72,4);
+      line('MEMBRESÍA / '+String(selected+1).padStart(2,'0'),96,24,'#9cbcc8');
+      line(p.name,177,54);line('$'+p.price.toLocaleString('es-MX')+' MXN / mes',237,38,'#cef5ef');
+      line(p.hours+' de trabajo al mes',288,30,'#bed3dc');
+      ctx.fillStyle='#8de7eb40';ctx.fillRect(56,316,912,1);
+      let y=371;for(const item of p.items){y=wrap('•  '+item,y,32)+16;}
+      y=wrap(p.limit,Math.max(568,y+8),28);
+      line('Impuestos según corresponda. Alcance acordado.',Math.max(648,y+4),25,'#9cbcc8');
+      texture.needsUpdate=true;
     };
-    for(let i=0;i<5;i++)button(details,String(i+1),(i-2)*.36,1.39,.3,()=>selectPlan(i));
-    button(details, 'SUSCRIBIRME / ELEGIR PAGO', 0, -.48, 1.82, () => {
+    for(let i=0;i<5;i++)button(details,String(i+1),.2+i*.18,.99,.16,()=>selectPlan(i));
+    button(details, 'Suscribirme · elegir pago', 0, -.44, 2.08, () => {
       visible(methods, !methods.getAttribute('visible'));
       window.EDA_SFX?.play('open');
     });
     methods = add('a-entity', details, { visible: false });
-    status = text(details, 'Pago seguro al conectar la pasarela.', -.72, 2.45);
-    ['Mercado Pago', 'Apple Pay', 'Google Pay'].forEach((label, i) => button(methods, label, 0, -.94 - i * .22, 1.72, () => {
+    status = text(details, 'Elige una opción para continuar.', -.64, 2.08);
+    ['Mercado Pago', 'Apple Pay', 'Google Pay'].forEach((label, i) => button(methods, label, 0, -.81 - i * .17, 2.08, () => {
       const config = window.EDA_SITE_CONFIG?.checkout?.[plans[selected].name] || {};
       const value = i === 0 ? config.mercadopago : config.stripe;
-      if (!value) { window.EDA_SFX?.play('notice');status.setAttribute('value', label + ': pendiente de conectar. Sin cargos.'); return; }
+      if (!value) { window.EDA_SFX?.play('notice');status.setValue( label + ': pendiente de conectar. Sin cargos.'); return; }
       try {
         const url = new URL(value);
         const valid = i === 0 ? /(^|\.)mercadopago\.com(\.mx)?$/.test(url.hostname) : ['buy.stripe.com', 'checkout.stripe.com'].includes(url.hostname);
         if (url.protocol !== 'https:' || !valid) throw new Error('Invalid checkout');
         window.open(url.href, '_blank', 'noopener,noreferrer');
-      } catch (_) { status.setAttribute('value', 'Enlace de pago no valido. Sin cargos.'); }
+      } catch (_) { status.setValue( 'Enlace de pago no valido. Sin cargos.'); }
     }));
     redrawDetails();
-    const serviceControls=group('world-services-controls','-4.1 .45 -1.5');
-    button(serviceControls,'E / VER MEMBRESIAS',0,0,2.05,()=>interact('servicios'));
-    const briefControls=group('world-brief-controls','3.5 .45 4.4');
-    button(briefControls,'E / ESCRIBIR MI PROYECTO',0,0,2.1,()=>interact('diagnostico'));
+    const serviceControls=group('world-services-controls','-4.65 1.9 -1.5');
+    button(serviceControls,'Explorar membresías  ·  E',0,-1.08,2.08,()=>interact('servicios'));
+    const briefControls=group('world-brief-controls','3.5 1.9 4.4');
+    button(briefControls,'Escribir mi proyecto  ·  E',0,-1.08,2.08,()=>interact('diagnostico'));
     function visible(root,on){
       if(root.getAttribute('visible')===on)return;
       root.setAttribute('visible',on);
@@ -212,7 +252,11 @@
       const camera = cameraEl.getObject3D('camera');
       if (camera) {
         camera.getWorldPosition(cameraPosition);
-        roots.forEach(root => root.object3D.lookAt(cameraPosition));
+        roots.forEach(root => {
+          root.object3D.lookAt(cameraPosition);
+          const scale=window.EDA_HOLO?.scale(root.object3D.position,camera)||1;
+          root.object3D.scale.setScalar(scale);
+        });
         const bounds = document.querySelector('#scene-container').getBoundingClientRect();
         for(const surface of surfaces){
           const {node,anchor,width,height}=surface;
@@ -220,8 +264,8 @@
           const shown=surface.shown()&&!scene.is('vr-mode')&&view.z<0&&projected.z>-1&&projected.z<1&&Math.abs(projected.x)<1.15&&Math.abs(projected.y)<1.15;
           node.classList.toggle('is-visible',shown);node.inert=!shown;node.setAttribute('aria-hidden',String(!shown));
           if(shown){
-            const scale=Math.min((bounds.width-24)/width,(bounds.height-70)/height,bounds.height*camera.projectionMatrix.elements[5]*2.65/(2*-view.z*height));
-            node.style.left=((projected.x+1)*.5*bounds.width)+'px';node.style.top=((1-projected.y)*.5*bounds.height)+'px';
+            const scale=Math.min((bounds.width-24)/width,(bounds.height-70)/height,bounds.height*.72/height);
+            node.style.left=((projected.x+1)*.5*bounds.width)+'px';node.style.top=Math.max(height*scale/2+24,Math.min(bounds.height-height*scale/2-24,(1-projected.y)*.5*bounds.height))+'px';
             node.style.transform=`translate(-50%,-50%) scale(${Math.max(.2,scale)})`;
           }
         }

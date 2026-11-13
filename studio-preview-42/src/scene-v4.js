@@ -23,30 +23,20 @@ const buildStudio = () => {
       ctx.fillRect(x,y,random()*26+.5,random()*.7+.3);
     }
     if(kind==='floor'){
-      for(let y=0;y<=512;y+=128)for(let x=0;x<=512;x+=128){
-        ctx.strokeStyle='#0d161fcc';ctx.lineWidth=4;ctx.strokeRect(x+4,y+4,120,120);
-        ctx.strokeStyle='#92a1a83a';ctx.lineWidth=1.4;ctx.strokeRect(x+10,y+10,108,108);
-        ctx.fillStyle='#0d1924';for(let dx of [15,112])for(let dy of [15,112]){
-          ctx.beginPath();ctx.arc(x+dx,y+dy,3.5,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#c8c0ad';ctx.fillRect(0,0,W,W);
+      for(let row=0;row<8;row++){
+        const y=row*64;ctx.fillStyle=row%3===0?'#c4bba8':row%3===1?'#d2c9b8':'#c9c2b2';
+        ctx.fillRect(0,y,512,63);
+        for(let i=0;i<42;i++){
+          ctx.strokeStyle=i%3?'rgba(108,91,67,.08)':'rgba(255,250,231,.16)';
+          ctx.beginPath();ctx.moveTo(0,y+random()*62);ctx.lineTo(512,y+random()*62);ctx.stroke();
         }
-        ctx.fillStyle='#8299a218';ctx.fillRect(x+32,y+48,66,11);
+        ctx.fillStyle='#9f968744';ctx.fillRect((row%3)*170,y,1,64);
       }
-    } else if(kind==='wall'){
-      for(let y=0;y<512;y+=256)for(let x=0;x<512;x+=256){
-        ctx.fillStyle=highlight;ctx.globalAlpha=.18;ctx.fillRect(x+9,y+9,238,238);ctx.globalAlpha=1;
-        ctx.strokeStyle='#0c151e';ctx.lineWidth=6;ctx.strokeRect(x+5,y+5,246,246);
-        ctx.strokeStyle='#b2c8d435';ctx.lineWidth=2;ctx.strokeRect(x+17,y+17,222,222);
-        ctx.strokeStyle='#8ca5b32c';ctx.lineWidth=2;ctx.beginPath();
-        ctx.moveTo(x+27,y+42);ctx.lineTo(x+91,y+42);ctx.stroke();
-        ctx.fillStyle='#0a1016';
-        for(let dx of [23,228])for(let dy of [23,228]){
-          ctx.beginPath();ctx.arc(x+dx,y+dy,3.5,0,Math.PI*2);ctx.fill();
-        }
-      }
-    } else {
-      for(let y=0;y<512;y+=32){
-        ctx.fillStyle='#b8cbd216';ctx.fillRect(0,y+2,512,1);
-      }
+    }else if(kind==='wall'){
+      ctx.fillStyle='#ddd9ce';ctx.fillRect(0,0,W,W);
+      for(let i=0;i<4000;i++){ctx.fillStyle='rgba(90,80,65,.025)';ctx.fillRect(random()*W,random()*W,2,2);}
+      ctx.fillStyle='#aaa69c55';ctx.fillRect(0,255,512,1);
     }
     const tex=new THREE.CanvasTexture(canvas);
     tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=4;
@@ -57,15 +47,15 @@ const buildStudio = () => {
     new THREE.MeshStandardMaterial({color:clr,metalness,roughness});
   const wall=texture('#45525d','#88969d','wall');
   const floor=texture('#45515a','#69727c','floor');
-  floor.repeat.set(5.5,5.5);
+  floor.repeat.set(3,3);
   wall.repeat.set(2.1,1.8);
   const ribs=texture('#5a666b','#9aacb8','ribs');
   ribs.repeat.set(2,2);
-  const shellMat=new THREE.MeshStandardMaterial({map:wall,color:'#c6cfd5',metalness:.70,roughness:.46,bumpMap:wall,bumpScale:.022});
-  const floorMat=new THREE.MeshStandardMaterial({map:floor,color:'#c0cbd1',metalness:.62,roughness:.52,bumpMap:floor,bumpScale:.026});
-  const trimMat=new THREE.MeshStandardMaterial({map:ribs,color:'#98a4a8',metalness:.82,roughness:.31,bumpMap:ribs,bumpScale:.005});
+  const shellMat=new THREE.MeshStandardMaterial({map:wall,color:'#ffffff',metalness:0,roughness:.92,bumpMap:wall,bumpScale:.003});
+  const floorMat=new THREE.MeshStandardMaterial({map:floor,color:'#ffffff',metalness:.02,roughness:.76,bumpMap:floor,bumpScale:.004});
+  const trimMat=new THREE.MeshStandardMaterial({map:ribs,color:'#b9b9b3',metalness:.28,roughness:.65,bumpMap:ribs,bumpScale:.005});
   const dark=metal('#18242d',.72,.48),steel=metal('#526875',.82,.36);
-  const warm=metal('#a38468',.45,.42),matte=metal('#24333f',.33,.78);
+  const warm=metal('#e9e5da',.03,.6),matte=metal('#24333f',.33,.78);
   const glow=(hex,power=1.5)=>new THREE.MeshBasicMaterial({color:hex,transparent:false,toneMapped:false});
   const frosted=new THREE.MeshStandardMaterial({color:'#79b1be',metalness:.38,roughness:.19,transparent:true,opacity:.34,side:THREE.DoubleSide,depthWrite:false});
   const objects=[];
@@ -166,22 +156,11 @@ const buildStudio = () => {
     }
   }
   box(0,3.5,0,12.8,.25,13.2,shellMat);
-  for(let x=-5.3;x<5.4;x+=1.35){
+  for(let x=-5.3;x<5.4;x+=2.7){
     box(x,3.35,0,.13,.21,12.8,steel);
     for(let z=-5.1;z<5.3;z+=2){
       decal(x,3.22,z,.025,.025,'#eff5ff',.9);
     }
-  }
-  // Titanium floor joints, recessed cyan conduits and raised pathway.
-  for(let z=-5.5;z<=5.6;z+=1.32){
-    box(0,.017,z,12.5,.024,.025,dark);
-    for(const x of [-5.85,-4.44,-3.05,-1.65,1.65,3.05,4.44,5.85]){
-      decal(x,.031,z,.12,.013,'#93b9c6',.52);
-    }
-  }
-  for(let x=-5.8;x<=5.8;x+=1.34)box(x,.02,0,.022,.022,12.3,dark);
-  for(let x of [-2.05,2.05]){
-    box(x,.027,0,.018,.018,11.3,glow('#1b6673'));
   }
   // Ceiling light strips with metal housings.
   for(let z of [-4.8,-2.4,0,2.4,4.8]){
@@ -321,12 +300,18 @@ const buildStudio = () => {
   const planters=[[-5.28,3.37],[5.15,3.55],[-5.30,-3.48]];
   for(const [x,z] of planters){
     cylinder(x,.23,z,.26,.46,dark);
-    for(let i=0;i<9;i++){
-      const a=i*Math.PI*2/9;const y=.74+(i%3)*.18;
-      sphere(x+Math.sin(a)*.23,y,z+Math.cos(a)*.20,.22,
-        metal(i%2?'#355f57':'#477f6b',.05,.95));
+    const leafMat=new THREE.MeshStandardMaterial({color:'#344c31',roughness:.86,side:THREE.DoubleSide});
+    for(let i=0;i<17;i++){
+      const angle=i*2.4,tip=.9+(i%5)*.15;
+      beam([x,.43,z],[x+Math.cos(angle)*.20,tip,z+Math.sin(angle)*.20],.009,leafMat);
+      const shape=new THREE.Shape();shape.moveTo(0,0);
+      shape.quadraticCurveTo(.13,.28,0,.65);shape.quadraticCurveTo(-.13,.28,0,0);
+      const leaf=new THREE.Mesh(new THREE.ShapeGeometry(shape,10),leafMat);
+      leaf.position.set(x+Math.cos(angle)*.2,tip-.1,z+Math.sin(angle)*.2);
+      leaf.rotation.set(.4,angle,(i%2?.4:-.4));root.add(leaf);
     }
   }
+
   // Metallic book-ends, environmental accents, lighting.
   for(const x of [-4.2,0,4.2]){
     box(x,3.13,-6.05,.83,.22,.13,dark);
@@ -360,6 +345,6 @@ const buildStudio = () => {
   // Dedicated diegetic decals, no colored circles / floating signboards.
   panelLabels.forEach(s=>textMesh(s.text,s.x,s.y,s.z,s.w,'#d4f0f1'));
   // No background image, no sky: all directions are enclosed by geometry.
-  window.EDA_SCENE_V4={materialCount:9,geometryCount:objects.length,theme:'titanium laboratory'};
+  window.EDA_SCENE_V4={materialCount:9,geometryCount:objects.length,theme:'warm contemporary studio'};
 };
 window.EDA_SceneV4={build:buildStudio};
