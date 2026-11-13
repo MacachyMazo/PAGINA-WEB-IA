@@ -17,8 +17,9 @@
  ];
  const panel=document.createElement('div');panel.id='eda-spatial-ui';panel.hidden=true;box.appendChild(panel);
  const payList=plans.map((p,i)=>`<button type="button" data-plan="${i}" class="${i===3?'active':''}" aria-pressed="${i===3}"><b>0${i+1}</b><strong>${p.name}</strong><span>$${p.price.toLocaleString('es-MX')}</span></button>`).join('');
- const cards=projects.map((p,i)=>`<article class="eda-project" data-project="${p.id}"><div class="eda-project-index">0${i+1} / CASO</div><div class="eda-project-logo" id="eda-logo-${p.id}"><strong>${p.name}</strong></div><h3>${p.name}</h3><small>${p.tag}</small><p>${p.desc}</p><a href="${p.url}" target="_blank" rel="noopener noreferrer">ABRIR ↗</a></article>`).join('');
+ const cards=projects.map((p,i)=>`<article class="eda-project" data-project="${p.id}"><div class="eda-project-index">0${i+1} / CASO</div><div class="eda-project-logo" id="eda-logo-${p.id}"><img src="/logos/${p.id==='iqbites'?'iq-bites-logo.png':p.id==='peekdex'?'peekdex-logo.png':'gube-logo.png'}" alt="Logotipo original de ${p.name}" loading="eager" decoding="async" /></div><h3>${p.name}</h3><small>${p.tag}</small><p>${p.desc}</p><a href="${p.url}" target="_blank" rel="noopener noreferrer">ABRIR ↗</a></article>`).join('');
  panel.innerHTML=`
+  <button class="eda-holo-dismiss" type="button" aria-label="Cerrar los hologramas" id="eda-holo-close">× <span>Cerrar</span></button>
   <section id="eda-memberships" class="eda-spatial-section" hidden>
    <header class="eda-holo-heading"><small>03 / MEMBRESÍAS</small><strong>ELIGE TU NIVEL</strong><span>HOLOGRAMAS INTERACTIVOS</span></header>
    <div class="eda-members-layout">
@@ -86,7 +87,15 @@
   const g=e.target.closest('[data-gateway]');if(g){pay(g.dataset.gateway);return}
   const d=e.target.closest('[aria-disabled="true"]');if(d){e.preventDefault();el('#eda-discord-note').textContent='Este canal aún no se ha conectado al servidor.'}
  });
- el('#eda-start-pay').addEventListener('click',()=>{el('#eda-pay-options').hidden=!el('#eda-pay-options').hidden});
+ el('#eda-start-pay').addEventListener('click',()=>{
+   el('#eda-pay-options').hidden=!el('#eda-pay-options').hidden;
+   el('#eda-pay-result').textContent='Selecciona una pasarela segura. Las billeteras digitales dependen del navegador y de la cuenta configurada.';
+ });
+ el('#eda-holo-close').addEventListener('click',()=>{
+   window.EDA_V4?.clearFocus?.();
+   panel.hidden=true;
+   active='';
+ });
  function addChannel(selector,url){
   const a=el(selector);a.removeAttribute('href');
   if(typeof url==='string'&&url.startsWith('https://')){a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.removeAttribute('aria-disabled')}
@@ -108,13 +117,15 @@
   addChannel('#eda-video',d.videoChannelUrl||d.voiceChannelUrl);
  }
  function addLogos(){
-  const logos=window.EDA_BRAND_LOGOS||{};
+  const known={peekdex:'/logos/peekdex-logo.png',iqbites:'/logos/iq-bites-logo.png',gube:'/logos/gube-logo.png'};
   projects.forEach(p=>{
-   const url=logos[p.id];
-   if(typeof url==='string'&&url.startsWith('data:image/')){
-    const img=document.createElement('img');img.src=url;img.alt='Logo original de '+p.name;
-    el('#eda-logo-'+p.id).replaceChildren(img);
-   }
+   const node=el('#eda-logo-'+p.id);
+   if(!node)return;
+   const img=new Image();img.alt='Logotipo original de '+p.name;
+   img.loading='eager';img.decoding='async';
+   img.onload=()=>{node.replaceChildren(img);node.classList.add('logo-loaded');};
+   img.onerror=()=>{node.classList.add('logo-missing');node.textContent=p.name;};
+   img.src=known[p.id];
   });
  }
  function frame(t){
@@ -133,5 +144,14 @@
   if(window.EDA_V4?.active==='membresias'&&/^[1-5]$/.test(e.key))choosePlan(Number(e.key)-1);
  });
  choosePlan(3);connectDiscord();addLogos();requestAnimationFrame(frame);
- window.EDA_SPATIAL={choosePlan,refreshLogos:addLogos,refreshDiscord:connectDiscord};
+ window.EDA_SPATIAL={
+   choosePlan,refreshLogos:addLogos,refreshDiscord:connectDiscord,
+   show(name){
+      if(!['membresias','portafolio','discord'].includes(name))return;
+      window.EDA_V4?.focus?.(name,true);
+      active='';
+      panel.hidden=false;
+      el('#'+({membresias:'eda-memberships',portafolio:'eda-portfolio',discord:'eda-discord'}[name])).hidden=false;
+   }
+ };
 })();
