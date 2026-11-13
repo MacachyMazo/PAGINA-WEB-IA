@@ -5,6 +5,9 @@
  * Apple Pay y Google Pay se muestran a través de un checkout habilitado por el proveedor.
  */
 window.EDA_SITE_CONFIG=Object.freeze({
+ monitors:{
+   videoUrl:"" // URL HTTPS de tu MP4/WebM. Se reproducirá en silencio y en loop.
+ },
  discord:{
    serverId:"",                    // ID público del servidor autorizado de Estudio de Autor
    inviteUrl:"",                   // URL de invitación específica de este estudio
