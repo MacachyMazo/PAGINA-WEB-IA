@@ -1,0 +1,64 @@
+
+/* EDICIÓN 5 / Hologramas como objetos de información dentro del recorrido.
+   Los paneles son reactivos a la mirada, no una barra lateral permanente. */
+#eda-spatial-ui{position:absolute;inset:0;z-index:42;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#edfaff;font-family:Manrope,"DM Sans",sans-serif;overflow:visible}
+#eda-spatial-ui[hidden],#eda-spatial-ui [hidden]{display:none!important}
+.eda-spatial-section{pointer-events:auto;position:relative;width:min(1180px,calc(100vw - 390px));max-height:calc(100% - 180px);overflow:auto;scrollbar-color:#80d7e8a8 #080f17a8;filter:drop-shadow(0 0 23px #3c91c538);animation:edaReveal .42s cubic-bezier(.25,.8,.2,1) both}
+.eda-spatial-section::before{content:"";position:absolute;top:9px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#9ce5f3,transparent)}
+.eda-holo-heading{display:flex;align-items:baseline;gap:13px;padding:14px 18px 17px;background:#0a1420e8;border:1px solid #98ddea66;backdrop-filter:blur(17px)}
+.eda-holo-heading small{font-size:9px;color:#93deee;letter-spacing:.15em;white-space:nowrap}
+.eda-holo-heading strong{font-size:15px;letter-spacing:.11em}
+.eda-holo-heading span{margin-left:auto;font-size:9px;color:#afcdd8;white-space:nowrap}
+.eda-members-layout{display:grid;grid-template-columns:minmax(170px,.8fr) minmax(255px,1.24fr) minmax(195px,.85fr);gap:12px;margin-top:12px;align-items:stretch}
+.eda-holo-plate{border:1px solid #87daf081;background:linear-gradient(144deg,#102535f5,#071724e8 80%);padding:18px;box-shadow:inset 0 0 55px #78e4ff0d,0 18px 40px #0008;backdrop-filter:blur(12px);position:relative;overflow:hidden}
+.eda-holo-plate:before{content:"";position:absolute;left:13px;top:0;width:30%;height:3px;background:#a0e8e7;box-shadow:0 0 14px #8ef7f7;opacity:.8}
+.eda-holo-plate:after,.eda-project:after{content:"";pointer-events:none;position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 5px,#b1f5f50b 6px);mix-blend-mode:screen}
+.eda-holo-plate>small{display:block;color:#92dded;font-size:9px;font-weight:850;letter-spacing:.17em;margin-bottom:20px}
+#eda-plans{display:grid;gap:8px}
+#eda-plans button{display:flex;align-items:center;gap:9px;background:#efffff06;border:1px solid #ffffff2f;color:#d9eff1;padding:10px;min-height:51px;text-align:left;cursor:pointer;transition:border .2s,background .2s,transform .2s}
+#eda-plans button:hover{background:#7dd2ff1c;transform:translateX(2px)}
+#eda-plans button.active{border-color:#b1f5fa;background:#73ddea27;box-shadow:inset 3px 0 #92e8ee}
+#eda-plans button>b{color:#84dce3;font-size:11px}
+#eda-plans button>strong{font-size:12px}
+#eda-plans button>span{margin-left:auto;font-size:10px;color:#e4d2bf}
+.eda-holo-benefits h3,.eda-holo-pay h3,.eda-discord-grid h3{font-size:clamp(25px,2.8vw,43px);line-height:1.03;letter-spacing:-.055em;margin:0 0 10px}
+.eda-holo-benefits>p:not(.eda-holo-note){color:#c0dde4;font-size:12px;letter-spacing:.02em}
+.eda-plan-cost{display:flex;align-items:baseline;gap:14px;border-block:1px solid #9ee4f14e;margin:21px 0;padding:16px 0;flex-wrap:wrap}
+.eda-plan-cost strong{font-size:clamp(22px,2.3vw,35px);color:#f5efe2;white-space:nowrap}
+.eda-plan-cost span{font-size:10px;color:#abccd4}
+.eda-holo-benefits ul{padding:0;margin:0;display:grid;gap:11px;list-style:none}
+.eda-holo-benefits li{color:#e0f1f0;font-size:11px;line-height:1.5;padding-left:18px;position:relative}
+.eda-holo-benefits li:before{content:"✓";position:absolute;left:0;color:#9aefe4}
+.eda-holo-note{font-size:10px;color:#b4c9d2;line-height:1.55;margin:20px 0 0}
+.eda-holo-pay{display:flex;flex-direction:column;justify-content:flex-start}
+.eda-holo-pay>p:not(.eda-holo-note){font-size:12px;line-height:1.6;color:#b9d4df}
+.eda-primary{display:block;border:0;background:#d3f0eb;color:#0b2028;font-weight:900;font-size:12px;padding:15px 10px;width:100%;cursor:pointer;margin:10px 0 14px;box-shadow:0 0 25px #84dbf14a}
+.eda-primary:hover{background:#f0f6eb}
+#eda-pay-options{display:grid;gap:6px}
+#eda-pay-options button{display:grid;gap:3px;padding:10px;text-align:left;background:#f0f9ff12;border:1px solid #c1eaff63;color:#eff9fa;cursor:pointer}
+#eda-pay-options button:hover{border-color:#c7f6eb;background:#7acadd2a}
+#eda-pay-options b{font-size:12px}#eda-pay-options small{font-size:9px;color:#aed1df}
+.eda-project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:13px}
+.eda-project{border:1px solid #8fe2ec9f;background:linear-gradient(160deg,#143044eb,#081a27f4);padding:18px;position:relative;box-shadow:0 14px 48px #000b;backdrop-filter:blur(12px);min-height:345px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .22s,border-color .22s}
+.eda-project:hover,.eda-project:focus-within{transform:translateY(-6px);border-color:#d5feff}
+.eda-project-index{font-size:9px;letter-spacing:.18em;color:#9de7ee;align-self:flex-start}
+.eda-project-logo{width:100%;height:124px;display:grid;place-items:center;padding:12px;margin:17px 0 10px;border-block:1px solid #c6f3f044;filter:drop-shadow(0 0 14px #8defff5c)}
+.eda-project-logo img{width:100%;height:100%;object-fit:contain}
+.eda-project-logo strong{font-size:clamp(21px,2.7vw,35px);letter-spacing:-.06em}
+.eda-project h3{font-size:21px;margin:4px 0}.eda-project small{font-size:9px;letter-spacing:.11em;color:#a7d3dd}
+.eda-project p{font-size:11px;color:#cadae1;line-height:1.45;flex:1}
+.eda-project a{display:block;align-self:stretch;color:#071a22;background:#c5f0ec;padding:14px;font-size:11px;font-weight:900;letter-spacing:.1em;text-decoration:none;z-index:2}
+.eda-project a:hover{background:white}
+.eda-discord-grid{display:grid;grid-template-columns:minmax(300px,1fr) minmax(220px,.75fr);gap:13px;margin-top:13px}
+.eda-discord-grid .eda-holo-plate{min-height:420px}
+.eda-widget-slot{min-height:290px;background:#0b1823;border:1px solid #d0e3e450;margin-top:18px;display:grid;place-items:center}
+.eda-widget-slot iframe{width:100%;height:348px;border:0;background:#0c1624}
+.eda-widget-slot p{font-size:12px;color:#c4d8e0;line-height:1.6;text-align:center;max-width:290px;padding:15px}
+.eda-discord-controls>a{display:block;margin-bottom:9px;border:1px solid #a6ebf47a;padding:15px 12px;font-size:11px;color:white;font-weight:800;text-decoration:none;cursor:pointer}
+.eda-discord-controls>a:hover:not([aria-disabled]){background:#8bcbe92b}
+.eda-discord-controls>a[aria-disabled=true]{opacity:.38;cursor:not-allowed}
+@keyframes edaReveal{from{opacity:0;transform:translateY(16px) scale(.97);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@media(max-width:1400px){.eda-spatial-section{width:min(1050px,calc(100vw - 310px))}.eda-members-layout{grid-template-columns: minmax(150px,.75fr) minmax(205px,1.2fr) minmax(165px,.75fr)}.eda-holo-plate{padding:14px}}
+@media(max-width:1000px){.eda-spatial-section{width:min(95vw,850px);max-height:calc(100% - 140px)}.eda-holo-heading span{display:none}.wayfinding{opacity:.25!important;pointer-events:none}.eda-members-layout{grid-template-columns:1fr 1fr}.eda-holo-selector{grid-column:1/-1}.eda-holo-selector #eda-plans{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.eda-holo-selector #eda-plans button{flex-wrap:wrap;align-content:center}.eda-holo-selector #eda-plans button span{margin:0}.eda-project{min-height:325px}}
+@media(max-width:700px){#eda-spatial-ui{align-items:flex-end;padding-bottom:105px}.eda-spatial-section{width:calc(100vw - 20px);max-height:64vh;overflow:auto}.eda-members-layout,.eda-discord-grid,.eda-project-grid{grid-template-columns:1fr}.eda-holo-selector #eda-plans{grid-template-columns:repeat(5,minmax(55px,1fr))}.eda-holo-selector #eda-plans button{font-size:10px;padding:7px}.eda-holo-selector #eda-plans button strong{font-size:10px}.eda-holo-selector #eda-plans button span{font-size:9px}.eda-holo-heading{padding:9px}.eda-holo-heading strong{font-size:12px}.eda-holo-plate{padding:14px}.eda-project{min-height:220px}.eda-project-logo{height:90px}.eda-discord-grid .eda-holo-plate{min-height:250px}}
+@media(prefers-reduced-motion:reduce){.eda-project,.eda-spatial-section{animation:none!important;transition:none!important}}
