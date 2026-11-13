@@ -26,27 +26,39 @@
    const mesh=new T.Mesh(new T.BoxGeometry(w,h,d),m);
    mesh.position.set(x,y,z);root.add(mesh);return mesh;
   };
-  // Physical industrial wall console close to the entrance, facing the visitor.
-  plate(-2.32,1.48,3.50,.58,.82,.13,metal);
-  plate(-2.32,1.48,3.59,.51,.73,.04,shell);
-  const readout=(text,x,y,z,width,color)=>{
-   const e=document.createElement('a-text');
-   e.setAttribute('value',text);e.setAttribute('color',color);
-   e.setAttribute('align','center');e.setAttribute('width',String(width));
-   e.setAttribute('position',`${x} ${y} ${z}`);
-   furn.appendChild(e);return e;
-  };
-  readout('CONTROL / LUZ',-2.32,1.77,3.62,1.68,'#deeff4');
-  readout('PULSA E O L',-2.32,1.18,3.64,1.50,'#c7dbe5');
-  const switchLever=plate(-2.32,1.49,3.66,.20,.23,.12,metal);
-  const indicatorMaterial=new T.MeshBasicMaterial({color:'#6fe5cf'});
-  const indicator=new T.Mesh(new T.CylinderGeometry(.058,.058,.022,24),indicatorMaterial);
-  indicator.rotation.x=Math.PI/2;indicator.position.set(-2.32,1.64,3.69);root.add(indicator);
-  // Emergency lights keep orientation and exits legible while main lights are off.
-  const emergency=new T.PointLight('#d77c58',0,6,2);
-  emergency.position.set(-2.5,2.38,3.65);root.add(emergency);
-  const glow=new T.Mesh(new T.BoxGeometry(.36,.085,.08),new T.MeshBasicMaterial({color:'#86392b'}));
-  glow.position.set(-2.5,2.53,3.69);root.add(glow);
+  // Flush wall switch in the left entrance wall. The room's inner surface
+  // is x=-6.17; backing is partially inset, with <10 cm of visible hardware.
+  // No floating signs or detached console in the room.
+  const wallX=-6.13,wallZ=4.42;
+  const graphite=mat('#202c34',.78,.56);
+  const brushed=mat('#69777c',.86,.32);
+  plate(wallX,1.46,wallZ,.09,.30,.19,graphite);
+  plate(-6.075,1.46,wallZ,.018,.267,.166,brushed);
+  const switchLever=plate(-6.04,1.45,wallZ,.058,.092,.037,graphite);
+  // A tiny flush label, etched on the switch itself.
+  const labelCanvas=document.createElement('canvas');
+  labelCanvas.width=256;labelCanvas.height=128;
+  const labelCtx=labelCanvas.getContext('2d');
+  labelCtx.clearRect(0,0,256,128);
+  labelCtx.textAlign='center';labelCtx.fillStyle='#c2d1d5';
+  labelCtx.font='bold 49px Arial';labelCtx.fillText('LUZ',128,83);
+  const labelTexture=new T.CanvasTexture(labelCanvas);
+  labelTexture.colorSpace=T.SRGBColorSpace;
+  const label=new T.Mesh(new T.PlaneGeometry(.126,.063),
+    new T.MeshBasicMaterial({map:labelTexture,transparent:true,depthWrite:false}));
+  label.rotation.y=Math.PI/2;
+  label.position.set(-6.059,1.364,wallZ);
+  root.add(label);
+  const indicatorMaterial=new T.MeshBasicMaterial({color:'#70c3ab'});
+  const indicator=new T.Mesh(new T.SphereGeometry(.011,12,10),indicatorMaterial);
+  indicator.position.set(-6.053,1.558,wallZ);
+  root.add(indicator);
+  // Emergency luminaire is also physically mounted to the same wall.
+  const emergency=new T.PointLight('#d77c58',0,5,2);
+  emergency.position.set(-5.97,2.63,wallZ);root.add(emergency);
+  const glow=new T.Mesh(new T.BoxGeometry(.032,.045,.20),
+    new T.MeshBasicMaterial({color:'#252327'}));
+  glow.position.set(-6.074,2.63,wallZ);root.add(glow);
   const deskLight=new T.PointLight('#ffdeb7',1.6,3.5,2);
   deskLight.position.set(1.21,1.55,-3.73);root.add(deskLight);
   const bulb=new T.Mesh(new T.SphereGeometry(.095,14,11),new T.MeshBasicMaterial({color:'#ffe4b4'}));
@@ -65,7 +77,7 @@
    furn.appendChild(e);
    switches.push({pos:new T.Vector3(x,y,z),type});
   }
-  addTarget(-2.32,1.48,3.74,.44,.64,'main','Interruptor principal de luces');
+  addTarget(-6.003,1.46,4.42,.14,.29,'main','Apagador empotrado en la pared');
   addTarget(1.32,1.01,-3.70,.18,.14,'desk','Lámpara de escritorio');
   function status(message){
    const el=document.querySelector('#status-help');
@@ -74,6 +86,8 @@
   function apply(on,immediate=false){
    cancelAnimationFrame(animation);
    const old=full.map(x=>x.obj.intensity);
+   const emergencyBefore=emergency.intensity;
+   const exposureBefore=scene.renderer?.toneMappingExposure??1.35;
    const start=performance.now(),duration=immediate?0:650;
    function tick(time){
     const progress=duration?Math.min(1,(time-start)/duration):1;
@@ -82,22 +96,23 @@
      const low=x.type==='ambient'?.085:0.012;
      x.obj.intensity=old[i]+((on?x.initial:low)-old[i])*f;
     });
-    emergency.intensity=(on?0:1.8)*f+(isOn?0:1.8)*(1-f);
-    if(scene.renderer)scene.renderer.toneMappingExposure=on?1.35-.48*(1-f):.87+.48*(1-f);
+    emergency.intensity=emergencyBefore+((on?0:1.12)-emergencyBefore)*f;
+    if(scene.renderer)scene.renderer.toneMappingExposure=exposureBefore+((on?1.35:.88)-exposureBefore)*f;
     if(progress<1)animation=requestAnimationFrame(tick);
    }
    if(!duration)tick(start);else animation=requestAnimationFrame(tick);
-   indicatorMaterial.color.set(on?'#70f0ce':'#df8374');
-   glow.material.color.set(on?'#2a1e22':'#fd7764');
-   switchLever.rotation.x=on?-.32:.32;
+   indicatorMaterial.color.set(on?'#70c3ab':'#c27f72');
+   glow.material.color.set(on?'#252327':'#b86053');
+   switchLever.rotation.z=on?-.25:.25;
    if(hud){
-    hud.innerHTML=on?'☀ <span>Apagar luces</span>':'◐ <span>Encender luces</span>';
+    hud.innerHTML=on?'☼ <span>Luces</span>':'◑ <span>Luces</span>';
+    hud.title=on?'Apagar luces (L)':'Encender luces (L)';
     hud.setAttribute('aria-pressed',String(on));
     hud.setAttribute('aria-label',on?'Apagar luces de la oficina':'Encender luces de la oficina');
    }
   }
   function toggleMain(){
-   const before=isOn;isOn=!isOn;
+   isOn=!isOn;
    apply(isOn);
    status(isOn?'Luces de la oficina encendidas.':'Luces apagadas: iluminación de emergencia activa. Pulsa L para encenderlas.');
    window.EDA_LIGHTS.state=isOn;
