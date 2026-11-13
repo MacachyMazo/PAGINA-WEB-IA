@@ -9,8 +9,8 @@ window.EDA_SITE_CONFIG=Object.freeze({
    videoUrl:"" // URL HTTPS de tu MP4/WebM. Se reproducirá en silencio y en loop.
  },
  discord:{
-   serverId:"",                    // ID público del servidor autorizado de Estudio de Autor
-   inviteUrl:"",                   // URL de invitación específica de este estudio
+   serverId:"1570878284131074199",                    // ID público del servidor autorizado de Estudio de Autor
+   inviteUrl:"https://discord.com/invite/EQrbUX8V",                   // URL de invitación específica de este estudio
    textChannelUrl:"",              // https://discord.com/channels/SERVER_ID/CHANNEL_ID
    voiceChannelUrl:"",             // Canal de voz en Discord; desde allí puede activar cámara
    videoChannelUrl:""              // Puede usar el mismo canal de voz con permiso de vídeo
