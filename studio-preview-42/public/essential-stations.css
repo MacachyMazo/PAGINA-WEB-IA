@@ -40,3 +40,22 @@
 @media(max-width:900px){.essential-grid{grid-template-columns:1fr 1fr}.essential-grid>.essential-card:first-child{grid-column:1/-1}.essential-project-grid{grid-template-columns:1fr}.essential-project{min-height:320px}.essential-project img{height:130px}}
 @media(max-width:600px){.essential-dialog{max-height:88svh}.essential-dialog header{padding:12px;flex-wrap:wrap}.essential-dialog header strong{font-size:13px}.essential-grid{display:grid;grid-template-columns:1fr}.essential-grid>.essential-card:first-child{grid-column:auto}.essential-card{padding:14px}.essential-project-grid{padding:12px}}
 @media(prefers-reduced-motion:reduce){.essential-project{animation:none!important}}
+
+/* Explicit station body visibility, independent of CSS/component default [hidden] rules. */
+#essential-overlay[data-essential-active="portafolio"] #essential-portfolio,
+#essential-overlay[data-essential-active="membresias"] #essential-memberships,
+#essential-overlay[data-essential-active="discord"] #essential-discord{
+ display:block!important;visibility:visible!important;opacity:1!important;
+ position:relative;min-height:200px;
+}
+#essential-overlay[data-essential-active="portafolio"] .essential-project-grid{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+}
+#essential-overlay[data-essential-active="membresias"] .essential-grid{
+ display:grid!important;visibility:visible!important;opacity:1!important;
+}
+@media(max-width:900px){
+ #essential-overlay[data-essential-active="portafolio"] .essential-project-grid{grid-template-columns:1fr!important}
+ #essential-overlay[data-essential-active="membresias"] .essential-grid{grid-template-columns:1fr!important}
+}
