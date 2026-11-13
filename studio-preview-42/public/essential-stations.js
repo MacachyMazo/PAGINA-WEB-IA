@@ -42,7 +42,15 @@ function show(name){
  if(!names.includes(name))return;
  current=name;root.hidden=false;
  $('#essential-heading').textContent=name==='membresias'?'MEMBRESÍAS':name==='portafolio'?'PORTAFOLIO':'DISCORD';
- for(const k of names)$('#essential-'+k).hidden=k!==name;
+ root.setAttribute('data-essential-active',name);
+ for(const k of names){
+   const section=$('#essential-'+k);
+   const selected=k===name;
+   section.hidden=!selected;
+   section.style.setProperty('display',selected?'block':'none','important');
+   section.style.visibility=selected?'visible':'hidden';
+   section.style.opacity=selected?'1':'0';
+ }
  $('#welcome')?.classList.add('dismissed');
  $('#studio-app')?.classList.add('in-tour');
  const cinema=$('#eda-cinema');if(cinema)cinema.hidden=true;
