@@ -59,6 +59,106 @@
 .eda-discord-controls>a[aria-disabled=true]{opacity:.38;cursor:not-allowed}
 @keyframes edaReveal{from{opacity:0;transform:translateY(16px) scale(.97);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @media(max-width:1400px){.eda-spatial-section{width:min(1050px,calc(100vw - 310px))}.eda-members-layout{grid-template-columns: minmax(150px,.75fr) minmax(205px,1.2fr) minmax(165px,.75fr)}.eda-holo-plate{padding:14px}}
-@media(max-width:1000px){.eda-spatial-section{width:min(95vw,850px);max-height:calc(100% - 140px)}.eda-holo-heading span{display:none}.wayfinding{opacity:.25!important;pointer-events:none}.eda-members-layout{grid-template-columns:1fr 1fr}.eda-holo-selector{grid-column:1/-1}.eda-holo-selector #eda-plans{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.eda-holo-selector #eda-plans button{flex-wrap:wrap;align-content:center}.eda-holo-selector #eda-plans button span{margin:0}.eda-project{min-height:325px}}
+@media(max-width:1000px){.eda-spatial-section{width:min(95vw,850px);max-height:calc(100% - 140px)}.eda-holo-heading span{display:none}.wayfinding{opacity:.9!important;pointer-events:auto}.eda-members-layout{grid-template-columns:1fr 1fr}.eda-holo-selector{grid-column:1/-1}.eda-holo-selector #eda-plans{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.eda-holo-selector #eda-plans button{flex-wrap:wrap;align-content:center}.eda-holo-selector #eda-plans button span{margin:0}.eda-project{min-height:325px}}
 @media(max-width:700px){#eda-spatial-ui{align-items:flex-end;padding-bottom:105px}.eda-spatial-section{width:calc(100vw - 20px);max-height:64vh;overflow:auto}.eda-members-layout,.eda-discord-grid,.eda-project-grid{grid-template-columns:1fr}.eda-holo-selector #eda-plans{grid-template-columns:repeat(5,minmax(55px,1fr))}.eda-holo-selector #eda-plans button{font-size:10px;padding:7px}.eda-holo-selector #eda-plans button strong{font-size:10px}.eda-holo-selector #eda-plans button span{font-size:9px}.eda-holo-heading{padding:9px}.eda-holo-heading strong{font-size:12px}.eda-holo-plate{padding:14px}.eda-project{min-height:220px}.eda-project-logo{height:90px}.eda-discord-grid .eda-holo-plate{min-height:250px}}
 @media(prefers-reduced-motion:reduce){.eda-project,.eda-spatial-section{animation:none!important;transition:none!important}}
+
+/* v6.0: visible, persistent holographic station details with real brand artwork */
+#eda-spatial-ui{z-index:95;isolation:isolate}
+#eda-spatial-ui .eda-spatial-section{
+  max-height:min(78vh,810px);
+  width:min(1320px,calc(100vw - 310px));
+  overflow-y:auto;overflow-x:hidden;
+  background:linear-gradient(155deg,#06111d40,#080e1e22);
+  border:1px solid rgba(147,224,238,.21);
+  box-shadow:0 0 70px #26c6ed20,0 30px 96px #0009;
+  border-radius:12px;backdrop-filter:blur(4px)
+}
+#eda-spatial-ui .eda-holo-heading{
+  border-radius:8px 8px 0 0;
+  background:linear-gradient(105deg,#0a1f2be8,#152b3de4);
+  border-bottom:1px solid #8addf18a;
+}
+#eda-spatial-ui .eda-holo-plate,
+#eda-spatial-ui .eda-project{
+  background:linear-gradient(158deg,#0c2937e8,#091422ec 74%);
+  border:1px solid #a0d8ed9c;
+  border-radius:9px;
+  box-shadow:inset 0 0 66px #2a8ca821,0 14px 44px #0008;
+}
+#eda-spatial-ui .eda-project-grid{padding:20px 12px 16px}
+#eda-spatial-ui .eda-project{
+  position:relative;
+  min-height:385px;
+  overflow:visible;
+  animation:edaHoloHover 5s ease-in-out infinite alternate;
+  transform-origin:bottom center;
+}
+#eda-spatial-ui .eda-project:nth-child(2){animation-delay:-1.6s}
+#eda-spatial-ui .eda-project:nth-child(3){animation-delay:-3.4s}
+#eda-spatial-ui .eda-project:before{
+  content:"";position:absolute;left:18%;right:18%;bottom:-13px;height:2px;
+  background:#8ddbf3;box-shadow:0 0 17px 3px #5bcaf56a
+}
+#eda-spatial-ui .eda-project-logo{height:144px;filter:drop-shadow(0 0 15px #7edcf07e)}
+#eda-spatial-ui .eda-project-logo img{
+ width:min(100%,290px);height:100%;max-height:140px;object-fit:contain;
+ filter:drop-shadow(0 0 12px rgba(139,224,243,.42));
+}
+#eda-spatial-ui .eda-project a{
+  border:1px solid #b3edff;
+  border-radius:6px;
+  background:#bbf1ef;
+  color:#091c28;
+  font-size:11px;
+  transition:background .16s, transform .16s;
+}
+#eda-spatial-ui .eda-project a:hover{
+  background:white;transform:translateY(-2px)
+}
+#eda-spatial-ui .eda-members-layout{
+  padding:12px;align-items:stretch;gap:14px;
+  grid-template-columns:minmax(175px,.78fr) minmax(240px,1.18fr) minmax(210px,1fr)
+}
+#eda-spatial-ui .eda-holo-benefits{
+  border-color:#b9f6ed;background:linear-gradient(135deg,#0d3939ee,#081b25ed);
+}
+#eda-spatial-ui .eda-holo-pay{
+  border-color:#f9d9ab;background:linear-gradient(150deg,#32261bdd,#0b1a27ed);
+}
+#eda-spatial-ui .eda-holo-pay:before{background:#f5d4af}
+#eda-spatial-ui .eda-holo-benefits ul{padding-bottom:12px}
+#eda-spatial-ui .eda-holo-note{font-size:10px}
+#eda-spatial-ui #eda-pay-options:not([hidden]){display:grid;gap:8px;margin-bottom:9px}
+#eda-spatial-ui .eda-holo-dismiss{
+ position:absolute;right:10px;top:10px;z-index:11;
+ background:#0b283bea;color:white;
+ border:1px solid #9bddecaa;border-radius:7px;
+ padding:8px 11px;font-size:17px;font-weight:700;cursor:pointer;
+ pointer-events:auto;display:flex;align-items:center;gap:6px
+}
+#eda-spatial-ui .eda-holo-dismiss span{font-size:10px;font-weight:600}
+#eda-spatial-ui .eda-holo-dismiss:hover{background:#245369}
+@keyframes edaHoloHover{
+ from{translate:0 0;filter:drop-shadow(0 0 6px #27a8c022)}
+ to{translate:0 -6px;filter:drop-shadow(0 0 18px #7ce0f044)}
+}
+@media(max-width:1100px){
+ #eda-spatial-ui .eda-spatial-section{width:min(95vw,880px)}
+ #eda-spatial-ui .eda-members-layout{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #eda-spatial-ui .eda-holo-selector{grid-column:1/-1}
+}
+@media(max-width:760px){
+ #eda-spatial-ui{z-index:88;padding-bottom:90px}
+ #eda-spatial-ui .eda-spatial-section{
+   width:calc(100vw - 12px);max-height:69vh;
+   padding:0;overflow:auto
+ }
+ #eda-spatial-ui .eda-members-layout{grid-template-columns:1fr}
+ #eda-spatial-ui .eda-holo-selector{grid-column:auto}
+ #eda-spatial-ui .eda-project-grid{grid-template-columns:1fr}
+ #eda-spatial-ui .eda-project{min-height:255px}
+ #eda-spatial-ui .eda-project-logo{height:95px}
+ #eda-spatial-ui .eda-holo-heading{padding-right:95px}
+}
+@media(prefers-reduced-motion:reduce){#eda-spatial-ui .eda-project{animation:none!important}}
