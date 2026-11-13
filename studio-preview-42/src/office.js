@@ -105,15 +105,9 @@ document.addEventListener('click',e=>{let target=e.target.closest('[data-screen]
 selectOne('#enter-office').addEventListener('click',()=>{dismiss();message('Mira hacia el monitor, las membresías, la zona creativa o la mesa para activar un holograma.');});
 selectOne('#brand-home').addEventListener('click',e=>{e.preventDefault();close();restart();intro.classList.remove('dismissed');started=false;app.classList.remove('in-tour');});
 selectOne('#reset-view').addEventListener('click',()=>{close();restart();message('Volviste a la recepción virtual.');});
-let lightingMode=0;
-selectOne('#soundless').addEventListener('click',()=>{
-  lightingMode=(lightingMode+1)%2;
-  const ambient=scene.querySelector('[light*="type:ambient"]');
-  if(ambient)ambient.setAttribute('light','intensity',lightingMode?1.1:.56);
-  scene.setAttribute('background','color',lightingMode?'#29323a':'#12191e');
-  selectOne('#soundless').innerHTML=lightingMode?'☀ <span>Estudio día</span>':'◐ <span>Estudio noche</span>';
-  message(lightingMode?'Iluminación de día activada.':'Iluminación nocturna activada.');
-});
+// El botón de luz lo controla lighting-switch.js para mantener sincronizado
+// el interruptor físico, la luz ambiental y la tecla L.
+selectOne('#soundless').addEventListener('click',()=>window.EDA_LIGHTS?.toggle?.());
 function showPlan(name){const p=plans[name];if(!p)return;currentPlan=name;selectAll('[data-plan]').forEach(el=>{let yes=el.dataset.plan===name;el.classList.toggle('selected',yes);el.setAttribute('aria-selected',String(yes));});
  selectOne('#selected-number').textContent='NIVEL / '+p.n;selectOne('#selected-hours').textContent=p.hours===.5?'30 MIN / MES':p.hours+' HORAS / MES';selectOne('#selected-name').textContent=name;selectOne('#selected-tagline').textContent=p.tag;selectOne('#selected-price').textContent='MXN '+p.price.toLocaleString('es-MX');selectOne('#selected-benefits').replaceChildren(...p.features.map(t=>{const li=document.createElement('li');li.textContent=t;return li}));selectOne('#selected-limit').textContent=p.limit;selectOne('#form-plan').value=name;}
 selectAll('[data-plan]').forEach(el=>el.addEventListener('click',()=>showPlan(el.dataset.plan)));
