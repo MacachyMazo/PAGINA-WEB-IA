@@ -5,6 +5,8 @@ import './scene-v4.js';
 import './office.js';
 import './holo-v4.js';
 import './graphics-v43.js';
+import './monitor-loops.js';
+import './lighting-switch.js';
 import './office-v32.css';
 import './cinematic.css';
 import './cinematic.js';
