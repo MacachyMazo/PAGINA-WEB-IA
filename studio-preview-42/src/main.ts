@@ -17,3 +17,5 @@ import './spatial-v5.css';
 
 import './portfolio-holograms-v6.js';
 import './direct-station-v6.js';
+
+import './furnishings-v8.js';

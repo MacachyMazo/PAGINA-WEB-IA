@@ -227,13 +227,6 @@ const buildStudio = () => {
     const tor=new THREE.Mesh(new THREE.TorusGeometry(.096,.015,8,24),mat);
     tor.rotation.y=Math.PI/2;tor.position.set(1.88,.24+i*.2,-4.64);root.add(tor);
   }
-  // Ergonomic office chair.
-  box(0,.61,-2.93,.79,.14,.76,dark);
-  box(0,1.15,-3.25,.76,.99,.12,matte);
-  cylinder(0,.33,-2.93,.065,.52,steel);
-  for(let i=0;i<5;i++){
-    const a=i*Math.PI*2/5;beam([0,.12,-2.93],[Math.cos(a)*.43,.12,-2.93+Math.sin(a)*.43],.028,dark);
-  }
   // Left creative laboratory: tool board and product samples.
   box(-4.32,.75,-.05,2.5,.11,1.05,trimMat);
   for(let x of [-5.25,-3.39])for(let z of [-.43,.33])box(x,.37,z,.07,.68,.07,dark);
@@ -264,13 +257,6 @@ const buildStudio = () => {
   cylinder(2.45,.70,2.2,.93,.13,warm);
   cylinder(2.45,.36,2.2,.13,.6,steel);
   cylinder(2.45,.11,2.2,.48,.035,dark);
-  for(let i=0;i<5;i++){
-    const theta=i*2*Math.PI/5;
-    const x=2.45+Math.cos(theta)*1.34,z=2.2+Math.sin(theta)*1.34;
-    box(x,.53,z,.58,.15,.60,matte);
-    box(x,.97,z+Math.sin(theta)*.17,.57,.80,.13,dark,0,-theta+.5,0);
-    cylinder(x,.30,z,.06,.50,steel);
-  }
   box(2.1,.78,2.11,.39,.022,.56,metal('#ccd8d6',.05,.85));
   box(2.7,.79,2.03,.54,.04,.34,dark);
   cylinder(3.08,.87,2.48,.11,.17,trimMat);
@@ -297,21 +283,6 @@ const buildStudio = () => {
     box(-5.43,.82+(i%3)*.61,1.12+Math.floor(i/3)*.44,.27,.32,.20,
       i%3?warm:matte);
   }
-  const planters=[[-5.28,3.37],[5.15,3.55],[-5.30,-3.48]];
-  for(const [x,z] of planters){
-    cylinder(x,.23,z,.26,.46,dark);
-    const leafMat=new THREE.MeshStandardMaterial({color:'#344c31',roughness:.86,side:THREE.DoubleSide});
-    for(let i=0;i<17;i++){
-      const angle=i*2.4,tip=.9+(i%5)*.15;
-      beam([x,.43,z],[x+Math.cos(angle)*.20,tip,z+Math.sin(angle)*.20],.009,leafMat);
-      const shape=new THREE.Shape();shape.moveTo(0,0);
-      shape.quadraticCurveTo(.13,.28,0,.65);shape.quadraticCurveTo(-.13,.28,0,0);
-      const leaf=new THREE.Mesh(new THREE.ShapeGeometry(shape,10),leafMat);
-      leaf.position.set(x+Math.cos(angle)*.2,tip-.1,z+Math.sin(angle)*.2);
-      leaf.rotation.set(.4,angle,(i%2?.4:-.4));root.add(leaf);
-    }
-  }
-
   // Metallic book-ends, environmental accents, lighting.
   for(const x of [-4.2,0,4.2]){
     box(x,3.13,-6.05,.83,.22,.13,dark);

@@ -18,7 +18,7 @@
     if (!Audio || muted) return;
     try { context ||= new Audio(); context.resume().then(()=>{startScore();label();}).catch(() => {}); } catch (_) {}
   }
-  // Original ambient score, synthesized locally: warm pads and a restrained arpeggio.
+  // Original sports-commercial score: driving drums, bass and a rising melodic pulse.
   let cinemaActive=false,score=null;
   function stopScore(){
     if(!score||!context)return;
@@ -31,7 +31,7 @@
     if(!cinemaActive||muted||document.hidden||context?.state!=='running'||score)return;
     const bus=context.createGain(),filter=context.createBiquadFilter(),now=context.currentTime;
     bus.gain.setValueAtTime(0,now);bus.gain.linearRampToValueAtTime(.30,now+1.1);
-    filter.type='lowpass';filter.frequency.value=1800;filter.Q.value=.4;
+    filter.type='lowpass';filter.frequency.value=3400;filter.Q.value=.4;
     filter.connect(bus);bus.connect(context.destination);
     const voices=[];score={bus,voices};
     const note=(midi,start,length,level,type='sine',detune=0)=>{
@@ -45,9 +45,35 @@
     const chords=[[45,52,57,60],[41,48,53,57],[48,55,60,64],[43,50,55,62]];
     chords.forEach((chord,index)=>{
       const at=now+index*3.4;
-      chord.forEach((pitch,i)=>note(pitch,at,4.2,.055,'triangle',i%2?3:-3));
-      for(let i=0;i<6;i++)note(chord[i%4]+12,at+.35+i*.48,.85,.025);
+      chord.forEach((pitch,i)=>note(pitch,at,3.8,.035,'triangle',i%2?4:-4));
+      for(let i=0;i<8;i++){
+        note(chord[0]-12,at+i*.425,.32,.10,'triangle');
+        note(chord[i%4]+12,at+i*.425,.30,.04,'triangle');
+      }
     });
+    function kick(at,power){
+      const osc=context.createOscillator(),env=context.createGain();osc.frequency.setValueAtTime(145,at);osc.frequency.exponentialRampToValueAtTime(43,at+.16);
+      env.gain.setValueAtTime(power,at);env.gain.exponentialRampToValueAtTime(.0001,at+.30);
+      osc.connect(env);env.connect(bus);osc.start(at);osc.stop(at+.32);voices.push(osc);osc.onended=()=>{osc.disconnect();env.disconnect();};
+    }
+    const buffer=context.createBuffer(1,Math.ceil(context.sampleRate*.2),context.sampleRate);
+    const data=buffer.getChannelData(0);let seed=17;for(let i=0;i<data.length;i++){seed=seed*16807%2147483647;data[i]=(seed/2147483647)*2-1;}
+    function percussion(at,length,level,cutoff){
+      const src=context.createBufferSource(),env=context.createGain(),hp=context.createBiquadFilter();src.buffer=buffer;hp.type='highpass';hp.frequency.value=cutoff;
+      env.gain.setValueAtTime(level,at);env.gain.exponentialRampToValueAtTime(.0001,at+length);
+      src.connect(hp);hp.connect(env);env.connect(bus);src.start(at);src.stop(at+length+.01);voices.push(src);
+      src.onended=()=>{src.disconnect();hp.disconnect();env.disconnect();};
+    }
+    for(let i=0;i<32;i++){
+      const at=now+i*.425,build=i/32;
+      kick(at,i<8?.15:.23);
+      if(i%2)percussion(at,.14,.10+build*.045,1200);
+      if(i>=8)percussion(at+.2125,.045,.035,6500);
+    }
+    // Short accelerating fill leads into the final title, then a clear downbeat.
+    for(let i=0;i<6;i++)percussion(now+8.1+i*.12,.07,.045+i*.012,1800);
+    kick(now+8.86,.28);note(69,now+8.86,2.5,.06);note(76,now+8.86,2.5,.035);
+
   }
   document.addEventListener('eda:cinema-start',()=>{cinemaActive=true;stopScore();startScore();});
   document.addEventListener('eda:cinema-stop',()=>{cinemaActive=false;stopScore();});

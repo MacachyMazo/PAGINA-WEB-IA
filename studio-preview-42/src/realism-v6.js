@@ -86,17 +86,6 @@
     webcam.rotation.z=Math.PI/2;
     add(new THREE.SphereGeometry(.018,12,9),glass,x,1.957,-4.826);
   }
-  // Real textured leather seating: normal relief and seam lines.
-  roundbox(.74,.14,.72,.065,upholstery,-.42,.62,-2.89);
-  roundbox(.69,.87,.12,.055,upholstery,-.42,1.15,-3.12);
-  const stitching=new THREE.LineBasicMaterial({color:'#889296',transparent:true,opacity:.53});
-  const path=(points,material=stitching)=>{
-    const cv=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
-    return add(new THREE.TubeGeometry(cv,Math.max(points.length*5,25),.005,5,false),material,0,0,0);
-  };
-  path([[-.68,.69,-2.55],[-.65,.68,-2.53],[-.42,.69,-2.53],[-.2,.68,-2.53]]);
-  path([[-.69,1.51,-3.04],[-.67,1.1,-3.03],[-.66,.79,-3.03]]);
-  path([[-.15,1.51,-3.04],[-.17,1.1,-3.03],[-.18,.79,-3.03]]);
   // Film-grade articulating work lamp: lamp arms and warm diffuser ring.
   const tube=(pts,r,mat)=>add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p))),25,r,8,false),mat,0,0,0);
   tube([[1.56,.96,-3.86],[1.65,1.20,-3.86],[1.45,1.52,-3.92]],.02,chrome);

@@ -91,12 +91,6 @@
   tube([[-1.76,.96,-3.87],[-1.76,1.20,-3.87],[-1.62,1.38,-3.94]],.019,brushing,20);
   const mic=new THREE.Mesh(new THREE.CapsuleGeometry(.052,.18,6,12),graphite);
   mic.rotation.z=-.22;mic.position.set(-1.61,1.42,-3.96);root.add(mic);
-  // A pair of premium fabric chairs and an articulated arm.
-  add(-.42,1.1,-3.1,.74,1.01,.12,textile);
-  for(let i=0;i<9;i++)add(-.73+i*.078,1.09,-3.025,.015,.82,.008,graphite);
-  add(-.42,.60,-2.89,.83,.14,.68,leather);
-  tube([[-.73,.66,-2.86],[-.86,.81,-2.98],[-.85,.91,-3.07]],.026,titanium);
-  tube([[-.11,.66,-2.86],[.02,.81,-2.98],[.01,.91,-3.07]],.026,titanium);
   // Meeting desk: textured slate inset, sample kit and branded swatch palette.
   add(2.46,.777,2.18,1.22,.014,.55,brushing,-.05);
   const swatches=['#b4cdd7','#c3aca0','#a2a8cd','#3b857d'];
