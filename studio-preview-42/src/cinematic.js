@@ -34,17 +34,8 @@
  document.body.append(section,replay);
  const q=s=>section.querySelector(s),shots=[...section.querySelectorAll('.cin-shot')];
  const steps=[0,2520,5460,8860],total=13600;
- let raf=0,start=0,current=-1,done=false,mute=true,audio=null;
+ let raf=0,start=0,current=-1,done=false;
  let three=null,renderer=null,scene=null,camera=null,group=null,shards=[],width=0,height=0;
- const playTone=(freq=250)=>{
-   if(mute)return;
-   try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();
-    const oscillator=audio.createOscillator(),volume=audio.createGain(),now=audio.currentTime;
-    oscillator.type='sine';oscillator.frequency.setValueAtTime(freq,now);
-    oscillator.frequency.exponentialRampToValueAtTime(freq*.5,now+.24);
-    volume.gain.setValueAtTime(.025,now);volume.gain.exponentialRampToValueAtTime(.0001,now+.24);
-    oscillator.connect(volume).connect(audio.destination);oscillator.start();oscillator.stop(now+.25)}catch(_){}
- };
  function resize(){
    if(!renderer)return;
    width=innerWidth;height=innerHeight;
@@ -112,7 +103,7 @@
  }
  function shot(i){
    if(i===current)return;current=i;shots.forEach((el,j)=>el.classList.toggle('active',j===i));
-   section.classList.toggle('is-finale',i===3);playTone(185+i*80);
+   section.classList.toggle('is-finale',i===3);
  }
  function loop(t){
    if(done)return;
@@ -127,6 +118,7 @@
  }
  function finish(){
    if(done)return;done=true;cancelAnimationFrame(raf);
+   document.dispatchEvent(new CustomEvent('eda:cinema-stop'));
    try{sessionStorage.setItem('eda-intro-played','1')}catch(_){}
    section.classList.add('cin-leaving');
    setTimeout(()=>{
@@ -137,15 +129,17 @@
  function begin(force=false){
    if((played||reduce)&&!force){section.hidden=true;replay.style.display='block';return}
    done=false;start=0;current=-1;section.hidden=false;section.classList.remove('cin-leaving');
-   replay.style.display='none';initThree();raf=requestAnimationFrame(loop);
+   replay.style.display='none';document.dispatchEvent(new CustomEvent('eda:cinema-start'));initThree();raf=requestAnimationFrame(loop);
  }
  q('#cin-skip').addEventListener('click',finish);
  q('#cin-enter').addEventListener('click',finish);
- q('#cin-sound').addEventListener('click',async()=>{
-    mute=!mute;if(!mute){try{audio=audio||new (window.AudioContext||window.webkitAudioContext)();await audio.resume();playTone(240)}catch(_){mute=true}}
-    q('#cin-sound').setAttribute('aria-pressed',String(!mute));
-    q('#cin-sound').textContent=mute?'◌ SONIDO APAGADO':'◉ SONIDO ACTIVO';
- });
+ function soundLabel(){
+   const muted=window.EDA_SFX?.muted??true;
+   q('#cin-sound').setAttribute('aria-pressed',String(!muted));
+   q('#cin-sound').textContent=muted?'◌ ACTIVAR MÚSICA':window.EDA_SFX?.ready?'♪ MÚSICA · SILENCIAR':'♪ ACTIVAR MÚSICA';
+ }
+ q('#cin-sound').addEventListener('click',()=>{if(window.EDA_SFX?.muted||!window.EDA_SFX?.ready)window.EDA_SFX?.enable();else window.EDA_SFX?.toggle();});
+ document.addEventListener('eda:sound-state',soundLabel);soundLabel();
  replay.addEventListener('click',()=>begin(true));
  window.EDA_CINEMA={replay:()=>begin(true),skip:finish};
  begin();

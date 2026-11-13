@@ -54,9 +54,7 @@ window.EDA_HOLO = {
 function draw(id) {
  const can=canvases[id],cx=can.getContext('2d'),W=1024,H=1072;
  cx.clearRect(0,0,W,H);
- const g=cx.createLinearGradient(0,0,W,H);
- g.addColorStop(0,'rgba(9,31,43,.98)');g.addColorStop(1,'rgba(5,18,28,.96)');
- cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ window.EDA_HOLO_STYLE.paint(cx,W,H);
  cx.fillStyle='#8de7eb';cx.fillRect(56,44,72,4);
  ctxText(cx,'ESTUDIO DE AUTOR',56,96,'#9cbcc8','600 24px Arial');
  const headings={servicios:'Ideas que toman forma',portafolio:'Proyectos del estudio',membresias:'Elige tu membresía',discord:'Conversemos',diagnostico:'Tu próximo proyecto'};
@@ -109,6 +107,7 @@ function createHologram(id) {
  const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:false,toneMapped:false});
  const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.35,2.46),mat);
  obj.position.set(...destinations[id].anchor);obj.scale.set(.87,.87,1);
+ window.EDA_HOLO_STYLE.decorate(obj);
  obj.visible=false;obj.renderOrder=50;scene.object3D.add(obj);
  const lineMat=new THREE.LineBasicMaterial({color:new THREE.Color(destinations[id].color),transparent:true,opacity:.0,depthWrite:false});
  const outline=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(2.71,2.83)),lineMat);

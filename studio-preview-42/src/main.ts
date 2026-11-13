@@ -4,6 +4,7 @@ import './studio-sfx.js';
 import './studio-config.js';
 import './scene-v4.js';
 import './office.js';
+import './hologram-style.js';
 import './holo-v4.js';
 import './graphics-v43.js';
 import './realism-v6.js';

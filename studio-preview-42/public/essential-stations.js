@@ -36,6 +36,11 @@
     #discord-world-widget{border-radius:4px;box-shadow:0 0 32px #70e9ff18}
     #discord-world-widget p{font:16px/1.7 Arial;white-space:pre-line}
     `;
+  style.textContent+=`
+    .world-html-hologram,#discord-world-widget{border:1px solid #58dcf77a;border-radius:0;background:linear-gradient(90deg,#031e2bb8,#031723ef 12%,#031723ef 88%,#031e2bb8);box-shadow:0 0 18px #32ddeb24,inset 0 0 25px #32ddeb0c;border-top:2px solid #75e9f5;border-bottom:2px solid #75e9f5}
+    .world-html-hologram::before{content:"";display:block;width:60px;height:2px;background:#75e9f5;box-shadow:0 0 12px #48e8ff;margin-bottom:18px;pointer-events:none}
+    .world-html-hologram>button{background:#0d526066;border-color:#72edff88}
+  `;
   document.head.appendChild(style);
   function show(name) {
     if (!names.includes(name)) return;
@@ -125,8 +130,8 @@
       mesh.renderOrder=52;node.object3D.add(mesh);
       node.setValue=(value,button=false)=>{
         const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
-        if(button){ctx.fillStyle='#123d4b';ctx.fillRect(0,0,canvas.width,canvas.height);
-          ctx.strokeStyle='#8fe5e955';ctx.lineWidth=2;ctx.strokeRect(1,1,canvas.width-2,canvas.height-2);}
+        if(button){ctx.fillStyle='#0d526066';ctx.fillRect(0,0,canvas.width,canvas.height);
+          ctx.strokeStyle='#72edff88';ctx.lineWidth=2;ctx.strokeRect(1,1,canvas.width-2,canvas.height-2);}
         let fontSize=size;ctx.font=`500 ${fontSize}px Arial`;
         while(ctx.measureText(value).width>canvas.width-24&&fontSize>20){ctx.font=`500 ${--fontSize}px Arial`;}
         ctx.fillStyle=button?'#e6fbfc':'#afcbd6';ctx.textAlign='center';ctx.textBaseline='middle';
@@ -154,11 +159,11 @@
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.35, 2.46), new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide, depthTest:false, depthWrite: false, toneMapped: false }));
     mesh.renderOrder=50;details.object3D.add(mesh);
+    window.EDA_HOLO_STYLE.decorate(details.object3D);
     redrawDetails = () => {
       const p=plans[selected],ctx=canvas.getContext('2d');
       ctx.clearRect(0,0,1024,1072);
-      const gradient=ctx.createLinearGradient(0,0,1024,1072);gradient.addColorStop(0,'#091f2bfa');gradient.addColorStop(1,'#05121cf5');
-      ctx.fillStyle=gradient;ctx.fillRect(0,0,1024,1072);
+      window.EDA_HOLO_STYLE.paint(ctx,1024,1072);
       function line(value,y,size=32,color='#edfaff'){ctx.font=`500 ${size}px Arial`;ctx.fillStyle=color;ctx.fillText(value,56,y);}
       function wrap(value,y,size=30){
         ctx.font=`400 ${size}px Arial`;ctx.fillStyle='#c1d6df';let row='';

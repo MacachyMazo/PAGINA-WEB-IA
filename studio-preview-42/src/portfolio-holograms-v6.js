@@ -25,7 +25,7 @@
  const T=window.AFRAME.THREE;
  function caption(parent,lines,width,height,y){
    const c=document.createElement('canvas');c.width=768;c.height=Math.round(768*height/width);
-   const cx=c.getContext('2d');cx.fillStyle='#071b2bf5';cx.fillRect(0,0,c.width,c.height);
+   const cx=c.getContext('2d');window.EDA_HOLO_STYLE.paint(cx,c.width,c.height);
    cx.textAlign='center';cx.textBaseline='middle';
    lines.forEach((line,i)=>{cx.font=(i===0?'600 ':'400 ')+(i===0?38:32)+'px Arial';cx.fillStyle=i===0?'#e8faff':'#bed4dd';cx.fillText(line,384,34+i*44);});
    const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;
@@ -63,6 +63,7 @@
     window.EDA_SFX?.play('confirm');
     window.open(p.link,'_blank','noopener,noreferrer');
    });
+   window.EDA_HOLO_STYLE.decorate(node.object3D,1.88,1.62);
    groups.push({node,i,x:p.x});
   });
   const laser=add('a-entity',root,{position:'0 1.15 -4.65'});
