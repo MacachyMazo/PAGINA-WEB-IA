@@ -53,7 +53,7 @@
       </div>
     </div>
   </section>`;
- let selected=3,active='',lastCheck=0;
+ let selected=3,active='',lastCheck=0,forcedPanel=null;
  const el=s=>panel.querySelector(s);
  function choosePlan(i){
   if(!Number.isInteger(i)||i<0||i>=plans.length)return;
@@ -92,6 +92,7 @@
    el('#eda-pay-result').textContent='Selecciona una pasarela segura. Las billeteras digitales dependen del navegador y de la cuenta configurada.';
  });
  el('#eda-holo-close').addEventListener('click',()=>{
+   forcedPanel=null;
    window.EDA_V4?.clearFocus?.();
    panel.hidden=true;
    active='';
@@ -132,7 +133,7 @@
   requestAnimationFrame(frame);if(t-lastCheck<85)return;lastCheck=t;
   const cinema=document.querySelector('#eda-cinema');
   const blocked=cinema&&!cinema.hidden&&!cinema.classList.contains('cin-leaving');
-  const next=blocked?'':(window.EDA_V4?.active||'');
+  const next=forcedPanel || (blocked?'':(window.EDA_V4?.active||''));
   if(next!==active){
    active=next;
    for(const [name,id] of [['membresias','eda-memberships'],['portafolio','eda-portfolio'],['discord','eda-discord']])el('#'+id).hidden=active!==name;
@@ -144,14 +145,42 @@
   if(window.EDA_V4?.active==='membresias'&&/^[1-5]$/.test(e.key))choosePlan(Number(e.key)-1);
  });
  choosePlan(3);connectDiscord();addLogos();requestAnimationFrame(frame);
+ // Explicit navigation always overrides fragile gaze targeting.
+ document.addEventListener('click',event=>{
+    const btn=event.target.closest('[data-screen],[data-goto]');
+    if(!btn)return;
+    const name=btn.getAttribute('data-screen')||btn.getAttribute('data-goto');
+    if(!['membresias','portafolio','discord'].includes(name))return;
+    setTimeout(()=>window.EDA_SPATIAL?.show(name),30);
+ });
+ // Direct links must display the content even before the renderer is ready.
+ const direct=new URLSearchParams(location.search).get('estacion');
+ if(['membresias','portafolio','discord'].includes(direct)){
+    const enter=()=>{
+       window.EDA_CINEMA?.skip?.();
+       document.querySelector('#welcome')?.classList.add('dismissed');
+       window.EDA_SPATIAL?.show(direct);
+    };
+    setTimeout(enter,100);
+    document.addEventListener('DOMContentLoaded',enter,{once:true});
+ }
+
  window.EDA_SPATIAL={
    choosePlan,refreshLogos:addLogos,refreshDiscord:connectDiscord,
    show(name){
       if(!['membresias','portafolio','discord'].includes(name))return;
+      forcedPanel=name;
+      document.querySelector('#welcome')?.classList.add('dismissed');
+      document.querySelector('#studio-app')?.classList.add('in-tour');
       window.EDA_V4?.focus?.(name,true);
-      active='';
+      for(const [key,id] of [['membresias','eda-memberships'],['portafolio','eda-portfolio'],['discord','eda-discord']]){
+        el('#'+id).hidden=key!==name;
+      }
+      active=name;
       panel.hidden=false;
-      el('#'+({membresias:'eda-memberships',portafolio:'eda-portfolio',discord:'eda-discord'}[name])).hidden=false;
+      panel.setAttribute('data-active-station',name);
+      panel.querySelector('#eda-holo-close')?.removeAttribute('hidden');
+      if(name==='portafolio')addLogos();
    }
  };
 })();
