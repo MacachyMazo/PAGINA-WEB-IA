@@ -8,11 +8,11 @@ const app=selectOne('#studio-app'),scene=selectOne('#office-scene'),rig=selectOn
 if(!app)return;
 const panel=selectOne('#detail-panel'),scrim=selectOne('#panel-scrim'),notice=selectOne('#scene-wait'),vrButton=selectOne('#vr-button');
 const locations={
- servicios:{label:'LABORATORIO CREATIVO',x:-4.3,z:-.64,stand:[-2.8,0,1.55],color:'#6de7e9',summary:'Diseño, web, video, SEO e IA con alcances definidos.'},
+ servicios:{label:'LABORATORIO CREATIVO',x:-4.65,z:-1.5,stand:[-1.25,0,-.6],color:'#6de7e9',summary:'Diseño, web, video, SEO e IA con alcances definidos.'},
  portafolio:{label:'PORTAFOLIO',x:0,z:-4.85,stand:[.35,0,-1.25],color:'#b5c0ff',summary:'PeekDex, IQ-Bites y GUBE: proyectos propios.'},
- membresias:{label:'MEMBRESÍAS',x:4.10,z:-4.26,stand:[2.30,0,-1.12],color:'#cbbaff',summary:'Cinco suscripciones con horas y precios mensuales.'},
- diagnostico:{label:'DIAGNÓSTICO',x:2.95,z:3.67,stand:[.3,0,4.42],color:'#9ef0d3',summary:'Revisamos tu idea antes de contratar.'},
- discord:{label:'DISCORD',x:-4.72,z:3.00,stand:[-2.5,0,3.1],color:'#a3a8ff',summary:'Widget de comunidad, mensajería y acceso a voz o vídeo.'}
+ membresias:{label:'MEMBRESÍAS',x:4.65,z:-1.5,stand:[.1,0,-1.5],color:'#cbbaff',summary:'Cinco suscripciones con horas y precios mensuales.'},
+ diagnostico:{label:'DIAGNÓSTICO',x:3.5,z:4.4,stand:[.2,0,4.4],color:'#9ef0d3',summary:'Revisamos tu idea antes de contratar.'},
+ discord:{label:'DISCORD',x:-4.65,z:4.4,stand:[-1.25,0,4.4],color:'#a3a8ff',summary:'Widget de comunidad, mensajería y acceso a voz o vídeo.'}
 };
 const plans={
  Inicio:{n:'01',price:790,hours:.5,tag:'Una mejora pequeña, con atención personal.',features:['30 minutos de trabajo mensual','Una revisión o microtarea acordada','Seguimiento escrito','Discord comunitario cuando esté habilitado'],limit:'No incluye crear una página completa.'},

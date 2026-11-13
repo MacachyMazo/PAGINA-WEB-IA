@@ -22,11 +22,14 @@
  const status=()=>window.EDA_V4?.active;
  const add=(tag,parent,attrs={})=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e};
  const groups=[];
+ let selectedProject=0;
+ document.addEventListener('eda:project-select',event=>{selectedProject=Math.max(0,Math.min(2,event.detail));});
+ document.addEventListener('eda:project-open',()=>{if(status()==='portafolio'){window.EDA_SFX?.play('confirm');window.open(projects[selectedProject].link,'_blank','noopener,noreferrer');}});
  function build(){
   if(done)return;done=true;
   const root=add('a-entity',stage,{id:'eda-3d-logo-station',visible:false});
   projects.forEach((p,i)=>{
-   const node=add('a-entity',root,{position:`${p.x} 2.3 -5.0`,rotation:`0 ${i===0?10:i===2?-10:0} 0`});
+   const node=add('a-entity',root,{position:`${p.x} 2.3 -4.65`,rotation:`0 ${i===0?10:i===2?-10:0} 0`});
    add('a-plane',node,{width:'.96',height:String(p.height),position:'0 .06 .034',
     material:`shader:mono-hologram;src:${p.asset};mode:${p.mode};transparent:true;side:double;depthWrite:false`});
    add('a-text',node,{value:p.name,align:'center',color:'#e8faff',
@@ -46,12 +49,14 @@
    target.addEventListener('mouseleave',()=>node.setAttribute('scale','1 1 1'));
    target.addEventListener('click',e=>{
     e.stopPropagation();
+    if(status()!=='portafolio')return;
+    window.EDA_SFX?.play('confirm');
     window.open(p.link,'_blank','noopener,noreferrer');
    });
    groups.push({node,i,x:p.x});
   });
-  const laser=add('a-entity',root,{position:'0 1.15 -5.0'});
-  add('a-text',laser,{value:'PORTAFOLIO / TRES PROYECTOS',
+  const laser=add('a-entity',root,{position:'0 1.15 -4.65'});
+  add('a-text',laser,{value:'1-3: ELEGIR PROYECTO / E: ABRIR',
    color:'#a5eef3',align:'center',width:'3.5',
    position:'0 0 0','side':'double'});
   let last=0,visible=false;
@@ -63,9 +68,10 @@
    const p=document.querySelector('#player-rig')?.object3D?.position;
    const near=p&&Math.hypot(p.x,p.z+3.1)<2.5;
    const should=active==='portafolio' || (!active&&near);
-   if(should!==visible){visible=should;root.setAttribute('visible',String(visible))}
+   if(should!==visible){visible=should;root.setAttribute('visible',String(visible));root.querySelectorAll('[data-project-holo]').forEach(el=>el.classList.toggle('interactive-object',visible));}
    if(!visible)return;
    groups.forEach(({node,i})=>{
+     node.setAttribute('scale',i===selectedProject?'1.08 1.08 1.08':'1 1 1');
      const y=2.3+Math.sin(t*.00085+i*1.5)*.053;
      node.object3D.position.y=y;
    });

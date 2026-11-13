@@ -112,12 +112,14 @@
    }
   }
   function toggleMain(){
+   window.EDA_SFX?.play('light');
    isOn=!isOn;
    apply(isOn);
    status(isOn?'Luces de la oficina encendidas.':'Luces apagadas: iluminación de emergencia activa. Pulsa L para encenderlas.');
    window.EDA_LIGHTS.state=isOn;
   }
   function toggleDesk(){
+   window.EDA_SFX?.play('light');
    deskOn=!deskOn;
    deskLight.intensity=deskOn?1.6:0;
    bulb.material.color.set(deskOn?'#ffe4b4':'#3a3c3e');

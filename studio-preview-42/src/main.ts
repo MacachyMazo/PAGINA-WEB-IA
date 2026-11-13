@@ -1,5 +1,6 @@
 import './styles.css';
 import 'aframe';
+import './studio-sfx.js';
 import './studio-config.js';
 import './scene-v4.js';
 import './office.js';

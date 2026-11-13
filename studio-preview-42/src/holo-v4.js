@@ -24,6 +24,7 @@ const activePlans=[
 ];
 let initDone=false,focused=null,lastFacing=null,lookSince=0,releaseAt=0,holdUntil=0,currentPlan=3,lastRender='',prevFrame=0,pinned=null;
 const canvases={},materials={},entities={};
+let pendingFocus=null;
 const worldCamera=()=>cameraEl?.getObject3D('camera')||cameraEl?.object3D;
 const ctxText=(ctx,str,x,y,color='#f6f9fd',font='26px Arial')=>{
  ctx.font=font;ctx.fillStyle=color;ctx.fillText(str,x,y);
@@ -96,7 +97,7 @@ function draw(id) {
    item('01 / TU IDEA','Cuéntanos el problema que necesitas resolver, sin tecnicismos.');
    item('02 / DIAGNÓSTICO','Revisamos el alcance y si el proyecto cabe en la agenda.');
    item('03 / PROPUESTA','Recibes una recomendación de plan y horas antes de pagar.');
-   ctxText(cx,'EL ALCANCE SE ACUERDA ANTES DE CONTRATAR',55,840,'#a3f2e0','bold 30px Arial');
+   ctxText(cx,'PULSA E PARA ESCRIBIR TU PROYECTO',55,840,'#a3f2e0','bold 30px Arial');
    ctxText(cx,'SIN COBROS AUTOMÁTICOS EN LA DEMO',55,936,'#b6d0d4','23px Arial');
  }
  // Deliberately no fake ROI claims or unlimited-service promises.
@@ -124,13 +125,15 @@ function setPlan(i){
  document.querySelectorAll('[data-plan]').forEach((node,j)=>node.classList.toggle('selected',j===i));
  const planSelect=document.querySelector('#form-plan');
  if(planSelect)planSelect.value=activePlans[i].name;
- draw('membresias');
+ if(materials.membresias)draw('membresias');
 }
 function chooseFocus(id,hold=false){
  if(!destinations[id])return;
+ if(!initDone){pendingFocus={id,hold};return;}
  focused=id;lastFacing=id;lookSince=performance.now()-400;
  pinned=hold?id:null;
- holdUntil=hold?Infinity:0;
+ holdUntil=hold?performance.now()+650:0;
+ releaseAt=0;
  const rigPos=rig?.object3D?.position;
  // Direct links bring the visitor close enough to read, rather than opening a sidebar.
  const stands={
@@ -173,12 +176,13 @@ function gazeTick(now){
  }
  if(candidate!==lastFacing){lastFacing=candidate;lookSince=now}
  const uiHovered=!!document.querySelector('#eda-spatial-ui')?.matches(':hover');
- if(candidate&&now-lookSince>210&&!uiHovered&&!pinned)focused=candidate;
+ if(pinned&&now>holdUntil&&(distanceToTarget(pinned,pos,dir)<.7||(candidate&&candidate!==pinned&&now-lookSince>210)))pinned=null;
+ if(candidate&&now>releaseAt&&now-lookSince>210&&!uiHovered&&!pinned)focused=candidate;
  if(pinned){focused=pinned;}
  else if(!candidate&&!uiHovered&&now-lookSince>820){focused=null;}
  const blocked=document.querySelector('#detail-panel')?.classList.contains('open');
  for(const [id,x] of Object.entries(entities)){
-   const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY)?1:0;
+   const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY)&&!(id==='diagnostico'&&window.EDA_BRIEF_OPEN)&&!(id==='membresias'&&window.EDA_MEMBERSHIP_EXPANDED)?1:0;
    const mat=materials[id],mesh=x.mesh;
    const prev=mat.opacity;
    mat.opacity+=(target*.93-mat.opacity)*.18;
@@ -191,7 +195,7 @@ function gazeTick(now){
  const hints=document.querySelector('#status-help');
  if(hints&&focused&&!blocked){
    hints.textContent=focused==='membresias'?'Membresías: elige 1–5 y pulsa E para ver beneficios y suscripción.':
-     focused==='diagnostico'?'Diagnóstico: revisa el proceso en el holograma.':
+     focused==='diagnostico'?'Diagnóstico: pulsa E para escribir tu proyecto en el holograma.':
      'Estás consultando '+destinations[focused].label.toLowerCase()+' mediante un holograma.';
  }
 }
@@ -199,17 +203,16 @@ function init(){
  if(initDone||!scene?.object3D||!cameraEl?.object3D)return;
  initDone=true;
  for(const id of Object.keys(destinations))createHologram(id);
+ if(pendingFocus){const next=pendingFocus;pendingFocus=null;chooseFocus(next.id,next.hold);}
  document.addEventListener('keydown',e=>{
    if(e.altKey||e.ctrlKey||e.metaKey||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName||''))return;
    const i=Number(e.key)-1;
    if(focused==='membresias'&&e.key>='1'&&e.key<='5')setPlan(i);
-   if(e.key.toLowerCase()==='e'&&focused==='diagnostico'){
-     window.EDA_V4.openBrief?.();
-   }
+   if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright'].includes(e.key.toLowerCase()))pinned=null;
  });
  requestAnimationFrame(gazeTick);
 }
-function clearFocus(){pinned=null;focused=null;lastFacing=null;holdUntil=0;}
+function clearFocus(){pinned=null;focused=null;lastFacing=null;holdUntil=0;releaseAt=performance.now()+1200;}
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName||''))clearFocus();
 });
@@ -220,8 +223,7 @@ window.EDA_V4={
  setPlan,
  get active(){return focused},
  openBrief(){
-   const trigger=document.querySelector('button[data-screen="diagnostico"]');
-   if(trigger)trigger.click();
+   window.EDA_ESSENTIAL?.interact?.('diagnostico');
  }
 };
 if(scene?.hasLoaded)init();
