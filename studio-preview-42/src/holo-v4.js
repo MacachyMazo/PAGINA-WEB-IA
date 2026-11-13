@@ -22,7 +22,7 @@ const activePlans=[
   {name:'Evolución',price:'$10,900',time:'9 H',detail:'Mejoras web y automatizaciones por fases'},
   {name:'Integral',price:'$19,900',time:'16 H',detail:'Web, contenido y producto por fases'}
 ];
-let initDone=false,focused=null,lastFacing=null,lookSince=0,releaseAt=0,holdUntil=0,currentPlan=3,lastRender='',prevFrame=0;
+let initDone=false,focused=null,lastFacing=null,lookSince=0,releaseAt=0,holdUntil=0,currentPlan=3,lastRender='',prevFrame=0,pinned=null;
 const canvases={},materials={},entities={};
 const worldCamera=()=>cameraEl?.getObject3D('camera')||cameraEl?.object3D;
 const ctxText=(ctx,str,x,y,color='#f6f9fd',font='26px Arial')=>{
@@ -129,7 +129,8 @@ function setPlan(i){
 function chooseFocus(id,hold=false){
  if(!destinations[id])return;
  focused=id;lastFacing=id;lookSince=performance.now()-400;
- if(hold)holdUntil=performance.now()+4800;
+ pinned=hold?id:null;
+ holdUntil=hold?Infinity:0;
  const rigPos=rig?.object3D?.position;
  // Direct links bring the visitor close enough to read, rather than opening a sidebar.
  const stands={
@@ -171,8 +172,10 @@ function gazeTick(now){
    if(dot>best){best=dot;candidate=name}
  }
  if(candidate!==lastFacing){lastFacing=candidate;lookSince=now}
- if(candidate&&now-lookSince>160)focused=candidate;
- if(!candidate && now>holdUntil && now-lookSince>330)focused=null;
+ const uiHovered=!!document.querySelector('#eda-spatial-ui')?.matches(':hover');
+ if(candidate&&now-lookSince>210&&!uiHovered&&!pinned)focused=candidate;
+ if(pinned){focused=pinned;}
+ else if(!candidate&&!uiHovered&&now-lookSince>820){focused=null;}
  const blocked=document.querySelector('#detail-panel')?.classList.contains('open');
  for(const [id,x] of Object.entries(entities)){
    const target=focused===id&&!blocked?1:0;
@@ -206,8 +209,13 @@ function init(){
  });
  requestAnimationFrame(gazeTick);
 }
+function clearFocus(){pinned=null;focused=null;lastFacing=null;holdUntil=0;}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName||''))clearFocus();
+});
 window.EDA_V4={
  focus:chooseFocus,
+ clearFocus,
  setPlan,
  get active(){return focused},
  openBrief(){
