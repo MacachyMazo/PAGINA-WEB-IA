@@ -150,8 +150,11 @@
     const btn=event.target.closest('[data-screen],[data-goto]');
     if(!btn)return;
     const name=btn.getAttribute('data-screen')||btn.getAttribute('data-goto');
-    if(!['membresias','portafolio','discord'].includes(name))return;
-    setTimeout(()=>window.EDA_SPATIAL?.show(name),30);
+    if(['membresias','portafolio','discord'].includes(name)){
+      setTimeout(()=>window.EDA_SPATIAL?.show(name),30);
+    } else {
+      forcedPanel=null;
+    }
  });
  // Direct links must display the content even before the renderer is ready.
  const direct=new URLSearchParams(location.search).get('estacion');
