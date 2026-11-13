@@ -9,11 +9,11 @@ const rig=document.querySelector('#player-rig');
 const scene=document.querySelector('#office-scene');
 const content=document.querySelector('#detail-panel');
 const destinations={
-  servicios: {target:[-4.3,1.52,-.64],anchor:[-3.62,1.88,-.10],color:'#6de7e9',label:'ZONA CREATIVA'},
-  portafolio:{target:[0,1.56,-4.85],anchor:[1.14,1.91,-3.19],color:'#b5c0ff',label:'PORTAFOLIO'},
-  membresias:{target:[4.10,1.8,-4.26],anchor:[2.85,1.90,-2.86],color:'#cbbaff',label:'MEMBRESÍAS'},
-  diagnostico:{target:[2.95,1.77,3.67],anchor:[1.77,1.88,3.10],color:'#9ef0d3',label:'DIAGNÓSTICO'},
-  discord:{target:[-4.72,1.56,3.00],anchor:[-3.35,1.92,2.28],color:'#a3a8ff',label:'DISCORD / COMUNIDAD'}
+ servicios:{target:[-4.65,1.9,-1.5],anchor:[-4.65,1.9,-1.5],color:'#6de7e9',label:'ZONA CREATIVA'},
+ portafolio:{target:[0,2.3,-5.0],anchor:[0,2.3,-5.0],color:'#b5c0ff',label:'PORTAFOLIO'},
+ membresias:{target:[4.65,1.9,-1.5],anchor:[4.65,1.9,-1.5],color:'#cbbaff',label:'MEMBRESÍAS'},
+ diagnostico:{target:[3.5,1.9,4.4],anchor:[3.5,1.9,4.4],color:'#9ef0d3',label:'DIAGNÓSTICO'},
+ discord:{target:[-4.65,1.9,4.4],anchor:[-4.65,1.9,4.4],color:'#a3a8ff',label:'DISCORD / COMUNIDAD'}
 };
 const activePlans=[
   {name:'Inicio',price:'$790',time:'30 MIN',detail:'Microtarea y seguimiento escrito'},
@@ -44,9 +44,9 @@ function draw(id) {
  const can=canvases[id],cx=can.getContext('2d'),W=1024,H=1072;
  cx.clearRect(0,0,W,H);
  const g=cx.createLinearGradient(0,0,1024,1072);
- g.addColorStop(0,'rgba(8,28,43,.97)');g.addColorStop(.65,'rgba(5,19,32,.96)');g.addColorStop(1,'rgba(11,31,42,.95)');
+ g.addColorStop(0,'rgba(8,28,43,.12)');g.addColorStop(.65,'rgba(5,19,32,.08)');g.addColorStop(1,'rgba(11,31,42,.06)');
  cx.fillStyle=g;cx.fillRect(0,0,W,H);
- cx.strokeStyle='rgba(123,235,245,.35)';cx.lineWidth=4;cx.strokeRect(16,16,W-32,H-32);
+ cx.strokeStyle='rgba(123,235,245,.35)';cx.lineWidth=4;// Open hologram: no enclosing window frame.
  for(let y=70;y<1060;y+=34){cx.fillStyle='rgba(124,214,238,.023)';cx.fillRect(22,y,980,1)}
  cx.fillStyle=destinations[id].color;cx.fillRect(52,66,67,6);
  ctxText(cx,'ESTUDIO DE AUTOR     /     EXPERIENCIA ESPACIAL',52,115,'#b4d6e1','bold 22px Arial');
@@ -84,7 +84,7 @@ function draw(id) {
      y+=120;
    }
    ctxText(cx,'SELECCIÓN: '+activePlans[currentPlan].name.toUpperCase(),55,934,'#a6f0f3','bold 27px Arial');
-   ctxText(cx,'TECLAS 1–5: COMPARAR   •   E: DIAGNÓSTICO',55,994,'#dbe8ed','23px Arial');
+   ctxText(cx,'TECLAS 1–5 O CONTROLES DEL HOLOGRAMA',55,994,'#dbe8ed','23px Arial');
  } else if(id==='discord'){
    title('UNA CONVERSACIÓN PUEDE CREARLO TODO.');y+=74;
    item('CANAL DE TEXTO','Escríbenos en el servidor de Estudio de Autor cuando esté configurado.');
@@ -96,7 +96,7 @@ function draw(id) {
    item('01 / TU IDEA','Cuéntanos el problema que necesitas resolver, sin tecnicismos.');
    item('02 / DIAGNÓSTICO','Revisamos el alcance y si el proyecto cabe en la agenda.');
    item('03 / PROPUESTA','Recibes una recomendación de plan y horas antes de pagar.');
-   ctxText(cx,'PULSA E PARA ABRIR EL FORMULARIO',55,840,'#a3f2e0','bold 30px Arial');
+   ctxText(cx,'EL ALCANCE SE ACUERDA ANTES DE CONTRATAR',55,840,'#a3f2e0','bold 30px Arial');
    ctxText(cx,'SIN COBROS AUTOMÁTICOS EN LA DEMO',55,936,'#b6d0d4','23px Arial');
  }
  // Deliberately no fake ROI claims or unlimited-service promises.
@@ -108,8 +108,8 @@ function createHologram(id) {
  const c=document.createElement('canvas');c.width=1024;c.height=1072;canvases[id]=c;
  const tx=new THREE.CanvasTexture(c);
  tx.colorSpace=THREE.SRGBColorSpace;tx.anisotropy=4;
- const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:false,toneMapped:false});
- const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.65,2.77),mat);
+ const mat=new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false,depthTest:true,toneMapped:false});
+ const obj=new THREE.Mesh(new THREE.PlaneGeometry(2.1,2.2),mat);
  obj.position.set(...destinations[id].anchor);obj.scale.set(.87,.87,1);
  obj.visible=false;scene.object3D.add(obj);
  const lineMat=new THREE.LineBasicMaterial({color:new THREE.Color(destinations[id].color),transparent:true,opacity:.0,depthWrite:false});
@@ -134,8 +134,8 @@ function chooseFocus(id,hold=false){
  const rigPos=rig?.object3D?.position;
  // Direct links bring the visitor close enough to read, rather than opening a sidebar.
  const stands={
-  servicios:[-2.8,0,1.55],portafolio:[.35,0,-1.25],
-  membresias:[2.30,0,-1.12],diagnostico:[.3,0,4.42],discord:[-2.5,0,3.1]
+  servicios:[-1.25,0,-.6],portafolio:[0,0,-1.25],
+  membresias:[1.25,0,-.6],diagnostico:[.2,0,4.4],discord:[-1.25,0,4.4]
  };
  if(rigPos)rigPos.set(...stands[id]);
  const look=destinations[id].target;
@@ -178,11 +178,11 @@ function gazeTick(now){
  else if(!candidate&&!uiHovered&&now-lookSince>820){focused=null;}
  const blocked=document.querySelector('#detail-panel')?.classList.contains('open');
  for(const [id,x] of Object.entries(entities)){
-   const target=focused===id&&!blocked?1:0;
+   const target=focused===id&&!blocked&&id!=='portafolio'?1:0;
    const mat=materials[id],mesh=x.mesh;
    const prev=mat.opacity;
    mat.opacity+=(target*.93-mat.opacity)*.18;
-   x.outline.material.opacity=mat.opacity*.9;
+   x.outline.material.opacity=0;
    mesh.visible=mat.opacity>.014;
    const scale=.88+(mat.opacity/.93)*.12;
    mesh.scale.set(scale,scale,1);
@@ -191,7 +191,7 @@ function gazeTick(now){
  const hints=document.querySelector('#status-help');
  if(hints&&focused&&!blocked){
    hints.textContent=focused==='membresias'?'Mira las membresías. Pulsa 1–5 para comparar; E para diagnóstico.':
-     focused==='diagnostico'?'Mesa de reuniones: pulsa E para solicitar diagnóstico.':
+     focused==='diagnostico'?'Diagnóstico: revisa el proceso en el holograma.':
      'Estás consultando '+destinations[focused].label.toLowerCase()+' mediante un holograma.';
  }
 }

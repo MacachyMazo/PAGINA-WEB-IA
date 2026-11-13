@@ -3,9 +3,9 @@
  if(!scene||!stage||!window.AFRAME)return;
  let done=false;
  const projects=[
-  {id:'peekdex',name:'PEEKDEX',asset:'/logos/peekdex-logo.png',x:-1.65,link:'https://peekdex.com'},
+  {id:'peekdex',name:'PEEKDEX',asset:'/logos/peekdex-logo.png',x:-2.1,link:'https://peekdex.com'},
   {id:'iqbites',name:'IQ-BITES',asset:'/logos/iq-bites-logo.png',x:0,link:'https://iq-bites.com'},
-  {id:'gube',name:'GUBE',asset:'/logos/gube-logo.png',x:1.65,link:'https://estacionamientogube.com.mx'}
+  {id:'gube',name:'GUBE',asset:'/logos/gube-logo.png',x:2.1,link:'https://estacionamientogube.com.mx'}
  ];
  const status=()=>window.EDA_V4?.active;
  const add=(tag,parent,attrs={})=>{const e=document.createElement(tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e};
@@ -14,11 +14,11 @@
   if(done)return;done=true;
   const root=add('a-entity',stage,{id:'eda-3d-logo-station',visible:false});
   projects.forEach((p,i)=>{
-   const node=add('a-entity',root,{position:`${p.x} 2.04 -2.64`,rotation:`0 ${i===0?10:i===2?-10:0} 0`});
+   const node=add('a-entity',root,{position:`${p.x} 2.3 -5.0`,rotation:`0 ${i===0?10:i===2?-10:0} 0`});
    add('a-plane',node,{width:'1.42',height:'1.37',position:'0 0 0',
-    material:'color:#0a2939;transparent:true;opacity:0.84;side:double;metalness:0;roughness:0.35'});
+    material:'color:#0a2939;transparent:true;opacity:0.08;side:double;metalness:0;roughness:0.35'});
    add('a-plane',node,{width:'1.37',height:'1.33',position:'0 0 0.009',
-    material:'color:#64d3e7;transparent:true;opacity:0.14;wireframe:false;side:double'});
+    material:'color:#64d3e7;transparent:true;opacity:0.05;wireframe:false;side:double'});
    add('a-image',node,{src:p.asset,width:'1.27',height:'.79',position:'0 .14 .034',
     material:'shader:flat;transparent:true;side:double;alphaTest:0.015'});
    add('a-text',node,{value:p.name,align:'center',color:'#e8faff',
@@ -38,14 +38,11 @@
    target.addEventListener('mouseleave',()=>node.setAttribute('scale','1 1 1'));
    target.addEventListener('click',e=>{
     e.stopPropagation();
-    window.EDA_SPATIAL?.show?.('portafolio');
-    const card=document.querySelector(`[data-project="${p.id}"]`);
-    document.querySelectorAll('.eda-project').forEach(el=>el.classList.toggle('selected',el===card));
-    card?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});
+    window.open(p.link,'_blank','noopener,noreferrer');
    });
    groups.push({node,i,x:p.x});
   });
-  const laser=add('a-entity',root,{position:'0 .90 -2.64'});
+  const laser=add('a-entity',root,{position:'0 1.15 -5.0'});
   add('a-text',laser,{value:'PORTAFOLIO / TRES PROYECTOS',
    color:'#a5eef3',align:'center',width:'5.3',
    position:'0 0 0','side':'double'});
@@ -61,7 +58,7 @@
    if(should!==visible){visible=should;root.setAttribute('visible',String(visible))}
    if(!visible)return;
    groups.forEach(({node,i})=>{
-     const y=2.04+Math.sin(t*.00085+i*1.5)*.053;
+     const y=2.3+Math.sin(t*.00085+i*1.5)*.053;
      node.object3D.position.y=y;
    });
   }

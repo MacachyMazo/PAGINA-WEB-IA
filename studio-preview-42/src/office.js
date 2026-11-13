@@ -83,7 +83,7 @@ selectOne('#nav-menu-btn').addEventListener('click',()=>{let o=!selectOne('#dire
 function open(name){
   if(!['servicios','portafolio','membresias','diagnostico','discord','privacidad'].includes(name))return;
   dismiss();closeMenu();hideMap();markDiscovered(name);
-  if(name==='servicios'||name==='portafolio'||name==='membresias'||name==='discord'){
+  if(name==='servicios'||name==='portafolio'||name==='membresias'||name==='discord'||name==='diagnostico'){
     close();
     window.EDA_V4?.focus(name,true);
     message('Mira hacia la zona: la información aparecerá en un holograma.');

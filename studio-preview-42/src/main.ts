@@ -12,6 +12,6 @@ import './office-v32.css';
 import './cinematic.css';
 import './cinematic.js';
 import './spatial-v5.css';
-import './spatial-v5.js';
+
 import './portfolio-holograms-v6.js';
 import './direct-station-v6.js';
