@@ -82,6 +82,6 @@ document.addEventListener('click',e=>{
  else close();
 },true);
 const route=new URLSearchParams(location.search).get('estacion');
-if(names.includes(route))show(route);
+if(names.includes(route)){show(route);setTimeout(()=>show(route),450);setTimeout(()=>show(route),1450);setTimeout(()=>show(route),3000);}
 window.EDA_ESSENTIAL={show,close};
 })();
