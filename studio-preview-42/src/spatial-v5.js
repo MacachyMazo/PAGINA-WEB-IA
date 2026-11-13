@@ -68,7 +68,7 @@
   el('#eda-checkout-plan').textContent=p.name+' · $'+p.price.toLocaleString('es-MX')+' MXN / mes';
   el('#eda-pay-options').hidden=true;
   el('#eda-pay-result').textContent='El pago se realiza fuera del estudio, mediante un checkout seguro.';
-  window.EDA_V4?.setPlan?.(i);
+  try{window.EDA_V4?.setPlan?.(i)}catch(error){console.warn('[Estudio] Plano 3D del plan no disponible:',error?.message)}
  }
  function pay(gateway){
   const p=plans[selected];
@@ -164,7 +164,8 @@
        document.querySelector('#welcome')?.classList.add('dismissed');
        window.EDA_SPATIAL?.show(direct);
     };
-    setTimeout(enter,100);
+    requestAnimationFrame(enter);
+    setTimeout(enter,400);
     document.addEventListener('DOMContentLoaded',enter,{once:true});
  }
 
@@ -175,7 +176,7 @@
       forcedPanel=name;
       document.querySelector('#welcome')?.classList.add('dismissed');
       document.querySelector('#studio-app')?.classList.add('in-tour');
-      window.EDA_V4?.focus?.(name,true);
+      // The actual membership information must never depend on 3D focus.
       for(const [key,id] of [['membresias','eda-memberships'],['portafolio','eda-portfolio'],['discord','eda-discord']]){
         el('#'+id).hidden=key!==name;
       }
@@ -184,6 +185,9 @@
       panel.setAttribute('data-active-station',name);
       panel.querySelector('#eda-holo-close')?.removeAttribute('hidden');
       if(name==='portafolio')addLogos();
+      try{window.EDA_V4?.focus?.(name,true)}catch(error){
+        console.warn('[Estudio] Enfoque 3D opcional no disponible:',error?.message)
+      }
    }
  };
 })();
