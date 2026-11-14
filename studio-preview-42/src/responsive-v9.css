@@ -1,0 +1,66 @@
+/* Viewport, safe-area and input adaptations share the same spatial scene. */
+body.eda-office-vr{--header-height:80px}
+body.eda-office-vr .scene-container{height:calc(100svh - var(--header-height));height:calc(100dvh - var(--header-height));min-height:0;overflow:hidden}
+.global-header{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.game-hud{bottom:max(12px,env(safe-area-inset-bottom));gap:8px}
+.hud-actions{gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hud-actions button{min-height:44px;min-width:44px}
+.world-html-hologram input,.world-html-hologram textarea{scroll-margin-block:24px}
+#discord-world-widget>button{min-width:44px;min-height:44px;font-size:24px}
+.world-html-hologram{overscroll-behavior:contain;scrollbar-gutter:stable}
+@media(max-width:1100px){
+ body.eda-office-vr{--header-height:70px}
+ .global-header{height:70px;gap:10px}
+ .nav-menu-btn{display:block;min-width:44px;min-height:44px}
+ .global-nav{display:none;position:absolute;top:70px;left:12px;right:12px;padding:12px;background:#101d27f5;border:1px solid #65dce64a;flex-direction:column;align-items:stretch;max-height:calc(100dvh - 90px);overflow:auto}
+ .global-nav.is-open{display:flex}
+ .global-nav button{min-height:44px;text-align:left;font-size:14px}
+ .controls-tip{display:none}
+}
+@media(pointer:coarse),(max-width:800px){
+ .studio-app.in-tour .mobile-pad{display:flex;position:absolute;z-index:35;left:max(12px,env(safe-area-inset-left));bottom:max(70px,calc(env(safe-area-inset-bottom) + 62px));flex-direction:column;align-items:center;gap:5px;touch-action:none}
+ .mobile-pad>div{display:flex;gap:5px}
+ .mobile-pad button{width:44px;height:44px;border:1px solid #8ce5e970;border-radius:10px;background:#071e2bce;color:#e5fbff;font-size:22px;touch-action:none}
+ .studio-app.in-tour .mobile-interact{display:flex;position:absolute;right:max(12px,env(safe-area-inset-right));bottom:max(78px,calc(env(safe-area-inset-bottom) + 70px));z-index:35;min-height:44px;align-items:center;border:1px solid #a4f7ef;border-radius:8px;padding:12px;background:#b8ece7;color:#10262d;font-size:12px;font-weight:700}
+ .controls-tip{display:none}
+ .hud-actions button span{display:none}
+ .hud-actions #vr-button span{display:none}
+ .hud-actions #vr-button{font-size:0}
+ .hud-actions #vr-button::after{content:'VR';font-size:12px}
+ .status-help{max-width:100%;font-size:12px;line-height:1.4;bottom:54px;pointer-events:none}
+ .studio-app.in-tour .wayfinding{visibility:hidden;pointer-events:none;opacity:0!important}
+ .studio-app.in-tour:has(.world-html-hologram.is-visible) .mobile-pad,
+ .studio-app.in-tour:has(#discord-world-widget.is-visible) .mobile-pad{visibility:hidden;pointer-events:none}
+}
+@media(max-width:480px){
+ .brand-copy strong{font-size:11px}.brand-glyph{font-size:32px}
+ .welcome{left:20px;width:calc(100% - 40px);top:40%}
+ .welcome h1{font-size:clamp(36px,10vw,48px)}
+ .welcome-copy{font-size:14px}.welcome-meta{flex-wrap:wrap}
+ .world-html-hologram{padding:18px!important}
+ .world-html-hologram .fields{grid-template-columns:1fr}
+ #eda-cinema .cin-shot{padding:22px}
+ #eda-cinema .cin-line{font-size:clamp(32px,10.5vw,51px)}
+ #eda-cinema .cin-wordmark{font-size:clamp(48px,14vw,66px)}
+ #eda-cinema .cin-tagline{font-size:11px;letter-spacing:.1em}
+ #eda-cinema .cin-top,#eda-cinema .cin-bottom{left:18px;right:18px;gap:10px}
+}
+@media(max-height:550px) and (orientation:landscape){
+ body.eda-office-vr{--header-height:52px}.global-header{height:52px}.global-nav{top:52px}
+ .orientation-tag,.welcome-meta,.welcome-copy,.status-help{display:none}
+ .welcome{top:42%;left:5%;width:70%}.welcome h1{font-size:clamp(28px,7vh,40px);margin-bottom:10px}
+ .welcome-actions .button{min-height:40px;padding:8px 14px}
+ .wayfinding{display:none}
+ #eda-cinema .cin-top{top:12px}#eda-cinema .cin-bottom{bottom:12px}
+ #eda-cinema .cin-shot{padding:58px 7vw 64px}
+ #eda-cinema .cin-line{font-size:clamp(28px,8vh,46px)}
+ #eda-cinema .cin-wordmark{font-size:clamp(36px,12vh,64px)}
+ #eda-cinema .cin-counter{margin-bottom:10px}#eda-cinema .cin-blurb{margin-top:12px;font-size:12px}
+ #eda-cinema .cin-tagline{margin-top:12px}#eda-cinema .cin-enter{margin-top:12px;padding:10px 18px}
+}
+body.eda-immersive .game-hud,body.eda-immersive .mobile-pad,body.eda-immersive .mobile-interact{display:none!important}
+@media(prefers-reduced-motion:reduce){.world-html-hologram,#discord-world-widget{transition:none!important}}
+
+#portfolio-pager{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);z-index:36;display:flex;align-items:center;gap:10px;white-space:nowrap;font:14px Arial;color:#dffaff;background:#05202cdd;border:1px solid #76dce750;border-radius:8px;padding:4px}
+#portfolio-pager[hidden]{display:none}#portfolio-pager button{min-width:44px;min-height:44px;font-size:26px;color:#dffaff;background:none;border:0}
+@media(max-height:550px) and (orientation:landscape){#portfolio-pager{bottom:60px}}

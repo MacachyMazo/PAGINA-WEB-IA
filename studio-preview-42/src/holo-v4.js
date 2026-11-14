@@ -44,10 +44,12 @@ const wrap=(ctx,value,x,y,maxW,lh=38,maxLines=6)=>{
 // One typography scale and one reading distance for every information surface.
 window.EDA_HOLO = {
   scale(position, camera, height=2.46, width=2.35) {
+    // In a headset use metres, never the mirrored desktop viewport.
+    if(scene.is('vr-mode')) return 1;
     const bounds=document.querySelector('#scene-container').getBoundingClientRect();
     const v=position.clone().applyMatrix4(camera.matrixWorldInverse);
     const depth=Math.max(.5,-v.z);
-    const pixels=Math.min(bounds.height*.70, (bounds.width-48)*height/width, 760);
+    const pixels=Math.min(Math.max(120,bounds.height-150), bounds.height*.76, (bounds.width-32)*height/width, 900);
     return Math.max(.25,Math.min(4,pixels*2*depth/(bounds.height*camera.projectionMatrix.elements[5]*height)));
   }
 };
@@ -139,6 +141,16 @@ function chooseFocus(id,hold=false){
  if(rigPos)rigPos.set(...stands[id]);
  const look=destinations[id].target;
  const object=worldCamera();
+ if(object && scene.is('vr-mode')){
+   // Rotate the rig, not the tracked head; retain the visitor's physical pose.
+   rig.object3D.updateMatrixWorld(true);
+   const head=object.getWorldPosition(new THREE.Vector3());
+   const forward=new THREE.Vector3(0,0,-1).applyQuaternion(object.getWorldQuaternion(new THREE.Quaternion()));
+   const desired=-Math.atan2(look[0]-head.x,-(look[2]-head.z));
+   const current=-Math.atan2(forward.x,-forward.z);
+   rig.object3D.rotation.y+=desired-current;
+   rig.object3D.updateMatrixWorld(true);
+ }
  if(object && !scene.is('vr-mode')){
    const start=new THREE.Vector3(rigPos.x,rigPos.y+1.64,rigPos.z);
    const dx=look[0]-start.x,dy=look[1]-start.y,dz=look[2]-start.z;
@@ -178,7 +190,7 @@ function gazeTick(now){
  else if(!candidate&&!uiHovered&&now-lookSince>820){focused=null;}
  const blocked=document.querySelector('#detail-panel')?.classList.contains('open');
  for(const [id,x] of Object.entries(entities)){
-   const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY)&&!(id==='diagnostico'&&window.EDA_BRIEF_OPEN)&&!(id==='membresias'&&window.EDA_MEMBERSHIP_EXPANDED)?1:0;
+   const target=focused===id&&!blocked&&id!=='portafolio'&&!(id==='discord'&&window.EDA_DISCORD_WIDGET_READY&&!scene.is('vr-mode'))&&!(id==='diagnostico'&&window.EDA_BRIEF_OPEN&&!scene.is('vr-mode'))&&!(id==='membresias'&&window.EDA_MEMBERSHIP_EXPANDED)?1:0;
    const mat=materials[id],mesh=x.mesh;
    const prev=mat.opacity;
    mat.opacity+=(target*1-mat.opacity)*.18;

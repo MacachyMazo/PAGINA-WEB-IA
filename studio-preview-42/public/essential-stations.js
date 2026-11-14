@@ -72,7 +72,7 @@
     if(name === 'membresias') expand();
     else if(name === 'servicios') show('membresias');
     else if(name === 'portafolio') document.dispatchEvent(new CustomEvent('eda:project-open'));
-    else if(name === 'diagnostico') { briefOpen = !briefOpen; window.EDA_SFX?.play('open'); }
+    else if(name === 'diagnostico') { if(document.querySelector('#office-scene').is('vr-mode')){window.EDA_DEVICE?.browser('diagnostico');return;} briefOpen = !briefOpen; window.EDA_SFX?.play('open'); }
     else if(name === 'discord') { const link=window.EDA_SITE_CONFIG?.discord?.inviteUrl;
       if(typeof link==='string' && /^https:\/\/(discord\.gg\/|discord\.com\/invite\/)/.test(link)) window.open(link,'_blank','noopener,noreferrer');
     }
@@ -269,8 +269,13 @@
           const shown=surface.shown()&&!scene.is('vr-mode')&&view.z<0&&projected.z>-1&&projected.z<1&&Math.abs(projected.x)<1.15&&Math.abs(projected.y)<1.15;
           node.classList.toggle('is-visible',shown);node.inert=!shown;node.setAttribute('aria-hidden',String(!shown));
           if(shown){
-            const scale=Math.min((bounds.width-24)/width,(bounds.height-70)/height,bounds.height*.72/height);
-            node.style.left=((projected.x+1)*.5*bounds.width)+'px';node.style.top=Math.max(height*scale/2+24,Math.min(bounds.height-height*scale/2-24,(1-projected.y)*.5*bounds.height))+'px';
+            const visual=window.visualViewport;
+            const availableHeight=Math.min(bounds.height,visual?visual.height:bounds.height);
+            const surfaceWidth=Math.min(width,bounds.width-24);
+            const surfaceHeight=Math.min(height,Math.max(120,availableHeight-100));
+            node.style.width=surfaceWidth+'px';node.style.height=surfaceHeight+'px';
+            const scale=1;
+            node.style.left=Math.max(surfaceWidth/2+12,Math.min(bounds.width-surfaceWidth/2-12,(projected.x+1)*.5*bounds.width))+'px';node.style.top=Math.max(surfaceHeight/2+12,Math.min(availableHeight-surfaceHeight/2-76,(1-projected.y)*.5*bounds.height))+'px';
             node.style.transform=`translate(-50%,-50%) scale(${Math.max(.2,scale)})`;
           }
         }

@@ -19,3 +19,6 @@ import './portfolio-holograms-v6.js';
 import './direct-station-v6.js';
 
 import './furnishings-v8.js';
+
+import './responsive-v9.css';
+import './device-v9.js';

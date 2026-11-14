@@ -68,6 +68,11 @@
   });
   const laser=add('a-entity',root,{position:'0 1.15 -4.65'});
   caption(laser,['1–3: elegir proyecto  ·  E: visitar página'],3.5,.22,0);
+  const pager=document.createElement('div');pager.id='portfolio-pager';pager.hidden=true;
+  const previous=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');
+  previous.textContent='‹';previous.setAttribute('aria-label','Proyecto anterior');next.textContent='›';next.setAttribute('aria-label','Proyecto siguiente');count.setAttribute('aria-live','polite');
+  previous.onclick=()=>{selectedProject=(selectedProject+2)%3;};next.onclick=()=>{selectedProject=(selectedProject+1)%3;};
+  pager.append(previous,count,next);document.querySelector('#scene-container').appendChild(pager);
   let last=0,visible=false;
   function frame(t){
    if(!document.body.contains(scene))return;
@@ -78,8 +83,20 @@
    const near=p&&Math.hypot(p.x,p.z+3.1)<2.5;
    const should=active==='portafolio' || (!active&&near);
    if(should!==visible){visible=should;root.setAttribute('visible',String(visible));root.querySelectorAll('[data-project-holo]').forEach(el=>el.classList.toggle('interactive-object',visible));}
+   const narrow=!scene.is('vr-mode')&&window.innerWidth<800;
+   pager.hidden=!visible||!narrow;count.textContent=projects[selectedProject].name+' · '+(selectedProject+1)+'/3';
+   laser.setAttribute('visible',visible&&!narrow);
    if(!visible)return;
-   groups.forEach(({node,i})=>{
+   groups.forEach(({node,i,x})=>{
+     const shown=!narrow||i===selectedProject;
+     node.setAttribute('visible',shown);
+     node.querySelector('[data-project-holo]').classList.toggle('interactive-object',shown);
+     node.object3D.position.x=narrow?0:x;
+     if(narrow){
+       const camera=document.querySelector('#player-camera').getObject3D('camera');
+       const scale=window.EDA_HOLO.scale(node.object3D.position,camera,1.8,2.1);
+       node.object3D.scale.setScalar(scale);node.object3D.position.y=2.3;return;
+     }
      node.setAttribute('scale',i===selectedProject?'1.08 1.08 1.08':'1 1 1');
      const y=2.3+Math.sin(t*.00085+i*1.5)*.053;
      node.object3D.position.y=y;
