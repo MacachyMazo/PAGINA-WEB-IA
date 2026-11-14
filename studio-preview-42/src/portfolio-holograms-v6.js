@@ -81,7 +81,7 @@
    const active=status();
    const p=document.querySelector('#player-rig')?.object3D?.position;
    const near=p&&Math.hypot(p.x,p.z+3.1)<2.5;
-   const should=active==='portafolio' || (!active&&near);
+   const should=!window.EDA_TOUCH?.active&&(active==='portafolio' || (!active&&near));
    if(should!==visible){visible=should;root.setAttribute('visible',String(visible));root.querySelectorAll('[data-project-holo]').forEach(el=>el.classList.toggle('interactive-object',visible));}
    const narrow=!scene.is('vr-mode')&&window.innerWidth<800;
    pager.hidden=!visible||!narrow;count.textContent=projects[selectedProject].name+' · '+(selectedProject+1)+'/3';

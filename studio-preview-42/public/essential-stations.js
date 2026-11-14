@@ -44,6 +44,7 @@
   document.head.appendChild(style);
   function show(name) {
     if (!names.includes(name)) return;
+    if(window.EDA_TOUCH?.enabled){window.EDA_TOUCH.show(name);return;}
     if(!initialized){pendingStation=name;return;}
     window.EDA_CINEMA?.skip?.();
     document.querySelector('#welcome')?.classList.add('dismissed');
@@ -77,7 +78,7 @@
       if(typeof link==='string' && /^https:\/\/(discord\.gg\/|discord\.com\/invite\/)/.test(link)) window.open(link,'_blank','noopener,noreferrer');
     }
   }
-  window.EDA_ESSENTIAL = { show, close, expand, interact };
+  window.EDA_ESSENTIAL = { show, close, expand, interact, plans, selectPlan };
   window.EDA_SPATIAL = { show, choosePlan: selectPlan };
   document.addEventListener('click', event => {
     if(event.target.closest('#interact-button')){event.preventDefault();event.stopImmediatePropagation();interact();return;}
@@ -250,10 +251,11 @@
       prior=active;
       window.EDA_MEMBERSHIP_EXPANDED=active==='membresias'&&expanded;
       window.EDA_BRIEF_OPEN=active==='diagnostico'&&briefOpen;
-      visible(controls,active==='membresias'&&!expanded);
-      visible(details,active==='membresias'&&expanded);
-      visible(serviceControls,active==='servicios');
-      visible(briefControls,active==='diagnostico'&&!briefOpen);
+      const guided=!!window.EDA_TOUCH?.active;
+      visible(controls,!guided&&active==='membresias'&&!expanded);
+      visible(details,!guided&&active==='membresias'&&expanded);
+      visible(serviceControls,!guided&&active==='servicios');
+      visible(briefControls,!guided&&active==='diagnostico'&&!briefOpen);
       const camera = cameraEl.getObject3D('camera');
       if (camera) {
         camera.getWorldPosition(cameraPosition);
@@ -265,6 +267,11 @@
         const bounds = document.querySelector('#scene-container').getBoundingClientRect();
         for(const surface of surfaces){
           const {node,anchor,width,height}=surface;
+          if(guided){
+            const shown=window.EDA_TOUCH.station===(node===widget?'discord':'diagnostico');
+            node.classList.toggle('is-visible',shown);node.inert=!shown;node.setAttribute('aria-hidden',String(!shown));
+            continue;
+          }
           projected.copy(anchor).project(camera);view.copy(anchor).applyMatrix4(camera.matrixWorldInverse);
           const shown=surface.shown()&&!scene.is('vr-mode')&&view.z<0&&projected.z>-1&&projected.z<1&&Math.abs(projected.x)<1.15&&Math.abs(projected.y)<1.15;
           node.classList.toggle('is-visible',shown);node.inert=!shown;node.setAttribute('aria-hidden',String(!shown));

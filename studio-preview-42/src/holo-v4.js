@@ -172,6 +172,10 @@ const distanceToTarget=(name,camPos,dir)=>{
 function gazeTick(now){
  requestAnimationFrame(gazeTick);
  if(!initDone||now-prevFrame<60)return;prevFrame=now;
+ if(window.EDA_TOUCH?.active){
+   for(const entry of Object.values(entities))entry.mesh.visible=false;
+   return;
+ }
  const camObj=worldCamera();
  if(!camObj)return;
  const pos=new THREE.Vector3();const q=new THREE.Quaternion();

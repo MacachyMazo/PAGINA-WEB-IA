@@ -22,3 +22,6 @@ import './furnishings-v8.js';
 
 import './responsive-v9.css';
 import './device-v9.js';
+
+import './touch-guide.css';
+import './touch-guide.js';
