@@ -3,9 +3,9 @@
  const app=document.querySelector('#studio-app'),scene=document.querySelector('#office-scene'),container=document.querySelector('#scene-container');
  const media=matchMedia('(max-width:1100px), (pointer:coarse)');
  const labels={servicios:'Servicios',portafolio:'Proyectos',membresias:'Planes',discord:'Discord',diagnostico:'Contacto'};
- let station='servicios',selected=0,exploring=false,active=false,pausedByGuide=false;
+ let station='servicios',selected=0,exploring=false,active=false;
  const root=document.createElement('section');root.id='touch-guide';root.hidden=true;root.setAttribute('aria-label','Estudio de Autor');
- root.innerHTML='<header><div><small>ESTUDIO DE AUTOR</small><p>Tu idea, su siguiente paso.</p></div><button type="button" id="touch-explore">Ver oficina 3D</button></header><nav aria-label="Secciones del estudio"></nav><article tabindex="-1"></article><div id="touch-world-host"></div>';
+ root.innerHTML='<header><div><small>OFICINA INTERACTIVA</small><p>Desliza sobre la oficina para mirar.</p></div><button type="button" id="touch-explore">Solo oficina</button></header><div class="touch-station-step"><button type="button" id="touch-prev" aria-label="Estación anterior">‹</button><span aria-live="polite"></span><button type="button" id="touch-next" aria-label="Estación siguiente">›</button></div><div class="touch-projection"><button type="button" id="touch-expand" aria-expanded="false">Ampliar lectura ⤢</button><div class="touch-reading"><article tabindex="-1"></article><div id="touch-world-host"></div></div></div><nav aria-label="Secciones del estudio"></nav>';
  container.appendChild(root);
  const nav=root.querySelector('nav'),article=root.querySelector('article'),host=root.querySelector('#touch-world-host');
  const lookbar=document.createElement('div');lookbar.id='touch-look';lookbar.hidden=true;
@@ -32,6 +32,8 @@
   if(form)form.hidden=form.parentElement===host&&station!=='diagnostico';
  }
  function render(){
+  root.dataset.station=station;
+  root.querySelector('.touch-station-step span').textContent=String(Object.keys(labels).indexOf(station)+1).padStart(2,'0')+' / 05 · '+labels[station];
   nav.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-current',String(b.dataset.station===station));});
   if(station==='servicios')article.innerHTML='<h1>Ideas que toman forma</h1><p>Diseño, tecnología y contenido con atención personal.</p><div class="touch-services"><section><h2>Web y producto</h2><p>Páginas, tiendas, UX/UI y prototipos.</p></section><section><h2>Diseño y contenido</h2><p>Identidad, redes, imágenes y presentaciones.</p></section><section><h2>Video y comunicación</h2><p>Guiones y edición con intención comercial.</p></section><section><h2>Crecimiento y tecnología</h2><p>SEO, embudos y automatizaciones por etapas.</p></section></div><button class="touch-primary" data-next="membresias">Ver membresías</button>';
   if(station==='portafolio')article.innerHTML='<h1>Proyectos del estudio</h1><p>Toca un proyecto para conocerlo.</p><div class="touch-projects">'+[
@@ -52,7 +54,8 @@
  }
  function show(name,focus=false){
   if(!labels[name])return;
-  station=name;exploring=false;update();render();root.scrollTop=0;
+  station=name;exploring=false;update();render();root.querySelector('.touch-reading').scrollTop=0;
+  if(active)window.EDA_V4?.focus(name,true);
   document.querySelector('.global-nav')?.classList.remove('is-open');
   if(focus)article.focus({preventScroll:true});
  }
@@ -63,6 +66,9 @@
   const plan=e.target.closest('[data-plan]');if(plan){selected=Number(plan.dataset.plan);window.EDA_ESSENTIAL?.selectPlan(selected);render();root.querySelector(`[data-plan="${selected}"]`)?.focus({preventScroll:true});}
   const next=e.target.closest('[data-next]');if(next)show(next.dataset.next,true);
  });
+ const step=delta=>{const ids=Object.keys(labels);show(ids[(ids.indexOf(station)+delta+ids.length)%ids.length],true);};
+ root.querySelector('#touch-prev').onclick=()=>step(-1);root.querySelector('#touch-next').onclick=()=>step(1);
+ root.querySelector('#touch-expand').onclick=()=>{const expanded=root.classList.toggle('reading-expanded');root.querySelector('#touch-expand').setAttribute('aria-expanded',String(expanded));root.querySelector('#touch-expand').textContent=expanded?'Reducir lectura ⤡':'Ampliar lectura ⤢';};
  root.querySelector('#touch-explore').onclick=()=>{
   exploring=true;window.EDA_CINEMA?.skip?.();window.EDA_ESSENTIAL?.close();update();
   document.querySelector('#welcome')?.classList.add('dismissed');app.classList.add('in-tour');
@@ -77,14 +83,11 @@
   const touch=media.matches&&!scene.is?.('vr-mode');
   active=touch&&!exploring;root.hidden=!active;lookbar.hidden=!touch||!exploring;
   document.body.classList.toggle('touch-guided',active);document.body.classList.toggle('touch-exploring',touch&&exploring);
-  if(scene.hasLoaded){
-   if(active&&!pausedByGuide){scene.pause();pausedByGuide=true;}
-   else if(!active&&pausedByGuide){scene.play();pausedByGuide=false;}
-  }
+  if(touch&&scene.hasLoaded)scene.play();
   const cam=document.querySelector('#player-camera');
-  cam?.setAttribute('look-controls','touchEnabled',!active);cam?.setAttribute('look-controls','pointerLockEnabled',!touch);
+  cam?.setAttribute('look-controls','touchEnabled',true);cam?.setAttribute('look-controls','pointerLockEnabled',!touch);
   if(!active){for(const node of Array.from(host.children)){if(node.id==='studio-form')continue;container.appendChild(node);}}
-  else {window.EDA_CINEMA?.skip?.();mount();}
+  else {window.EDA_CINEMA?.skip?.();document.querySelector('#welcome')?.classList.add('dismissed');app.classList.add('in-tour');mount();}
  }
  window.EDA_TOUCH={get enabled(){return media.matches&&!scene.is?.('vr-mode')},get active(){return active},get station(){return station},show};
  document.addEventListener('click',e=>{

@@ -50,3 +50,32 @@ body.touch-exploring .game-hud{bottom:85px}
 @media(max-width:360px){#touch-guide{padding-inline:12px}#touch-guide nav{gap:3px}#touch-guide nav button{font-size:11px}#touch-guide>header{gap:8px}}
 
 #touch-guide #discord-world-widget>button{display:none}
+
+/* Spatial mobile edition: retain the actual office behind one readable projection. */
+#touch-guide{padding:0;background:none;overflow:hidden;pointer-events:none;touch-action:auto}
+#touch-guide>header{position:absolute;top:16px;left:16px;right:16px;margin:0;max-width:none;pointer-events:none;text-shadow:0 2px 10px #000}
+#touch-guide>header p{font-size:12px;color:#e0edf0;margin:4px 0 0}
+#touch-guide #touch-explore{pointer-events:auto;background:#061b29a8;border-radius:30px;backdrop-filter:blur(8px);padding:8px 13px;min-height:44px}
+#touch-guide .touch-station-step{position:absolute;top:84px;left:16px;display:flex;gap:12px;align-items:center;pointer-events:auto;color:#d8fbff;font-size:12px;font-weight:600;background:#071d2abd;border:1px solid #9eebf13d;border-radius:30px;backdrop-filter:blur(8px)}
+#touch-guide .touch-station-step button{border:0;background:transparent;min-width:44px;font-size:26px;padding:0;min-height:44px}
+#touch-guide .touch-projection{position:absolute;left:16px;right:16px;bottom:86px;height:50%;max-width:620px;margin:auto;display:flex;flex-direction:column;pointer-events:auto;border:1px solid #86eaf580;border-top:2px solid #aaf7ff;border-bottom:2px solid #75ddea;background:linear-gradient(115deg,#092b39e6,#051522f5);box-shadow:0 0 24px #3de4fa26,inset 0 0 35px #3de4fa0b;backdrop-filter:blur(8px)}
+#touch-guide .touch-projection:after{content:'';position:absolute;bottom:-18px;left:18%;right:18%;height:8px;border:1px solid #7debf5;border-radius:50%;box-shadow:0 0 16px #44ecff75;pointer-events:none}
+#touch-guide .touch-reading{overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:8px 20px 24px;scrollbar-width:thin;scrollbar-color:#78d5e2 #071d29;min-height:0}
+#touch-guide #touch-expand{align-self:flex-end;border:0;background:none;font-size:12px;min-height:44px;padding:8px 16px;color:#a5e4ee}
+#touch-guide.reading-expanded .touch-projection{height:calc(100% - 158px)}
+#touch-guide nav{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:12px;right:12px;max-width:640px;margin:auto;pointer-events:auto;gap:4px;background:#051724e8;border:1px solid #9beaf142;padding:5px;border-radius:12px;backdrop-filter:blur(12px)}
+#touch-guide nav button{border:0;background:none;border-radius:7px;font-size:12px;min-height:46px}
+#touch-guide nav button[aria-current=true]{background:#7be7f01f;color:#b4fcff;box-shadow:inset 0 -2px #a6f6ff}
+#touch-guide h1{font-size:26px;margin-bottom:12px}
+#touch-guide h2{font-size:18px}
+#touch-guide .touch-plan-detail{border:0;background:none;padding:0}
+#touch-guide .touch-primary{background:linear-gradient(110deg,#a1f0ed,#d0f8ef);border-radius:5px}
+#touch-guide .touch-projects a{border:0;border-bottom:1px solid #80e9ed3b;border-radius:0;background:none;padding:14px 0;min-height:98px}
+#touch-guide .touch-services{grid-template-columns:1fr;margin-top:14px}
+#touch-guide .touch-services section{padding-top:14px}
+#touch-guide .touch-price{font-size:28px}
+#touch-guide .touch-plans{gap:6px;margin:14px 0 22px}
+#touch-guide .touch-plans button{font-size:13px;padding:10px;min-height:44px}
+#touch-guide #brief-world-hologram{padding:0!important;background:none;border:0;box-shadow:none}
+@media(min-width:700px){#touch-guide .touch-projection{left:auto;right:28px;width:440px;height:68%;bottom:100px}#touch-guide.reading-expanded .touch-projection{height:calc(100% - 100px)}#touch-guide .touch-reading{padding-inline:26px}}
+@media(max-height:550px) and (orientation:landscape){#touch-guide>header{top:8px}#touch-guide>header p{display:none}#touch-guide .touch-station-step{top:62px}#touch-guide .touch-projection{left:auto;right:16px;width:48%;height:calc(100% - 78px);bottom:72px}#touch-guide nav{bottom:8px}#touch-guide.reading-expanded .touch-projection{height:calc(100% - 78px);width:65%}#touch-guide h1{font-size:22px}}
