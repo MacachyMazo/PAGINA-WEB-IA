@@ -181,27 +181,21 @@
       ctx.fillStyle='#8de7eb40';ctx.fillRect(56,316,912,1);
       let y=371;for(const item of p.items){y=wrap('•  '+item,y,32)+16;}
       y=wrap(p.limit,Math.max(568,y+8),28);
-      line('Impuestos según corresponda. Alcance acordado.',Math.max(648,y+4),25,'#9cbcc8');
+      line('IVA calculado al pagar. Renovación mensual.',Math.max(648,y+4),25,'#9cbcc8');
       texture.needsUpdate=true;
     };
     for(let i=0;i<5;i++)button(details,String(i+1),.2+i*.18,.99,.16,()=>selectPlan(i));
-    button(details, 'Suscribirme · elegir pago', 0, -.44, 2.08, () => {
-      visible(methods, !methods.getAttribute('visible'));
-      window.EDA_SFX?.play('open');
+    button(details, 'Suscribirme · pago seguro', 0, -.44, 2.08, () => {
+      const value=window.EDA_SITE_CONFIG?.checkout?.[plans[selected].name]?.stripe;
+      try {
+        const url=new URL(value);
+        if(url.protocol!=='https:'||!['buy.stripe.com','checkout.stripe.com'].includes(url.hostname))throw new Error('Invalid checkout');
+        window.location.assign(url.href);
+      } catch (_) { status.setValue('Pago no disponible. No se ha realizado un cargo.'); }
     });
     methods = add('a-entity', details, { visible: false });
-    status = text(details, 'Elige una opción para continuar.', -.64, 2.08);
-    ['Mercado Pago', 'Apple Pay', 'Google Pay'].forEach((label, i) => button(methods, label, 0, -.81 - i * .17, 2.08, () => {
-      const config = window.EDA_SITE_CONFIG?.checkout?.[plans[selected].name] || {};
-      const value = i === 0 ? config.mercadopago : config.stripe;
-      if (!value) { window.EDA_SFX?.play('notice');status.setValue( label + ': pendiente de conectar. Sin cargos.'); return; }
-      try {
-        const url = new URL(value);
-        const valid = i === 0 ? /(^|\.)mercadopago\.com(\.mx)?$/.test(url.hostname) : ['buy.stripe.com', 'checkout.stripe.com'].includes(url.hostname);
-        if (url.protocol !== 'https:' || !valid) throw new Error('Invalid checkout');
-        window.open(url.href, '_blank', 'noopener,noreferrer');
-      } catch (_) { status.setValue( 'Enlace de pago no valido. Sin cargos.'); }
-    }));
+    status = text(details, 'Tarjeta y billeteras compatibles en Stripe.', -.64, 2.08);
+    button(details,'Administrar mi membresía',0,-.91,2.08,()=>{const value=window.EDA_SITE_CONFIG?.billingPortal;if(typeof value==='string'&&/^https:\/\/billing\.stripe\.com\/p\/login\//.test(value))window.location.assign(value);});
     redrawDetails();
     const serviceControls=group('world-services-controls','-4.65 1.9 -1.5');
     button(serviceControls,'Explorar membresías  ·  E',0,-1.08,2.08,()=>interact('servicios'));

@@ -15,11 +15,12 @@ window.EDA_SITE_CONFIG=Object.freeze({
    voiceChannelUrl:"",             // Canal de voz en Discord; desde allí puede activar cámara
    videoChannelUrl:""              // Puede usar el mismo canal de voz con permiso de vídeo
  },
+ billingPortal:"https://billing.stripe.com/p/login/aFa00j45v9gOeqH1s5grS00",
  checkout:{
-   Inicio:{mercadopago:"",stripe:""},
-   Impulso:{mercadopago:"",stripe:""},
-   Presencia:{mercadopago:"",stripe:""},
-   "Evolución":{mercadopago:"",stripe:""},
-   Integral:{mercadopago:"",stripe:""}
+   Inicio:{mercadopago:"",stripe:"https://buy.stripe.com/aFa00j45v9gOeqH1s5grS00"},
+   Impulso:{mercadopago:"",stripe:"https://buy.stripe.com/6oU28r59zboW82j2w9grS01"},
+   Presencia:{mercadopago:"",stripe:"https://buy.stripe.com/4gMeVd59zeB8dmD6MpgrS02"},
+   "Evolución":{mercadopago:"",stripe:"https://buy.stripe.com/14A14n31rct082j6MpgrS03"},
+   Integral:{mercadopago:"",stripe:"https://buy.stripe.com/bJe6oHgSh8cKfuL2w9grS04"}
  }
 });
