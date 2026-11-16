@@ -127,29 +127,11 @@
    status(deskOn?'Lámpara de escritorio encendida.':'Lámpara de escritorio apagada.');
   }
   window.EDA_LIGHTS={state:true,toggle:toggleMain,toggleDesk};
-  function targetFromView(){
-   const cam=camera.getObject3D('camera')||camera.object3D;
-   if(!cam)return null;
-   const position=new T.Vector3(),quaternion=new T.Quaternion();
-   cam.getWorldPosition(position);cam.getWorldQuaternion(quaternion);
-   const direction=new T.Vector3(0,0,-1).applyQuaternion(quaternion);
-   let target=null,best=.93;
-   for(const s of switches){
-    const to=s.pos.clone().sub(position),dist=to.length();
-    const dot=direction.dot(to.divideScalar(dist));
-    if(dist<3.6&&dot>best){target=s.type;best=dot}
-   }
-   return target;
-  }
-  // Capture E only when actually looking at a switch; other E interactions remain intact.
   document.addEventListener('keydown',e=>{
    if(e.repeat||e.ctrlKey||e.altKey||e.metaKey||/INPUT|TEXTAREA|SELECT/.test(e.target?.tagName||''))return;
    const k=e.key.toLowerCase();
    if(k==='l'){e.preventDefault();e.stopImmediatePropagation();toggleMain()}
-   else if(k==='e'){
-    const target=targetFromView();
-    if(target){e.preventDefault();e.stopImmediatePropagation();target==='main'?toggleMain():toggleDesk()}
-   }
+
   },true);
   apply(true,true);
  }

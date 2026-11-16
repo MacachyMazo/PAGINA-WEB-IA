@@ -56,7 +56,7 @@
       <a-entity id="office-furniture"></a-entity>
       <a-entity id="office-points"></a-entity>
       <a-entity id="player-rig" position="0 0 4.5" eda-walk="speed:2.35">
-        <a-entity id="player-camera" camera look-controls="pointerLockEnabled:true; touchEnabled:true; magicWindowTrackingEnabled:false" wasd-controls="enabled:false" position="0 1.64 0" cursor="rayOrigin:mouse; fuse:false" raycaster="objects:.interactive-object; far:14">
+        <a-entity id="player-camera" camera look-controls="pointerLockEnabled:false; touchEnabled:true; magicWindowTrackingEnabled:false" wasd-controls="enabled:false" position="0 1.64 0" cursor="rayOrigin:mouse; fuse:false" raycaster="objects:.interactive-object; far:14">
           <a-entity id="gaze-cursor" position="0 0 -1" geometry="primitive:ring; radiusInner:.007; radiusOuter:.011" material="color:#fff; shader:flat; depthTest:false; opacity:.9" cursor="fuse:true; fuseTimeout:1350" raycaster="enabled:false; objects:.interactive-object; far:12" visible="false"></a-entity>
         </a-entity>
         <a-entity id="vr-left" laser-controls="hand:left" raycaster="objects:.interactive-object;far:14;showLine:true" line="color:#a1b9ff"></a-entity>
@@ -72,7 +72,7 @@
     <div class="vignette" aria-hidden="true"></div>
     <div class="reticle" id="reticle" aria-hidden="true"><span></span></div>
     <div class="interaction-hint" id="interaction-hint" hidden role="status" aria-live="polite">
-      <span class="hint-key">E</span>
+      <span class="hint-key">CLIC</span>
       <div><strong id="hint-object">Monitor principal</strong>
       <span id="hint-action">ver proyectos</span></div>
       <span class="hint-arrow">↗</span>
@@ -114,7 +114,7 @@
       <button type="button" data-goto="discord"><span class="wayfinding-number">05</span><span><strong>Terminal de comunicación</strong><small>Discord · Chat y voz</small></span><span aria-hidden="true">↗</span></button>
     </aside>
     <div class="game-hud" id="game-hud">
-      <div class="controls-tip"><b>W ↑</b> AVANZAR <span>·</span> <b>S ↓</b> VOLVER <span>·</span> <b>A / D</b> LADOS <span>·</span> <b>RATÓN</b> MIRAR <span>·</span> <b>E</b> INTERACTUAR <span>·</span> <b>L</b> LUCES</div>
+      <div class="controls-tip"><b>W ↑</b> AVANZAR <span>·</span> <b>S ↓</b> VOLVER <span>·</span> <b>A / D</b> LADOS <span>·</span> <b>ARRASTRAR</b> MIRAR <span>·</span> <b>CLIC IZQUIERDO</b> INTERACTUAR <span>·</span> <b>L</b> LUCES</div>
       <div class="status-help" id="status-help" aria-live="polite">Explora los objetos de la oficina o elige un destino.</div>
       <div class="hud-actions"><button type="button" id="reset-view" title="Volver a recepción">⌖ <span>Recepción</span></button><button type="button" id="soundless" title="Interruptor de luz (L)" aria-pressed="true" aria-label="Apagar luces de la oficina">☼ <span>Luces</span></button><button type="button" id="vr-button" aria-label="Entrar en realidad virtual" disabled>◎ <span>VR · Comprobando</span></button></div>
     </div>
@@ -185,7 +185,7 @@
 
 
 <link rel="stylesheet" href="/essential-stations.css?v=7">
-<script src="/essential-stations.js?v=15" defer></script>
+<script src="/essential-stations.js?v=16" defer></script>
 <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

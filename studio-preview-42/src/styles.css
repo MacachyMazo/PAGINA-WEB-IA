@@ -3,3 +3,6 @@
 @tailwind utilities;
 
 /* STYLES */
+
+/* Desktop interaction follows the mouse, not a fixed center reticle. */
+@media (hover:hover) and (pointer:fine){#reticle{display:none!important}}

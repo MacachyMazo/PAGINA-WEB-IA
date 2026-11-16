@@ -206,8 +206,8 @@ function gazeTick(now){
  }
  const hints=document.querySelector('#status-help');
  if(hints&&focused&&!blocked){
-   hints.textContent=focused==='membresias'?'Membresías: elige 1–5 y pulsa E para ver beneficios y suscripción.':
-     focused==='diagnostico'?'Diagnóstico: pulsa E para escribir tu proyecto en el holograma.':
+   hints.textContent=focused==='membresias'?'Membresías: haz clic en un plan y en Ver beneficios para suscribirte.':
+     focused==='diagnostico'?'Diagnóstico: haz clic en Escribir mi proyecto.':
      'Estás consultando '+destinations[focused].label.toLowerCase()+' mediante un holograma.';
  }
 }

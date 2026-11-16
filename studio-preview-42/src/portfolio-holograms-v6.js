@@ -67,7 +67,7 @@
    groups.push({node,i,x:p.x});
   });
   const laser=add('a-entity',root,{position:'0 1.15 -4.65'});
-  caption(laser,['1–3: elegir proyecto  ·  E: visitar página'],3.5,.22,0);
+  caption(laser,['Haz clic en un logotipo para visitar su página'],3.5,.22,0);
   const pager=document.createElement('div');pager.id='portfolio-pager';pager.hidden=true;
   const previous=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');
   previous.textContent='‹';previous.setAttribute('aria-label','Proyecto anterior');next.textContent='›';next.setAttribute('aria-label','Proyecto siguiente');count.setAttribute('aria-live','polite');

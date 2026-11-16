@@ -86,7 +86,7 @@
   document.body.classList.toggle('touch-guided',active);document.body.classList.toggle('touch-exploring',touch&&exploring);
   if(touch&&scene.hasLoaded)scene.play();
   const cam=document.querySelector('#player-camera');
-  cam?.setAttribute('look-controls','touchEnabled',true);cam?.setAttribute('look-controls','pointerLockEnabled',!touch);
+  cam?.setAttribute('look-controls','touchEnabled',true);cam?.setAttribute('look-controls','pointerLockEnabled',false);
   if(!active){for(const node of Array.from(host.children)){if(node.id==='studio-form')continue;container.appendChild(node);}}
   else {window.EDA_CINEMA?.skip?.();document.querySelector('#welcome')?.classList.add('dismissed');app.classList.add('in-tour');mount();}
  }

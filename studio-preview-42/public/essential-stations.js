@@ -61,7 +61,7 @@
     window.EDA_V4?.setPlan(i);
     redrawDetails?.();
     methods?.setAttribute('visible', false);
-    if (status) status.setValue( 'Selecciona un medio de pago.');
+    if (status) status.setValue( 'Haz clic en Suscribirme para continuar.');
   }
   function expand() {
     if (window.EDA_V4?.active !== 'membresias') return;
@@ -97,7 +97,6 @@
       document.dispatchEvent(new CustomEvent('eda:project-select',{detail:Number(event.key)-1}));
       window.EDA_SFX?.play('select');
     }
-    if(event.key.toLowerCase()==='e' && !event.repeat) { event.preventDefault(); interact(name); }
   });
   function add(tag, parent, attrs) {
     const node = document.createElement(tag);
@@ -145,6 +144,8 @@
     function button(parent,label,x,y,width,action) {
       const plane=labelSurface(parent,label,x,y,width,parent===methods ? .14 : .20,30);
       plane.classList.add('holo-action');plane.setValue(label,true);
+      plane.addEventListener('mouseenter',()=>{plane.setAttribute('scale','1.035 1.035 1');});
+      plane.addEventListener('mouseleave',()=>{plane.setAttribute('scale','1 1 1');});
       plane.addEventListener('click',event=>{
         event.stopPropagation();
         for(let node=plane;node&&node!==scene;node=node.parentElement){if([false,'false'].includes(node.getAttribute('visible')))return;}
@@ -154,7 +155,7 @@
     }
     controls = group('world-membership-controls', '4.65 1.9 -1.5');
     for (let i = 0; i < 5; i++) button(controls, String(i + 1), (i - 2) * .37, -.85, .31, () => selectPlan(i));
-    button(controls, 'Ver beneficios  ·  E', 0, -1.10, 2.08, expand);
+    button(controls, 'Ver beneficios', 0, -1.10, 2.08, expand);
     details = group('world-plan-details', '4.65 1.9 -1.5');
     const canvas = document.createElement('canvas'); canvas.width = 1024; canvas.height = 1072;
     const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace;
@@ -198,9 +199,9 @@
     button(details,'Administrar mi membresía',0,-.91,2.08,()=>{const value=window.EDA_SITE_CONFIG?.billingPortal;if(typeof value==='string'&&/^https:\/\/billing\.stripe\.com\/p\/login\//.test(value))window.location.assign(value);});
     redrawDetails();
     const serviceControls=group('world-services-controls','-4.65 1.9 -1.5');
-    button(serviceControls,'Explorar membresías  ·  E',0,-1.08,2.08,()=>interact('servicios'));
+    button(serviceControls,'Explorar membresías',0,-1.08,2.08,()=>interact('servicios'));
     const briefControls=group('world-brief-controls','3.5 1.9 4.4');
-    button(briefControls,'Escribir mi proyecto  ·  E',0,-1.08,2.08,()=>interact('diagnostico'));
+    button(briefControls,'Escribir mi proyecto',0,-1.08,2.08,()=>interact('diagnostico'));
     function visible(root,on){
       if(root.getAttribute('visible')===on)return;
       root.setAttribute('visible',on);

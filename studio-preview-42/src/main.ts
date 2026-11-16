@@ -25,3 +25,5 @@ import './device-v9.js';
 
 import './touch-guide.css';
 import './touch-guide.js';
+
+import './mouse-interaction.js';
